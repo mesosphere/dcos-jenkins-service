@@ -1,7 +1,7 @@
 {
 	"id": "jenkins",
 	"instances": 1,
-	"mem": 400,
+	"mem": 1000,
 	"env": {
 		"JAVA_OPTS": "-Xmx300m"
    },

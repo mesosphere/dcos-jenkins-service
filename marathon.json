@@ -8,5 +8,5 @@
    "uris": [
    	"http://mirrors.jenkins-ci.org/war-stable/latest/jenkins.war"
    ],
-   "cmd": "git clone https://github.com/mesosphere/jenkins-on-mesos.git && cd jenkins-on-mesos && export JENKINS_HOME=$(pwd) && java -jar ../jenkins.war --webroot=war --httpPort=$PORT0 --ajp13Port=-1 --httpListenAddress=0.0.0.0 --ajp13ListenAddress=127.0.0.1 --preferredClassLoader=java.net.URLClassLoader --logfile=../jenkins.log"
+   "cmd": "git clone https://github.com/mesosphere/jenkins-on-mesos.git && cd jenkins-on-mesos && export JENKINS_HOME=$(pwd) && java -jar ../jenkins.war --webroot=war --httpPort=$PORT0 --ajp13Port=-1 --httpListenAddress=0.0.0.0 --ajp13ListenAddress=127.0.0.1 --preferredClassLoader=java.net.URLClassLoader"
 }

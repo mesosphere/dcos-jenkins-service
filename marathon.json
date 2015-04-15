@@ -6,7 +6,17 @@
 		"JAVA_OPTS": "-Xmx300m"
    },
    "uris": [
-   	"http://mirrors.jenkins-ci.org/war-stable/1.596.2/jenkins.war"
+      "https://s3.amazonaws.com/downloads.mesosphere.io/jenkins/0.6.0/jenkins-on-mesos.tgz"
    ],
-   "cmd": "cd jenkins-on-mesos && java -DJENKINS_HOME=$(pwd) -jar ../jenkins.war --httpPort=$PORT0"
+   "cmd": "cd jenkins-on-mesos && java -DJENKINS_HOME=$(pwd) -jar jenkins.war --httpPort=$PORT0",
+   "healthChecks": [
+    {
+      "protocol": "HTTP",
+      "portIndex": 0,
+      "path": "/",
+      "gracePeriodSeconds": 30,
+      "intervalSeconds": 20,
+      "maxConsecutiveFailures": 3
+    }
+  ]
 }

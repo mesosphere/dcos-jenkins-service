@@ -6,9 +6,9 @@
 		"JAVA_OPTS": "-Xmx300m"
    },
    "uris": [
-      "https://s3.amazonaws.com/downloads.mesosphere.io/jenkins/0.6.0/jenkins-on-mesos.tgz"
+      "https://s3.amazonaws.com/downloads.mesosphere.io/jenkins/test/0.6.0/jenkins-on-mesos.tgz"
    ],
-   "cmd": "cd jenkins-on-mesos && java -DJENKINS_HOME=$(pwd) -jar jenkins.war --httpPort=$PORT0",
+   "cmd": "cd jenkins-on-mesos && export JENKINS_HOME=$(pwd) && export JENKINS_URL=http://$MESOS_HOSTNAME:$PORT0 && java -jar jenkins.war --httpPort=$PORT0",
    "healthChecks": [
     {
       "protocol": "HTTP",

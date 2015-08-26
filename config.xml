@@ -17,7 +17,7 @@
   <clouds>
     <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos@0.7.0-SNAPSHOT">
       <name>MesosCloud</name>
-      <nativeLibraryPath>/opt/mesosphere/lib/libmesos.so</nativeLibraryPath>
+      <nativeLibraryPath>/usr/lib/libmesos.so</nativeLibraryPath>
       <master>master.mesos:5050</master>
       <description></description>
       <frameworkName>Jenkins</frameworkName>
@@ -25,14 +25,14 @@
       <principal>jenkins</principal>
       <secret></secret>
       <checkpoint>true</checkpoint>
-      <onDemandRegistration>false</onDemandRegistration>
-      <jenkinsURL></jenkinsURL>
+      <onDemandRegistration>true</onDemandRegistration>
+      <jenkinsURL>http://jenkins.marathon.mesos:12345</jenkinsURL>
       <slaveInfos>
         <org.jenkinsci.plugins.mesos.MesosSlaveInfo>
-          <slaveCpus>0.2</slaveCpus>
+          <slaveCpus>0.5</slaveCpus>
           <slaveMem>512</slaveMem>
           <executorCpus>0.1</executorCpus>
-          <maxExecutors>2</maxExecutors>
+          <maxExecutors>4</maxExecutors>
           <executorMem>128</executorMem>
           <remoteFSRoot>jenkins</remoteFSRoot>
           <idleTerminationMinutes>3</idleTerminationMinutes>

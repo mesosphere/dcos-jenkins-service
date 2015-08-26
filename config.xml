@@ -17,7 +17,7 @@
   <clouds>
     <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos@0.7.0-SNAPSHOT">
       <name>MesosCloud</name>
-      <nativeLibraryPath>/usr/lib/libmesos.so</nativeLibraryPath>
+      <nativeLibraryPath>/opt/mesosphere/lib/libmesos.so</nativeLibraryPath>
       <master>master.mesos:5050</master>
       <description></description>
       <frameworkName>Jenkins</frameworkName>

@@ -1,3 +1,4 @@
+export COPYFILE_DISABLE=1
 rm -f jenkins-on-mesos.tgz
 mkdir jenkins-on-mesos
 cp -r *.war jenkins-on-mesos

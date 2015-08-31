@@ -40,13 +40,20 @@
           <jnlpArgs></jnlpArgs>
           <containerInfo>
             <type>DOCKER</type>
-            <dockerImage>java:7</dockerImage>
+            <dockerImage>mesosphere/jenkins:slave</dockerImage>
+            <volumes>
+              <org.jenkinsci.plugins.mesos.MesosSlaveInfo_-Volume>
+                <containerPath>/var/run/docker.sock</containerPath>
+                <hostPath>/var/run/docker.sock</hostPath>
+                <readOnly>false</readOnly>
+              </org.jenkinsci.plugins.mesos.MesosSlaveInfo_-Volume>
+            </volumes>
             <networking>HOST</networking>
             <portMappings class="empty-list"/>
             <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
             <customDockerCommandShell></customDockerCommandShell>
             <dockerPrivilegedMode>true</dockerPrivilegedMode>
-            <dockerForcePullImage>false</dockerForcePullImage>
+            <dockerForcePullImage>true</dockerForcePullImage>
           </containerInfo>
           <labelString>mesos</labelString>
         </org.jenkinsci.plugins.mesos.MesosSlaveInfo>

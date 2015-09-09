@@ -25,7 +25,7 @@
       <principal>jenkins</principal>
       <secret></secret>
       <checkpoint>true</checkpoint>
-      <onDemandRegistration>true</onDemandRegistration>
+      <onDemandRegistration>false</onDemandRegistration>
       <jenkinsURL>http://jenkins.marathon.mesos:12345</jenkinsURL>
       <slaveInfos>
         <org.jenkinsci.plugins.mesos.MesosSlaveInfo>

@@ -27,7 +27,7 @@
       <secret></secret>
       <checkpoint>true</checkpoint>
       <onDemandRegistration>false</onDemandRegistration>
-      <jenkinsURL>http://jenkins.marathon.mesos:12345</jenkinsURL>
+      <jenkinsURL></jenkinsURL>
       <slaveInfos>
         <org.jenkinsci.plugins.mesos.MesosSlaveInfo>
           <slaveCpus>0.5</slaveCpus>

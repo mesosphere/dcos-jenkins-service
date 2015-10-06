@@ -27,10 +27,10 @@ ENV JENKINS_HOME /var/jenkins_home
 #VOLUME $JENKINS_HOME
 
 # Download Jenkins and Jenkins plugins
-RUN mkdir -p /usr/local/bin
-COPY plugin_install.sh /usr/local/bin/plugin_install.sh
+RUN mkdir -p /usr/local/jenkins/bin
+COPY plugin_install.sh /usr/local/jenkins/bin/plugin_install.sh
 RUN set -x && curl -fSL $JENKINS_WAR_URL -o webapps/jenkins.war
-RUN /usr/local/bin/plugin_install.sh "${JENKINS_HOME}/plugins"
+RUN /usr/local/jenkins/bin/plugin_install.sh "${JENKINS_HOME}/plugins"
 
 # Configure Jenkins
 COPY config.xml "${JENKINS_HOME}/config.xml"

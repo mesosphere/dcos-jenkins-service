@@ -41,8 +41,5 @@ RUN mkdir -p conf/Catalina/localhost
 COPY conf/server.xml conf/server.xml
 COPY conf/Catalina/localhost/rewrite.config conf/Catalina/localhost/rewrite.config
 
-# TODO(rji): allow for configurable initial/max heap sizes
-ENV CATALINA_OPTS "-Xms512m -Xmx512m"
-
 EXPOSE 8080
 CMD ["catalina.sh", "run"]

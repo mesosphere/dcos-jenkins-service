@@ -1,8 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <hudson>
-  <disabledAdministrativeMonitors/>
-  <version>1.596.2</version>
-  <numExecutors>2</numExecutors>
+  <disabledAdministrativeMonitors>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+  </disabledAdministrativeMonitors>
+  <numExecutors>0</numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
   <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
@@ -15,12 +16,12 @@
   <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
   <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
   <clouds>
-    <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos@0.7.0-SNAPSHOT">
+    <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos">
       <name>MesosCloud</name>
       <nativeLibraryPath>/opt/mesosphere/lib/libmesos.so</nativeLibraryPath>
       <master>master.mesos:5050</master>
       <description></description>
-      <frameworkName>Jenkins</frameworkName>
+      <frameworkName>jenkins</frameworkName>
       <slavesUser>root</slavesUser>
       <principal>jenkins</principal>
       <secret></secret>
@@ -38,23 +39,6 @@
           <idleTerminationMinutes>3</idleTerminationMinutes>
           <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
           <jnlpArgs></jnlpArgs>
-          <containerInfo>
-            <type>DOCKER</type>
-            <dockerImage>mesosphere/jenkins:slave</dockerImage>
-            <volumes>
-              <org.jenkinsci.plugins.mesos.MesosSlaveInfo_-Volume>
-                <containerPath>/var/run/docker.sock</containerPath>
-                <hostPath>/var/run/docker.sock</hostPath>
-                <readOnly>false</readOnly>
-              </org.jenkinsci.plugins.mesos.MesosSlaveInfo_-Volume>
-            </volumes>
-            <networking>HOST</networking>
-            <portMappings class="empty-list"/>
-            <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
-            <customDockerCommandShell></customDockerCommandShell>
-            <dockerPrivilegedMode>true</dockerPrivilegedMode>
-            <dockerForcePullImage>true</dockerForcePullImage>
-          </containerInfo>
           <labelString>mesos</labelString>
         </org.jenkinsci.plugins.mesos.MesosSlaveInfo>
       </slaveInfos>
@@ -62,7 +46,7 @@
   </clouds>
   <slaves/>
   <quietPeriod>5</quietPeriod>
-  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <scmCheckoutRetryCount>3</scmCheckoutRetryCount>
   <views>
     <hudson.model.AllView>
       <owner class="hudson" reference="../../.."/>
@@ -77,4 +61,5 @@
   <label></label>
   <nodeProperties/>
   <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
 </hudson>

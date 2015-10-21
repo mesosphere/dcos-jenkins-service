@@ -39,6 +39,16 @@
           <idleTerminationMinutes>3</idleTerminationMinutes>
           <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
           <jnlpArgs></jnlpArgs>
+          <containerInfo>
+            <type>DOCKER</type>
+            <dockerImage>java:openjdk-8-jre</dockerImage>
+            <networking>BRIDGE</networking>
+            <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
+            <customDockerCommandShell />
+            <dockerPrivilegedMode>false</dockerPrivilegedMode>
+            <dockerForcePullImage>false</dockerForcePullImage>
+          </containerInfo>
+          <mode>NORMAL</mode>
           <labelString>mesos</labelString>
         </org.jenkinsci.plugins.mesos.MesosSlaveInfo>
       </slaveInfos>

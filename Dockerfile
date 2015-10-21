@@ -34,7 +34,7 @@ COPY conf/tomcat/server.xml "${CATALINA_HOME}/conf/server.xml"
 COPY conf/tomcat/Catalina/localhost/rewrite.config "${CATALINA_HOME}/conf/Catalina/localhost/rewrite.config"
 
 RUN apt-get update
-RUN apt-get install -y python zip
+RUN apt-get install -y git python zip
 RUN /usr/local/jenkins/bin/plugin_install.sh "${JENKINS_STAGING}/plugins"
 
 EXPOSE 8080

@@ -37,5 +37,4 @@ RUN apt-get update
 RUN apt-get install -y git python zip
 RUN /usr/local/jenkins/bin/plugin_install.sh "${JENKINS_STAGING}/plugins"
 
-EXPOSE 8080
 CMD /usr/local/jenkins/bin/bootstrap.py && catalina.sh run

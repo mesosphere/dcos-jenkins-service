@@ -1,8 +1,40 @@
-FROM java:7
+FROM tomcat:8.0.27-jre8
+WORKDIR /tmp
 
-RUN apt-get install apt-transport-https
-RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 36A1D7869245C8950F966E92D8576A8BA88D21E9
-RUN sh -c "echo deb https://get.docker.io/ubuntu docker main > /etc/apt/sources.list.d/docker.list"
+# Environment variables used throughout this Dockerfile
+#
+# $JENKINS_STAGING  will be used to download plugins and copy config files
+#                   during the Docker build process.
+#
+# $JENKINS_HOME     will be the final destination that Jenkins will use as its
+#                   data directory. This cannot be populated before Marathon
+#                   has a chance to create the host-container volume mapping.
+#
+# $CATALINA_HOME    is derived from the official Tomcat Dockerfile:
+#                   https://github.com/docker-library/tomcat/blob/df283818c1/8-jre8/Dockerfile
+#
+ENV JENKINS_WAR_URL https://updates.jenkins-ci.org/download/war/1.625.1/jenkins.war
+ENV JENKINS_STAGING /var/jenkins_staging
+ENV JENKINS_HOME /var/jenkins_home
+ENV CATALINA_HOME /usr/local/tomcat
+ENV PATH "${CATALINA_HOME}/bin:${PATH}"
+
+RUN rm -rf "${CATALINA_HOME}/webapps/*"
+RUN mkdir -p $JENKINS_HOME
+
+ADD $JENKINS_WAR_URL "${CATALINA_HOME}/webapps/"
+
+COPY scripts/plugin_install.sh /usr/local/jenkins/bin/plugin_install.sh
+COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
+
+COPY conf/jenkins/config.xml "${JENKINS_STAGING}/config.xml"
+COPY conf/jenkins/jenkins.model.JenkinsLocationConfiguration.xml "${JENKINS_STAGING}/jenkins.model.JenkinsLocationConfiguration.xml"
+COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
+COPY conf/tomcat/server.xml "${CATALINA_HOME}/conf/server.xml"
+COPY conf/tomcat/Catalina/localhost/rewrite.config "${CATALINA_HOME}/conf/Catalina/localhost/rewrite.config"
+
 RUN apt-get update
-RUN apt-get install lxc-docker-1.6.2
-RUN usermod -a -G docker $USER
+RUN apt-get install -y git python zip
+RUN /usr/local/jenkins/bin/plugin_install.sh "${JENKINS_STAGING}/plugins"
+
+CMD /usr/local/jenkins/bin/bootstrap.py && catalina.sh run

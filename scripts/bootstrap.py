@@ -25,7 +25,7 @@ def is_firstrun(jenkins_home_dir):
         return False
 
 
-def populate_jenkins_config_xml(config_xml, name, host, port, context):
+def populate_jenkins_config_xml(config_xml, name, host, port):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
     framework name and the Jenkins URL that agents use to connect back to the
@@ -35,8 +35,6 @@ def populate_jenkins_config_xml(config_xml, name, host, port, context):
     :param name: the name of the framework, e.g. 'jenkins'
     :param host: the Mesos agent the task is running on
     :param port: the Mesos port the task is running on
-    :param context: the context of the Jenkins application, e.g.
-        '/service/jenkins'
     """
     tree = ET.parse(config_xml)
     root = tree.getroot()
@@ -46,12 +44,12 @@ def populate_jenkins_config_xml(config_xml, name, host, port, context):
     mesos_frameworkName.text = name
 
     mesos_jenkinsURL = mesos.find('./jenkinsURL')
-    mesos_jenkinsURL.text = ''.join(['http://', host, ':', port, context])
+    mesos_jenkinsURL.text = ''.join(['http://', host, ':', port])
 
     tree.write(config_xml)
 
 
-def populate_jenkins_location_config(location_xml, host, port, context):
+def populate_jenkins_location_config(location_xml, host, port):
     """Modifies a Jenkins master's location config at runtime. Essentially,
     this replaces the value of 'jenkinsUrl' with a newly constructed URL
     based on the host and port that the Marathon app instance is running on.
@@ -60,13 +58,11 @@ def populate_jenkins_location_config(location_xml, host, port, context):
         'jenkins.model.JenkinsLocationConfiguration.xml' file
     :param host: the Mesos agent the task is running on
     :param port: the Mesos port the task is running on
-    :param context: the context of the Jenkins application, e.g.
-        '/service/jenkins'
     """
     tree = ET.parse(location_xml)
     root = tree.getroot()
     jenkinsUrl = root.find('jenkinsUrl')
-    jenkinsUrl.text = ''.join(['http://', host, ':', port, context])
+    jenkinsUrl.text = ''.join(['http://', host, ':', port])
     tree.write(location_xml)
 
 
@@ -120,12 +116,11 @@ def main():
 
     populate_jenkins_config_xml(os.path.join(
         jenkins_data_dir, 'config.xml'),
-        jenkins_framework_name, marathon_host, marathon_port,
-        jenkins_app_context)
+        jenkins_framework_name, marathon_host, marathon_port)
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
-        marathon_host, marathon_port, jenkins_app_context)
+        marathon_host, marathon_port)
 
     # os.rename() doesn't work here because the destination directory is
     # actually a mount point to the volume on the host. shutil.move() here

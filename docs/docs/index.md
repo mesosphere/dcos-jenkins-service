@@ -2,7 +2,7 @@
 title: Setting Up and Running Jenkins
 ---
 
-## {{page.title}}
+## Setting Up and Running Jenkins
 
 ### Quickstart
 

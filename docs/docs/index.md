@@ -16,7 +16,13 @@ on open source Marathon and on the Mesosphere DCOS, as described on the
 
 ### Requirements
 
-* A running Mesosphere DCOS cluster
+<div class="alert alert-warning" role="alert">
+<strong>Note:</strong> Jenkins on DCOS is only supported in version 1.4 and
+later. If you aren't yet running DCOS 1.4 and would like to try out Jenkins,
+please contact <a href="mailto:support@mesosphere.io">support@mesosphere.io</a>.
+</div>
+
+* A running Mesosphere DCOS cluster, version 1.4 or later
   * Alternately, you can be running an open source Mesos cluster plus
   Mesosphere's Marathon framework. If you're running Mesos open source, please
   be sure that Docker Engine is configured and running on each of the agents,

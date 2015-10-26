@@ -41,55 +41,13 @@ Wait a few moments for the instance to become healthy, then access the
 
 ## Marathon Open Source
 
-The Marathon application definition will be very similar to the DCOS service
-configuration. The service configuration can currently be found in the
+The easiest way to get up and running with Jenkins on Mesos is to use the
+open source DCOS CLI to create the Marathon application using the DCOS service
+configuration mentioned above. If you'd like to create the Marathon
+application by hand using JSON and cURL (or some other tooling), you can find
+the Jenkins service configuration in the
 [Mesosphere Multiverse][mesosphere-multiverse] repository.
 
-Here's one example of what your Marathon application might look like.
-
-```
-{
-  "id": "jenkins-1",
-  "cpus": 1.0,
-  "mem": 768.0,
-  "instances": 1,
-  "env": {
-      "CATALINA_OPTS": "-Xms512m -Xmx512m -Dport.http=$PORT0 -Dcontext.path=$JENKINS_CONTEXT",
-      "JENKINS_FRAMEWORK_NAME": "jenkins-1",
-      "JENKINS_CONTEXT": "/jenkins-1",
-      "LD_LIBRARY_PATH": "/opt/mesosphere/lib"
-  },
-   "container": {
-       "type": "DOCKER",
-       "docker": {
-           "image": "mesosphere/jenkins:0.1.0",
-           "network": "HOST"
-       },
-       "volumes": [
-           {
-               "containerPath": "/var/jenkins_home",
-               "hostPath": "/mnt/nfs/jenkins_data/jenkins-1",
-               "mode": "RW"
-           },
-           {
-               "containerPath": "/opt/mesosphere/lib",
-               "hostPath": "/usr/lib",
-               "mode": "RO"
-           }
-       ]
-   },
-   "healthChecks": [
-    {
-      "path": "/jenkins-1"
-      "portIndex": 0,
-      "protocol": "HTTP",
-      "gracePeriodSeconds": 30,
-      "intervalSeconds": 60,
-      "timeoutSeconds": 20,
-      "maxConsecutiveFailures": 3
-    }
-  ]
-}
-```
 
 [mesosphere-multiverse]: https://github.com/mesosphere/multiverse
+[dcos-cli-home]: https://github.com/mesosphere/dcos-cli

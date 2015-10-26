@@ -24,10 +24,8 @@ please contact <a href="mailto:support@mesosphere.io">support@mesosphere.io</a>.
 
 * A running Mesosphere DCOS cluster, version 1.4 or later
   * Alternately, you can be running an open source Mesos cluster plus
-  Mesosphere's Marathon framework. If you're running Mesos open source, please
-  be sure that Docker Engine is configured and running on each of the agents,
-  and that the Mesos agent has been configured to use the Docker
-  containerizer.
+  Mesosphere's Marathon framework. For more information, please refer to
+  [Marathon's Docker documentation][marathon-native-docker-docs].
 * A single NFS (or other network storage / distributed filesystem) share
 mounted at the same path on every node (e.g. `/mnt/nfs`)
 
@@ -49,16 +47,16 @@ Jenkins will now be available at <http://the-dcos-master/service/jenkins>.
 
 #### Marathon Open Source
 
-To install the Jenkins service using Marathon Open Source, you'll need to
-create a JSON file containing the Marathon application definition. For an
-example of what this might look like, see the
-[Configuration Reference](configuration.html).
+The easiest way to deploy the application on Marathon is using the open source
+[DCOS CLI][dcos-cli-home]. But first, you'll need to set a few options for
+the tool to connect to your open source Mesos and Marathon instances.
 
-Assuming you have that file on-disk as `marathon-jenkins.json`, run the
-following command.
+Assuming the Mesos master is running on port 5050, and Marathon is running
+on port 8080 (the defaults), run the following commands.
 
 ```
-$ curl -H 'Content-Type: application/json' -d @marathon-jenkins.json http://marathon-host/v2/apps
+$ dcos config set core.mesos_master_url http://<mesos-master>:5050
+$ dcos config set marathon.url http://<marathon-host>:8080
 ```
 
 ### Uninstalling
@@ -82,3 +80,5 @@ $ curl -X DELETE http://marathon-host/v2/apps/jenkins
 
 [jenkins-mesos-plugin]: https://github.com/jenkinsci/mesos-plugin
 [dcos-multiverse]: https://github.com/mesosphere/multiverse/#instructions
+[marathon-native-docker-docs]: https://mesosphere.github.io/marathon/docs/native-docker.html
+[dcos-cli-home]: https://github.com/mesosphere/dcos-cli

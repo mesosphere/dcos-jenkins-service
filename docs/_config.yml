@@ -15,7 +15,7 @@ sass:
   sass_dir: _sass
   style: :compressed
 
-baseurl: "/jenkins"
+baseurl: "/jenkins-mesos"
 highlighter: pygments
 lsi: false
 markdown: redcarpet

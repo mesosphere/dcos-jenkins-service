@@ -18,7 +18,7 @@ use the NFS share located at `/mnt/nfs/jenkins_data`:
 ```
 {
     "jenkins": {
-        "framework-name": "jenkins-myteam",
+        "framework_name": "jenkins-myteam",
         "host_volume": "/mnt/nfs/jenkins_data"
     }
 }

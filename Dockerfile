@@ -13,7 +13,7 @@ WORKDIR /tmp
 # $CATALINA_HOME    is derived from the official Tomcat Dockerfile:
 #                   https://github.com/docker-library/tomcat/blob/df283818c1/8-jre8/Dockerfile
 #
-ENV JENKINS_WAR_URL https://updates.jenkins-ci.org/download/war/1.625.1/jenkins.war
+ENV JENKINS_WAR_URL https://updates.jenkins-ci.org/download/war/1.625.2/jenkins.war
 ENV JENKINS_STAGING /var/jenkins_staging
 ENV JENKINS_HOME /var/jenkins_home
 ENV CATALINA_HOME /usr/local/tomcat

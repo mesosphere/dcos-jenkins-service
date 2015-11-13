@@ -1,4 +1,4 @@
-# Jenkins on Mesos
+# Jenkins on Mesos [![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
 Run a Jenkins master on Mesos and Marathon, using Docker and Tomcat.
 
 ## Overview

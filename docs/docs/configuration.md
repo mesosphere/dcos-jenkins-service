@@ -18,13 +18,13 @@ use the NFS share located at `/mnt/nfs/jenkins_data`:
 ```
 {
     "jenkins": {
-        "framework_name": "jenkins-myteam",
-        "host_volume": "/mnt/nfs/jenkins_data"
+        "framework-name": "jenkins-myteam",
+        "host-volume": "/mnt/nfs/jenkins_data"
     }
 }
 ```
 
-*Tip: the value of `host_volume` is the base path to a share on a NFS server
+*Tip: the value of `host-volume` is the base path to a share on a NFS server
 or other distributed filesystem. The actual path on-disk for this particular
 example will be `/mnt/nfs/jenkins_data/jenkins-myteam`.*
 

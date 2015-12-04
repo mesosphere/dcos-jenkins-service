@@ -41,7 +41,7 @@
           <jnlpArgs></jnlpArgs>
           <containerInfo>
             <type>DOCKER</type>
-            <dockerImage>java:openjdk-8-jre</dockerImage>
+            <dockerImage>java:openjdk-8-jdk</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
             <customDockerCommandShell />

@@ -41,7 +41,7 @@
           <jnlpArgs></jnlpArgs>
           <containerInfo>
             <type>DOCKER</type>
-            <dockerImage>java:openjdk-8-jdk</dockerImage>
+            <dockerImage>mesosphere/jenkins-dind:0.1.5</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
             <customDockerCommandShell />

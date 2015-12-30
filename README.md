@@ -13,6 +13,7 @@ Base packages:
   * [Jenkins][jenkins-home] 1.625.3 (LTS)
 
 Jenkins plugins:
+  * [ansicolor][ansicolor-plugin] v0.4.2
   * [credentials][credentials-plugin] v1.23
   * [git][git-plugin] v2.4.0
   * [git-client][git-client-plugin] v1.19.0
@@ -42,6 +43,7 @@ To install Jenkins for the DCOS, perform the following steps.
 
 Jenkins should now be available at <http://dcos-master/service/jenkins>
 
+[ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin

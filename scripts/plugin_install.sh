@@ -13,6 +13,7 @@ JENKINS_PLUGINS_MIRROR="https://updates.jenkins-ci.org/download/plugins"
 
 # Jenkins plugins are specified here, following the format "pluginname/version"
 JENKINS_PLUGINS=(
+    "ansicolor/0.4.2"
     "credentials/1.23"
     "git/2.4.0"
     "git-client/1.19.0"

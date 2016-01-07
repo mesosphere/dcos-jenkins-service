@@ -18,6 +18,8 @@ ENV JENKINS_STAGING /var/jenkins_staging
 ENV JENKINS_HOME /var/jenkins_home
 ENV CATALINA_HOME /usr/local/tomcat
 ENV PATH "${CATALINA_HOME}/bin:${PATH}"
+ENV JAVA_HOME "/usr/lib/jvm/java-8-openjdk-amd64"
+
 
 RUN rm -rf "${CATALINA_HOME}/webapps/*"
 RUN mkdir -p $JENKINS_HOME
@@ -36,5 +38,8 @@ COPY conf/tomcat/Catalina/localhost/rewrite.config "${CATALINA_HOME}/conf/Catali
 RUN apt-get update
 RUN apt-get install -y git python zip
 RUN /usr/local/jenkins/bin/plugin_install.sh "${JENKINS_STAGING}/plugins"
+
+# Override the default property for DNS lookup caching
+RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security
 
 CMD /usr/local/jenkins/bin/bootstrap.py && catalina.sh run

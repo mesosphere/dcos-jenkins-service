@@ -19,7 +19,7 @@
     <org.jenkinsci.plugins.mesos.MesosCloud plugin="mesos">
       <name>MesosCloud</name>
       <nativeLibraryPath>/opt/mesosphere/lib/libmesos.so</nativeLibraryPath>
-      <master>leader.mesos:5050</master>
+      <master>zk://leader.mesos:2181/mesos</master>
       <description></description>
       <frameworkName>jenkins</frameworkName>
       <slavesUser>root</slavesUser>

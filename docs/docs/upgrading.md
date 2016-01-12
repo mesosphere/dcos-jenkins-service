@@ -14,7 +14,9 @@ To upgrade from one version of the Jenkins on Mesos package to another, simply u
 
 3. Install Jenkins, again following the instructions on [Getting Started]({{ site.baseurl }}/docs/). Make sure you use the same configuration file as previously, specifically pointing Jenkins to the same `host-volume`.
 
-## Upgrading to 0.13
+4. Currently it is necessary to upgrade plugins by hand using the Jenkins UI at `<dcos_url>/service/jenkins/pluginManager`. In the future, it will be possible to do this through the DCOS package configuration.
+
+## Upgrading to 0.1.3
 
 ### Label String Configuration Changes
 

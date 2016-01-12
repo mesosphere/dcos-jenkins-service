@@ -1,4 +1,4 @@
-FROM tomcat:8.0.27-jre8
+FROM tomcat:8.0.30-jre8
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile

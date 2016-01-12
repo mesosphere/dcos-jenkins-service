@@ -9,7 +9,7 @@ quickly with Jenkins on the DCOS.
 
 ## Included in this repo
 Base packages:
-  * [Apache Tomcat][tomcat-home] 8.0.27
+  * [Apache Tomcat][tomcat-home] 8.0.30
   * [Jenkins][jenkins-home] 1.625.3 (LTS)
 
 Jenkins plugins:
@@ -19,7 +19,7 @@ Jenkins plugins:
   * [git-client][git-client-plugin] v1.19.0
   * [greenballs][greenballs-plugin] v1.14
   * [job-dsl][job-dsl-plugin] v1.38
-  * [mesos][mesos-plugin] v0.8.0
+  * [mesos][mesos-plugin] v0.9.0
   * [monitoring][monitoring-plugin] v1.57.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.29
   * [rebuild][rebuild-plugin] v1.25

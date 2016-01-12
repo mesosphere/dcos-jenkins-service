@@ -39,11 +39,10 @@ steps.
   1. Create an `options.json` file with site-specific information, such as
   the path to the NFS share on the host. For a complete example, please see
   the [Configuration Reference](configuration.html).
-  2. [Add the Mesosphere Multiverse repo to your DCOS CLI][dcos-multiverse].
-  3. Run `dcos package update`
-  4. Run `dcos package install jenkins --options=options.json`
+  2. Run `dcos package update`
+  3. Run `dcos package install jenkins --options=options.json`
 
-Jenkins will now be available at <http://the-dcos-master/service/jenkins>.
+Jenkins will now be available at <http://dcos-master/service/jenkins>.
 
 #### Marathon Open Source
 
@@ -79,6 +78,5 @@ $ curl -X DELETE http://marathon-host/v2/apps/jenkins
 ```
 
 [jenkins-mesos-plugin]: https://github.com/jenkinsci/mesos-plugin
-[dcos-multiverse]: https://github.com/mesosphere/multiverse/#instructions
 [marathon-native-docker-docs]: https://mesosphere.github.io/marathon/docs/native-docker.html
 [dcos-cli-home]: https://github.com/mesosphere/dcos-cli

@@ -37,14 +37,14 @@ Multiverse.
 ## Installation
 To install Jenkins for the DCOS, perform the following steps.
 
-  1. [Add the Multiverse repo to your DCOS CLI][multiverse-install].
-  2. Run `dcos package update`
-  3. Run `dcos package install jenkins`
+  1. Run `dcos package update`
+  2. Run `dcos package install jenkins`
 
-Jenkins should now be available at <http://dcos-master/service/jenkins>
+Jenkins should now be available at <http://dcos-master/service/jenkins>. See [Getting Started][getting-started] for more in-depth instructions and configuration options.
 
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
+[getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
 [greenballs-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls

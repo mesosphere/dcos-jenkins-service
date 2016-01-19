@@ -43,9 +43,9 @@
             <type>DOCKER</type>
             <dockerImage>mesosphere/jenkins-dind:0.1.5</dockerImage>
             <networking>BRIDGE</networking>
-            <useCustomDockerCommandShell>false</useCustomDockerCommandShell>
-            <customDockerCommandShell />
-            <dockerPrivilegedMode>false</dockerPrivilegedMode>
+            <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
+            <customDockerCommandShell>wrapper.sh</customDockerCommandShell>
+            <dockerPrivilegedMode>true</dockerPrivilegedMode>
             <dockerForcePullImage>false</dockerForcePullImage>
           </containerInfo>
           <mode>NORMAL</mode>

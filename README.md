@@ -30,9 +30,9 @@ Jenkins plugins:
   * [token-macro][token-macro-plugin] v1.10
 
 ## Packaging
-Jenkins is available as a package in the [Mesosphere Multiverse][multiverse].
+Jenkins is available as a package in the [Mesosphere Universe][universe].
 To make changes to the Jenkins package, submit a pull request against the
-Multiverse.
+Universe.
 
 ## Installation
 To install Jenkins for the DCOS, perform the following steps.
@@ -42,23 +42,32 @@ To install Jenkins for the DCOS, perform the following steps.
 
 Jenkins should now be available at <http://dcos-master/service/jenkins>. See [Getting Started][getting-started] for more in-depth instructions and configuration options.
 
+## Releasing
+To release a new version of this package:
+
+  1. Update [the Jenkins conf][jenkins-conf] to reference the next release of the [jenkins-dind][jenkins-dind] Docker image.
+  2. Tag the commit on master that you want to be released.
+  3. Once [the build][teamcity-build] has successfully completed, submit a new pull request against [the Universe][universe] referencing the new tag.
+
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
 [greenballs-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
+[jenkins-conf]: /conf/jenkins/config.xml
+[jenkins-dind]: /dind-agent/README.md
 [jenkins-home]: https://jenkins-ci.org/
 [job-dsl-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
 [mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring
-[multiverse]: https://github.com/mesosphere/multiverse
-[multiverse-install]: https://github.com/mesosphere/multiverse/#instructions
 [parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin
 [rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
 [saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
+[teamcity-build]: https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishReleaseDocker
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [tomcat-home]: http://tomcat.apache.org
+[universe]: https://github.com/mesosphere/universe

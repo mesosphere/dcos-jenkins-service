@@ -14,20 +14,20 @@ Base packages:
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
-  * [credentials][credentials-plugin] v1.23
-  * [git][git-plugin] v2.4.0
-  * [git-client][git-client-plugin] v1.19.0
-  * [greenballs][greenballs-plugin] v1.14
-  * [job-dsl][job-dsl-plugin] v1.38
+  * [credentials][credentials-plugin] v1.24
+  * [git][git-plugin] v2.4.1
+  * [git-client][git-client-plugin] v1.19.2
+  * [greenballs][greenballs-plugin] v1.15
+  * [job-dsl][job-dsl-plugin] v1.42
   * [mesos][mesos-plugin] v0.9.0
-  * [monitoring][monitoring-plugin] v1.57.0
-  * [parameterized-trigger][parameterized-trigger-plugin] v2.29
+  * [monitoring][monitoring-plugin] v1.58.0
+  * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [rebuild][rebuild-plugin] v1.25
   * [saferestart][saferestart-plugin] v0.3
   * [scm-api][scm-api-plugin] v0.2
-  * [script-security][script-security-plugin] v1.15
+  * [script-security][script-security-plugin] v1.17
   * [ssh-credentials][ssh-credentials-plugin] v1.11
-  * [token-macro][token-macro-plugin] v1.10
+  * [token-macro][token-macro-plugin] v1.12.1
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].

@@ -10,7 +10,7 @@ quickly with Jenkins on the DCOS.
 ## Included in this repo
 Base packages:
   * [Apache Tomcat][tomcat-home] 8.0.30
-  * [Jenkins][jenkins-home] 1.625.3 (LTS)
+  * [Jenkins][jenkins-home] 1.642.1 (LTS)
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2

@@ -69,11 +69,14 @@ def populate_jenkins_location_config(location_xml, host, port):
     tree.write(location_xml)
 
 
-def populate_tomcat_rewrite_config(config_file, context):
-    """Modifies a Tomcat's 'rewrite.config', replacing the "magic" string
-    '_XJENKINS_CONTEXT' with the real value provided by 'context'.
+def populate_nginx_config(config_file, nginx_port, jenkins_port, context):
+    """Modifies an nginx config, replacing the "magic" strings
+    '_XNGINX_PORT', '_XJENKINS_PORT' and '_XJENKINS_CONTEXT' with the real
+    value provided.
 
-    :param config_file: the path to Tomcat's 'rewrite.config'
+    :param config_file: the path to an 'nginx.conf'
+    :param nginx_port: the Mesos port the task is running on
+    :param jenkins_port: the Mesos port the task is running on
     :param context: the application's context, e.g. '/service/jenkins'
     """
     original = None
@@ -82,7 +85,11 @@ def populate_tomcat_rewrite_config(config_file, context):
 
     with open(config_file, 'w') as f:
         for line in original:
-            if re.match(r'.*_XJENKINS_CONTEXT.*', line):
+            if re.match(r'.*_XNGINX_PORT.*', line):
+                f.write(re.sub('_XNGINX_PORT', nginx_port, line))
+            elif re.match(r'.*_XJENKINS_PORT.*', line):
+                f.write(re.sub('_XJENKINS_PORT', jenkins_port, line))
+            elif re.match(r'.*_XJENKINS_CONTEXT.*', line):
                 f.write(re.sub('_XJENKINS_CONTEXT', context, line))
             else:
                 f.write(line)
@@ -92,13 +99,13 @@ def main():
     firstrun = True
 
     try:
-        catalina_home = os.environ['CATALINA_HOME']
         jenkins_staging_dir = os.environ['JENKINS_STAGING']
         jenkins_home_dir = os.environ['JENKINS_HOME']
         jenkins_framework_name = os.environ['JENKINS_FRAMEWORK_NAME']
         jenkins_app_context = os.environ['JENKINS_CONTEXT']
         marathon_host = os.environ['HOST']
-        marathon_port = os.environ['PORT0']
+        marathon_nginx_port = os.environ['PORT0']
+        marathon_jenkins_port = os.environ['PORT1']
         mesos_master = os.environ['JENKINS_MESOS_MASTER']
     except KeyError:
         # Since each of the environment variables above are set either in the
@@ -123,11 +130,11 @@ def main():
         mesos_master,
         jenkins_framework_name,
         marathon_host,
-        marathon_port)
+        marathon_nginx_port)
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
-        marathon_host, marathon_port)
+        marathon_host, marathon_nginx_port)
 
     # os.rename() doesn't work here because the destination directory is
     # actually a mount point to the volume on the host. shutil.move() here
@@ -139,11 +146,13 @@ def main():
         subprocess.call("/bin/mv {src}/* {dst}/.".format(
             src=jenkins_staging_dir, dst=jenkins_home_dir), shell=True)
 
-    # Tomcat changes here are really "run once". The context should never
-    # change as long as a Jenkins instance is alive, since the context will
+    # nginx changes here are really "run once". The context should never
+    # change as long as a Jenkins instance is alive, since the rewrite will
     # be based on the app ID in Marathon, as will the volume on disk.
-    populate_tomcat_rewrite_config(os.path.join(
-        catalina_home, 'conf', 'Catalina', 'localhost', 'rewrite.config'),
+    populate_nginx_config(
+        '/etc/nginx/nginx.conf',
+        marathon_nginx_port,
+        marathon_jenkins_port,
         jenkins_app_context)
 
 

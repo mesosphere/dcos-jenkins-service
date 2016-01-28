@@ -19,6 +19,7 @@ Jenkins plugins:
   * [git-client][git-client-plugin] v1.19.2
   * [greenballs][greenballs-plugin] v1.15
   * [job-dsl][job-dsl-plugin] v1.42
+  * [jobConfigHistory][jobConfigHistory-plugin] v2.12
   * [mesos][mesos-plugin] v0.9.0
   * [monitoring][monitoring-plugin] v1.58.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
@@ -59,6 +60,7 @@ To release a new version of this package:
 [jenkins-dind]: /dind-agent/README.md
 [jenkins-home]: https://jenkins-ci.org/
 [job-dsl-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
+[jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin
 [mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring
 [parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin

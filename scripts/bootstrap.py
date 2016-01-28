@@ -25,7 +25,7 @@ def is_firstrun(jenkins_home_dir):
         return False
 
 
-def populate_jenkins_config_xml(config_xml, name, host, port):
+def populate_jenkins_config_xml(config_xml, master, name, host, port):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
     framework name and the Jenkins URL that agents use to connect back to the
@@ -39,6 +39,9 @@ def populate_jenkins_config_xml(config_xml, name, host, port):
     tree = ET.parse(config_xml)
     root = tree.getroot()
     mesos = root.find('./clouds/org.jenkinsci.plugins.mesos.MesosCloud')
+
+    mesos_master = mesos.find('./master')
+    mesos_master.text = master
 
     mesos_frameworkName = mesos.find('./frameworkName')
     mesos_frameworkName.text = name
@@ -96,6 +99,7 @@ def main():
         jenkins_app_context = os.environ['JENKINS_CONTEXT']
         marathon_host = os.environ['HOST']
         marathon_port = os.environ['PORT0']
+        mesos_master = os.environ['JENKINS_MESOS_MASTER']
     except KeyError:
         # Since each of the environment variables above are set either in the
         # DCOS marathon.json or by Marathon itself, the user should never get
@@ -114,9 +118,12 @@ def main():
         firstrun = False
         jenkins_data_dir = jenkins_home_dir
 
-    populate_jenkins_config_xml(os.path.join(
-        jenkins_data_dir, 'config.xml'),
-        jenkins_framework_name, marathon_host, marathon_port)
+    populate_jenkins_config_xml(
+        os.path.join(jenkins_data_dir, 'config.xml'),
+        mesos_master,
+        jenkins_framework_name,
+        marathon_host,
+        marathon_port)
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),

@@ -20,6 +20,7 @@ JENKINS_PLUGINS=(
     "git-client/1.19.2"
     "greenballs/1.15"
     "job-dsl/1.42"
+    "jobConfigHistory/2.12"
     "mesos/0.9.0"
     "monitoring/1.58.0"
     "parameterized-trigger/2.30"

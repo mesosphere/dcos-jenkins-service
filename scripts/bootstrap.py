@@ -95,6 +95,23 @@ def populate_nginx_config(config_file, nginx_port, jenkins_port, context):
                 f.write(line)
 
 
+def populate_known_hosts(hosts, dest_file):
+    """Gather SSH public key from one or more hosts and write out the
+    known_hosts file.
+
+    :param hosts: a string of hosts separated by whitespace
+    :param dest_file: absolute path to the SSH known hosts file
+    """
+    dest_dir = os.path.dirname(dest_file)
+
+    if not os.path.exists(dest_dir):
+        os.makedirs(dest_dir)
+
+    command = ['ssh-keyscan'] + hosts.split()
+    subprocess.call(
+        command, stdout=open(dest_file, 'w'), stderr=open(os.devnull, 'w'))
+
+
 def main():
     firstrun = True
 
@@ -107,6 +124,7 @@ def main():
         marathon_nginx_port = os.environ['PORT0']
         marathon_jenkins_port = os.environ['PORT1']
         mesos_master = os.environ['JENKINS_MESOS_MASTER']
+        ssh_known_hosts = os.environ['SSH_KNOWN_HOSTS']
     except KeyError:
         # Since each of the environment variables above are set either in the
         # DCOS marathon.json or by Marathon itself, the user should never get
@@ -135,6 +153,8 @@ def main():
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
         marathon_host, marathon_nginx_port)
+
+    populate_known_hosts(ssh_known_hosts, '/etc/ssh/ssh_known_hosts')
 
     # os.rename() doesn't work here because the destination directory is
     # actually a mount point to the volume on the host. shutil.move() here

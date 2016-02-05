@@ -47,7 +47,7 @@ END
 
     read -p "Press [Enter] to continue, or ^C to cancel..."
 
-    for i in `seq 1 $count`; do
+    for i in `seq -f "%02g" 1 $count`; do
         duration=$(((RANDOM % 120) + 120))
         result=$((RANDOM % 2))
         demo_job_name="${job_basename}-${i}"
@@ -70,7 +70,7 @@ function cleanup {
     local job_basename=$2
     local count=$3
 
-    for i in `seq 1 $count`; do
+    for i in `seq -f "%02g" 1 $count`; do
         demo_job_name="${job_basename}-${i}"
         echo "Deleting job '${demo_job_name}'"
         curl -fX POST "${jenkins_url}/job/${demo_job_name}/doDelete"

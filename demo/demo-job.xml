@@ -8,6 +8,20 @@
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+        <parameterDefinitions>
+            <hudson.model.StringParameterDefinition>
+                <name>DURATION</name>
+                <description>The duration of the sleep command (in seconds).</description>
+                <defaultValue>180</defaultValue>
+            </hudson.model.StringParameterDefinition>
+            <hudson.model.StringParameterDefinition>
+                <name>RESULT</name>
+                <description>The final build result of the demo job.</description>
+                <defaultValue>0</defaultValue>
+            </hudson.model.StringParameterDefinition>
+        </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <quietPeriod>0</quietPeriod>
@@ -20,8 +34,11 @@
   <builders>
     <hudson.tasks.Shell>
       <command>#!/bin/bash
+set -x
+echo "Build started at $(date)"
 
-sleep 300</command>
+sleep $DURATION
+exit $RESULT</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>

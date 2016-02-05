@@ -19,7 +19,8 @@ use the NFS share located at `/mnt/nfs/jenkins_data`:
 {
     "jenkins": {
         "framework-name": "jenkins-myteam",
-        "host-volume": "/mnt/nfs/jenkins_data"
+        "host-volume": "/mnt/nfs/jenkins_data",
+        "known-hosts": "github.com git.apache.org git.example.com"
     }
 }
 ```
@@ -27,6 +28,13 @@ use the NFS share located at `/mnt/nfs/jenkins_data`:
 *Tip: the value of `host-volume` is the base path to a share on a NFS server
 or other distributed filesystem. The actual path on-disk for this particular
 example will be `/mnt/nfs/jenkins_data/jenkins-myteam`.*
+
+The option `known-hosts` allows you to specify a space-separated list of
+hostnames that you'd like to retrieve the SSH public keys for. This list will
+be populated on the Jenkins master when the bootstrap script is run (at
+container launch time). Note that you will need to manually ensure that the
+SSH known hosts list is populated in any Jenkins agent containers; an example
+is included in the `dind-image` directory located at the root of this repo.
 
 Assuming your DCOS service options have been saved to the file `options.json`,
 you can install Jenkins with your site-specific configuration by running

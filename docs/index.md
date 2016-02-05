@@ -46,9 +46,8 @@ We've attempted to solve each of these problems with this project:
   Jenkins "root URL", as well as the `jenkinsURL` value specific to the
   jenkins-mesos plugin. It won't modify any other configuration, so the user
   is able to customize their Jenkins installation to their liking
-  3. we run `jenkins.war` within the [Apache Tomcat][tomcat-home] application
-  server, so that we have greater control over URL re-writing inside the
-  container
+  3. we run [Nginx][nginx-home] in front of the Jenkins master, so that we have
+  greater control over the URL rewriting inside the container.
 
 For an up-to-date list of the software bundled with this project, please see
 the [README][jenkins-mesos-readme-master] file located within the GitHub
@@ -57,5 +56,5 @@ repository.
 [marathon-home]: http://mesosphere.github.io/marathon/
 [dcos-home]: https://mesosphere.com/product/
 [mesos-home]: http://mesos.apache.org/
-[tomcat-home]: http://tomcat.apache.org/
+[nginx-home]: http://nginx.org/en/
 [jenkins-mesos-readme-master]: https://github.com/mesosphere/jenkins-mesos/blob/master/README.md

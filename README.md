@@ -1,16 +1,16 @@
 # Jenkins on Mesos [![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
-Run a Jenkins master on Mesos and Marathon, using Docker and Tomcat.
+Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 
 ## Overview
-This repo contains a [Dockerfile](Dockerfile) that runs Jenkins inside the
-[Apache Tomcat][tomcat-home] Java application server. It also provides several
-Jenkins plugins and a basic Jenkins configuration, to get you up and running
-quickly with Jenkins on the DCOS.
+This repo contains a [Dockerfile](Dockerfile) that runs Jenkins inside a Docker
+container and uses [Nginx][nginx-home] as a reverse proxy. It also provides
+several Jenkins plugins and a basic Jenkins configuration in order to get you
+up and running quickly with Jenkins on DCOS.
 
 ## Included in this repo
 Base packages:
-  * [Apache Tomcat][tomcat-home] 8.0.30
   * [Jenkins][jenkins-home] 1.642.1 (LTS)
+  * [Nginx][nginx-home] 1.9.9
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
@@ -41,14 +41,19 @@ To install Jenkins for the DCOS, perform the following steps.
   1. Run `dcos package update`
   2. Run `dcos package install jenkins`
 
-Jenkins should now be available at <http://dcos-master/service/jenkins>. See [Getting Started][getting-started] for more in-depth instructions and configuration options.
+Jenkins should now be available at <http://dcos.example.com/service/jenkins>.
+See [Getting Started][getting-started] for more in-depth instructions and
+configuration options.
 
 ## Releasing
 To release a new version of this package:
 
-  1. Update [the Jenkins conf][jenkins-conf] to reference the next release of the [jenkins-dind][jenkins-dind] Docker image.
+  1. Update [the Jenkins conf][jenkins-conf] to reference the next release of
+  the [jenkins-dind][jenkins-dind] Docker image.
   2. Tag the commit on master that you want to be released.
-  3. Once [the build][teamcity-build] has successfully completed, submit a new pull request against [the Universe][universe] referencing the new tag.
+  3. Once [the build][teamcity-build] has successfully completed, submit a new
+  pull request against [the Universe][universe] referencing the new tag.
+
 
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
@@ -63,6 +68,7 @@ To release a new version of this package:
 [jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin
 [mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring
+[nginx-home]: http://nginx.org/en/
 [parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin
 [rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
 [saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
@@ -71,5 +77,4 @@ To release a new version of this package:
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
 [teamcity-build]: https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishReleaseDocker
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
-[tomcat-home]: http://tomcat.apache.org
 [universe]: https://github.com/mesosphere/universe

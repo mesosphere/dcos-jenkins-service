@@ -21,7 +21,7 @@ JENKINS_PLUGINS=(
     "greenballs/1.15"
     "job-dsl/1.42"
     "jobConfigHistory/2.12"
-    "mesos/0.9.0"
+    "mesos/0.10.0"
     "monitoring/1.58.0"
     "parameterized-trigger/2.30"
     "rebuild/1.25"

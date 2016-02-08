@@ -20,7 +20,7 @@ Jenkins plugins:
   * [greenballs][greenballs-plugin] v1.15
   * [job-dsl][job-dsl-plugin] v1.42
   * [jobConfigHistory][jobConfigHistory-plugin] v2.12
-  * [mesos][mesos-plugin] v0.9.0
+  * [mesos][mesos-plugin] v0.10.0
   * [monitoring][monitoring-plugin] v1.58.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [rebuild][rebuild-plugin] v1.25

@@ -19,10 +19,7 @@ def is_firstrun(jenkins_home_dir):
     :param jenkins_home_dir: the path to $JENKINS_HOME on disk
     :return: boolean; True if $JENKINS_HOME isn't populated, false otherwise
     """
-    if len(os.listdir(jenkins_home_dir)) == 0:
-        return True
-    else:
-        return False
+    return len(os.listdir(jenkins_home_dir)) == 0
 
 
 def populate_jenkins_config_xml(config_xml, master, name, host, port):
@@ -113,8 +110,6 @@ def populate_known_hosts(hosts, dest_file):
 
 
 def main():
-    firstrun = True
-
     try:
         jenkins_staging_dir = os.environ['JENKINS_STAGING']
         jenkins_home_dir = os.environ['JENKINS_HOME']
@@ -137,11 +132,8 @@ def main():
     # volume. If data exists in that directory (e.g. Marathon has restarted
     # a Jenkins master task), then we'll make changes in-place to the existing
     # data without overwriting anything the user already has.
-    if is_firstrun(jenkins_home_dir):
-        jenkins_data_dir = jenkins_staging_dir
-    else:
-        firstrun = False
-        jenkins_data_dir = jenkins_home_dir
+    firstrun = is_firstrun(jenkins_home_dir)
+    jenkins_data_dir = jenkins_staging_dir if firstrun else jenkins_home_dir
 
     populate_jenkins_config_xml(
         os.path.join(jenkins_data_dir, 'config.xml'),

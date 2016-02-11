@@ -22,7 +22,7 @@ However, in many cases, you will have your own dependencies to specify for your 
 
 The recommended approach to providing your own dependencies is to extend the provided `jenkins-dind-agent` image and install the packages you require.
 
-For example, to create an image which includes the `sbt`, a Scala build tool (the following code snippet is based on [docker-sbt](https://github.com/1science/docker-sbt/blob/latest/Dockerfile)):
+The example below shows how you could create an image which includes `sbt`, a Scala build tool (the following code snippet is based on [docker-sbt](https://github.com/1science/docker-sbt/blob/latest/Dockerfile)):
 ```sh
 FROM mesosphere/jenkins-dind:0.2.0
 

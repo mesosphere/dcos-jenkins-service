@@ -14,6 +14,7 @@ Base packages:
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
+  * [build-pipeline][build-pipeline-plugin] v1.4.9
   * [credentials][credentials-plugin] v1.24
   * [git][git-plugin] v2.4.1
   * [git-client][git-client-plugin] v1.19.2
@@ -56,6 +57,7 @@ To release a new version of this package:
 
 
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
+[build-pipeline-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin

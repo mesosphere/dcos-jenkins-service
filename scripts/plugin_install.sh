@@ -15,6 +15,7 @@ JENKINS_UPDATE_CENTER_JSON=$(curl -sL https://updates.jenkins-ci.org/update-cent
 # Jenkins plugins are specified here, following the format "pluginname/version"
 JENKINS_PLUGINS=(
     "ansicolor/0.4.2"
+    "build-pipeline-plugin/1.4.9"
     "credentials/1.24"
     "git/2.4.1"
     "git-client/1.19.2"

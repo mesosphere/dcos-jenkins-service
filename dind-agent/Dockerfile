@@ -1,5 +1,6 @@
-FROM docker:1.9-dind
-RUN apk --update add openjdk7-jre unzip git python python3 bash jq openssh-client
+FROM docker:1.10-dind
+# include dependencies needed by the jenkins agent itself
+RUN apk --update add openjdk8-jre unzip git python python3 bash jq openssh-client
 
 COPY wrapper.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wrapper.sh

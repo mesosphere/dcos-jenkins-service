@@ -1,11 +1,13 @@
 FROM docker:1.10-dind
 
 # Please keep each package list in alphabetical order
-# Required dependencies for the jenkins agent
+# Required dependencies for the Jenkins agent
 RUN apk --update add \
 bash \
 openjdk8-jre \
+ca-certificates \
 openssh-client
+
 # Optional convenience functions used by most builds
 RUN apk --update add \
 git \

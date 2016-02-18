@@ -4,7 +4,7 @@ FROM docker:1.10-dind
 # Required dependencies for the Jenkins agent
 RUN apk --update add \
 bash \
-openjdk8-jre \
+openjdk8 \
 ca-certificates \
 openssh-client
 

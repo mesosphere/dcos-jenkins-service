@@ -1,5 +1,20 @@
-FROM docker:1.9-dind
-RUN apk --update add openjdk7-jre unzip git python python3 bash jq openssh-client
+FROM docker:1.10-dind
+
+# Please keep each package list in alphabetical order
+# Required dependencies for the Jenkins agent
+RUN apk --update add \
+bash \
+openjdk8-jre \
+ca-certificates \
+openssh-client
+
+# Optional convenience functions used by most builds
+RUN apk --update add \
+git \
+jq \
+python \
+python3 \
+unzip
 
 COPY wrapper.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wrapper.sh

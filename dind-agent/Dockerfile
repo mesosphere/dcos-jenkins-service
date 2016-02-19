@@ -20,6 +20,10 @@ unzip
 COPY wrapper.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wrapper.sh
 
+# Populate JDK env
+ENV JAVA_HOME=/usr/lib/jvm/default-jvm
+ENV PATH=${PATH}:${JAVA_HOME}/bin
+
 # Add any SSH known hosts to the environment variable $SSH_KNOWN_HOSTS
 ENV SSH_KNOWN_HOSTS github.com
 RUN ssh-keyscan $SSH_KNOWN_HOSTS | tee /etc/ssh/ssh_known_hosts

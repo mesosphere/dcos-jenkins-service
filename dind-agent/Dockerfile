@@ -4,14 +4,15 @@ FROM docker:1.10-dind
 # Required dependencies for the Jenkins agent
 RUN apk --update add \
 bash \
-openjdk8 \
 ca-certificates \
+openjdk8 \
 openssh-client
 
 # Optional convenience functions used by most builds
 RUN apk --update add \
 git \
 jq \
+perl \
 python \
 python3 \
 unzip

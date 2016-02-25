@@ -9,7 +9,7 @@ up and running quickly with Jenkins on DCOS.
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 1.642.1 (LTS)
+  * [Jenkins][jenkins-home] 1.642.2 (LTS)
   * [Nginx][nginx-home] 1.9.9
 
 Jenkins plugins:

@@ -10,7 +10,7 @@ WORKDIR /tmp
 #                   data directory. This cannot be populated before Marathon
 #                   has a chance to create the host-container volume mapping.
 #
-ENV JENKINS_WAR_URL https://updates.jenkins-ci.org/download/war/1.642.1/jenkins.war
+ENV JENKINS_WAR_URL https://updates.jenkins-ci.org/download/war/1.642.2/jenkins.war
 ENV JENKINS_STAGING /var/jenkins_staging
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_FOLDER /usr/share/jenkins/

@@ -17,6 +17,7 @@ JENKINS_PLUGINS=(
     "ansicolor/0.4.2"
     "build-pipeline-plugin/1.4.9"
     "credentials/1.24"
+    "credentials-binding/1.6"
     "git/2.4.1"
     "git-client/1.19.2"
     "greenballs/1.15"

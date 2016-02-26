@@ -16,7 +16,7 @@ gem "RedCloth"
 gem "liquid"
 
 # Highlighters
-gem "pygments.rb"
+gem "rouge"
 
 # Plugins
 #gem "jemoji"

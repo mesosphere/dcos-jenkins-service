@@ -23,6 +23,7 @@ However, in many cases, you will have your own dependencies to specify for your 
 The recommended approach to providing your own dependencies is to extend the provided `jenkins-dind-agent` image and install the packages you require.
 
 The example below shows how you could create an image which includes `sbt`, a Scala build tool (the following code snippet is based on [docker-sbt](https://github.com/1science/docker-sbt/blob/latest/Dockerfile)):
+
 ```sh
 FROM mesosphere/jenkins-dind:0.2.0
 
@@ -39,6 +40,7 @@ RUN curl -sL "http://dl.bintray.com/sbt/native-packages/sbt/$SBT_VERSION/sbt-$SB
 If you aren't using GitHub to host your git repositories and wish to use ssh to clone your git repositories, you will need to add your git server's host keys to `/etc/ssh/ssh_known_hosts`. 
 
 Adding the following lines to your Dockerfile will add your keys, replacing `my.git.server` with the actual hostname:
+
 ```sh
 ENV SSH_KNOWN_HOSTS github.com my.git.server
 RUN ssh-keyscan $SSH_KNOWN_HOSTS | tee /etc/ssh/ssh_known_hosts

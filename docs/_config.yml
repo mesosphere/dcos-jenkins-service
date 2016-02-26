@@ -16,10 +16,12 @@ sass:
   style: :compressed
 
 baseurl: "/jenkins-mesos"
-highlighter: pygments
+encoding: ASCII-8BIT
+highlighter: rouge
 lsi: false
-markdown: redcarpet
-redcarpet:
-  extensions: [with_toc_data, tables]
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
 safe: true
 source: .

@@ -15,7 +15,7 @@ to save your Jenkins configuration and build data to.
 The following example will create a new DCOS service named `jenkins-myteam` and
 use the NFS share located at `/mnt/nfs/jenkins_data`:
 
-```
+```json
 {
     "jenkins": {
         "framework-name": "jenkins-myteam",

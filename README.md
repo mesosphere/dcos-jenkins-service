@@ -26,12 +26,14 @@ Jenkins plugins:
   * [mesos][mesos-plugin] v0.10.0
   * [monitoring][monitoring-plugin] v1.58.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
+  * [plain-credentials][plain-credentials] v1.1
   * [rebuild][rebuild-plugin] v1.25
   * [saferestart][saferestart-plugin] v0.3
   * [scm-api][scm-api-plugin] v0.2
   * [script-security][script-security-plugin] v1.17
   * [ssh-credentials][ssh-credentials-plugin] v1.11
   * [token-macro][token-macro-plugin] v1.12.1
+  * [workflow-step-api][workflow-step-api] v1.14
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].
@@ -76,6 +78,7 @@ To release a new version of this package:
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring
 [nginx-home]: http://nginx.org/en/
 [parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin
+[plain-credentials]: https://wiki.jenkins-ci.org/display/JENKINS/Plain+Credentials+Plugin
 [rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
 [saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
@@ -84,3 +87,4 @@ To release a new version of this package:
 [teamcity-build]: https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishReleaseDocker
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [universe]: https://github.com/mesosphere/universe
+[workflow-step-api]: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin

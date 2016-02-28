@@ -27,12 +27,14 @@ JENKINS_PLUGINS=(
     "mesos/0.10.0"
     "monitoring/1.58.0"
     "parameterized-trigger/2.30"
+    "plain-credentials/1.1"
     "rebuild/1.25"
     "saferestart/0.3"
     "scm-api/0.2"
     "script-security/1.17"
     "ssh-credentials/1.11"
     "token-macro/1.12.1"
+    "workflow-step-api/1.14"
 )
 
 # Create $JENKINS_PLUGINS_DIR if it doesn't exist

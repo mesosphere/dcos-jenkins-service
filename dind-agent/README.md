@@ -4,6 +4,9 @@ own Docker daemon. This is useful if you're trying to run Jenkins agents on a
 Mesos cluster, and you also want to build and push Docker images using your
 CI system.
 
+For full documentation on how to use this Docker image, please refer to
+<http://mesosphere.github.io/jenkins-mesos/docs/builds.html>.
+
 ## Usage
 ### Command line
 Try it out locally by running the following command:

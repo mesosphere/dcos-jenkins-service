@@ -9,6 +9,7 @@ DCOS runs everything inside Docker by default. This is to minimise dependencies 
 When using Jenkins on DCOS, the Mesos scheduler creates new Jenkins slaves that run as Mesos tasks within a Docker container. Builds that the user configures are then run inside the same container. Since many builds typically involve steps that invoke the Docker utility, e.g. `docker build` or `docker push`, we provide a `mesosphere/jenkins-dind` Docker image and configure the Mesos plugin to use this by default.
 
 This image includes many tools by default ([Dockerfile](https://github.com/mesosphere/jenkins-mesos/blob/master/dind-agent/Dockerfile)):
+
 * OpenJDK 7
 * Python 2
 * Python 3

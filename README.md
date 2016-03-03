@@ -19,6 +19,7 @@ Jenkins plugins:
   * [credentials-binding][credentials-binding-plugin] v1.6
   * [git][git-plugin] v2.4.1
   * [git-client][git-client-plugin] v1.19.2
+  * [github][github-plugin] v1.17.1
   * [greenballs][greenballs-plugin] v1.15
   * [job-dsl][job-dsl-plugin] v1.42
   * [jobConfigHistory][jobConfigHistory-plugin] v2.12
@@ -67,6 +68,7 @@ To release a new version of this package:
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
+[github-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
 [greenballs-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
 [jenkins-conf]: /conf/jenkins/config.xml
 [jenkins-dind]: /dind-agent/README.md

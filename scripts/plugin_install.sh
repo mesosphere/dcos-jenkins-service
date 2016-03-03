@@ -20,6 +20,7 @@ JENKINS_PLUGINS=(
     "credentials-binding/1.6"
     "git/2.4.1"
     "git-client/1.19.2"
+    "github/1.17.1"
     "greenballs/1.15"
     "jquery/1.7.2-1"
     "job-dsl/1.42"

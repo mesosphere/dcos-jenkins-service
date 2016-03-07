@@ -24,7 +24,7 @@ Jenkins plugins:
   * [job-dsl][job-dsl-plugin] v1.42
   * [jobConfigHistory][jobConfigHistory-plugin] v2.12
   * [jquery][jquery] v1.7.2-1
-  * [mesos][mesos-plugin] v0.10.0
+  * [mesos][mesos-plugin] v0.11.0
   * [monitoring][monitoring-plugin] v1.58.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [plain-credentials][plain-credentials] v1.1

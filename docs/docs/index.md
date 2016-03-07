@@ -44,20 +44,6 @@ steps.
 
 Jenkins will now be available at <http://dcos-master/service/jenkins>.
 
-#### Marathon Open Source
-
-The easiest way to deploy the application on Marathon is using the open source
-[DCOS CLI][dcos-cli-home]. But first, you'll need to set a few options for
-the tool to connect to your open source Mesos and Marathon instances.
-
-Assuming the Mesos master is running on port 5050, and Marathon is running
-on port 8080 (the defaults), run the following commands.
-
-```
-$ dcos config set core.mesos_master_url http://<mesos-master>:5050
-$ dcos config set marathon.url http://<marathon-host>:8080
-```
-
 ### Uninstalling
 
 To uninstall Jenkins, you will need to remove the application as a DCOS
@@ -68,14 +54,6 @@ that may have been stored on your NFS share.
 #### Mesosphere DCOS
 
 Using the DCOS CLI, simply run `dcos package uninstall jenkins`.
-
-#### Marathon Open Source
-
-Assuming the application ID is `jenkins`, run the following command.
-
-```
-$ curl -X DELETE http://marathon-host/v2/apps/jenkins
-```
 
 [jenkins-mesos-plugin]: https://github.com/jenkinsci/mesos-plugin
 [marathon-native-docker-docs]: https://mesosphere.github.io/marathon/docs/native-docker.html

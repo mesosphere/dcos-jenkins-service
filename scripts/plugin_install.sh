@@ -25,7 +25,7 @@ JENKINS_PLUGINS=(
     "jquery/1.7.2-1"
     "job-dsl/1.42"
     "jobConfigHistory/2.12"
-    "mesos/0.10.0"
+    "mesos/0.11.0"
     "monitoring/1.58.0"
     "parameterized-trigger/2.30"
     "plain-credentials/1.1"

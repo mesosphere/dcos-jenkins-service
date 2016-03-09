@@ -1,4 +1,10 @@
-# Jenkins on Mesos [![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
+# Jenkins on Mesos
+[![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
+[![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
+[![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
+[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins/0.2.1.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.1)
+[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins/0.2.1.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.1)
+
 Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 
 ## Overview
@@ -65,6 +71,7 @@ To release a new version of this package:
 [build-pipeline-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin
+[docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin

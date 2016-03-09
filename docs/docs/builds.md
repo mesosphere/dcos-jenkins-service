@@ -29,29 +29,6 @@ However, in many cases, you will have your own dependencies to specify for your
 build. You can do these by providing unique container images for each type of
 build. The instructions below specify how you can do this.
 
-## A note on storage drivers
-
-In the jenkins-dind image, we deliberately chose to use VFS for the storage
-driver. With true Docker-in-Docker (e.g. not bind-mounting the socket from the
-host), VFS is the absolute safest option for a backend because it doesn't use
-Docker's copy-on-write system. While this makes it slower than other options,
-it avoids problems between the parent container's filesystem and the child
-container's copy-on-write system. For more info, see the "Docker-in-Docker: the
-ugly" section from Jerome's post:
-<https://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci/>
-
-Although slower than other systems, this approach should work for all of our
-users out of the box. As always, you should feel free to (and should!) create
-custom Jenkins build agent Docker images and substitute them out for our
-default jenkins-dind image in the Jenkins master's configuration. But
-otherwise, We think our current configuration (using VFS) should be the default
-for this project, even if that means we take a performance hit, at least for
-the time being.
-
-At least one community member has had success using the OverlayFS driver with
-their Jenkins infrastructure. For more information, please refer to the
-following GitHub issue: <https://github.com/mesosphere/jenkins-mesos/issues/55>.
-
 # Creating Custom Agent Containers
 
 The recommended approach to providing your own dependencies is to extend the

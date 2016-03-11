@@ -1,8 +1,8 @@
 # Jenkins Docker-in-Docker Agent
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins-dind.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins-dind.svg)][docker-hub]
-[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins-dind/0.2.1.svg)](https://imagelayers.io/?images=mesosphere/jenkins-dind:0.2.1)
-[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins-dind/0.2.1.svg)](https://imagelayers.io/?images=mesosphere/jenkins-dind:0.2.1)
+[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins-dind/0.2.2.svg)](https://imagelayers.io/?images=mesosphere/jenkins-dind:0.2.2)
+[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins-dind/0.2.2.svg)](https://imagelayers.io/?images=mesosphere/jenkins-dind:0.2.2)
 
 A simple Docker image for running a Jenkins agent alongside its very
 own Docker daemon. This is useful if you're trying to run Jenkins agents on a

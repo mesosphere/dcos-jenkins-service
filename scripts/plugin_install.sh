@@ -21,7 +21,7 @@ JENKINS_PLUGINS=(
     "git~2.4.1"
     "git-client~1.19.2"
     "github~1.17.1"
-    "github-api/1.72.1"
+    "github-api~1.72.1"
     "greenballs~1.15"
     "jquery~1.7.2-1"
     "job-dsl~1.42"

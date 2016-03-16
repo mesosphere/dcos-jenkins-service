@@ -80,7 +80,7 @@ To release a new version of this package:
 [github-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+API+Plugin
 [greenballs-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
 [jenkins-conf]: /conf/jenkins/config.xml
-[jenkins-dind]: /dind-agent/README.md
+[jenkins-dind]: https://github.com/mesosphere/jenkins-dind-agent
 [jenkins-home]: https://jenkins-ci.org/
 [job-dsl-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
 [jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin

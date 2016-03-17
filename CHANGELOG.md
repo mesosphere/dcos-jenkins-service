@@ -1,4 +1,10 @@
 # Changes
+## v0.2.3 (2016-03-17)
+  * Separate Jenkins dind-agent into a standalone project:
+  https://github.com/mesosphere/jenkins-dind-agent
+  * Add github-api plugin, which is a dependency for the github plugin
+  * Add acceptance tests
+
 ## v0.2.2 (2016-03-10)
   * DinD image now uses the `overlay` storage driver instead of `vfs`, which
   results in a (roughly) 10x performance and storage improvement. This was

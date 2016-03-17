@@ -2,8 +2,8 @@
 [![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
-[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins/0.2.2.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.2)
-[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins/0.2.2.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.2)
+[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins/0.2.3.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.3)
+[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins/0.2.3.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.3)
 
 Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 
@@ -61,8 +61,8 @@ configuration options.
 ## Releasing
 To release a new version of this package:
 
-  1. Update [the Jenkins conf][jenkins-conf] to reference the next release of
-  the [jenkins-dind][jenkins-dind] Docker image.
+  1. Update [the Jenkins conf][jenkins-conf] to reference the current release of
+  the [jenkins-dind][jenkins-dind] Docker image (if needed).
   2. Tag the commit on master that you want to be released.
   3. Once [the build][teamcity-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.

@@ -1,1 +1,3 @@
 *.hpi
+__pycache__/
+.cache/

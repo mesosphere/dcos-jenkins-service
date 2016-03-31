@@ -33,18 +33,12 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port):
     :param host: the Mesos agent the task is running on
     :param port: the Mesos port the task is running on
     """
-    tree = ET.parse(config_xml)
-    root = tree.getroot()
+    tree, root = _get_xml_root(config_xml)
     mesos = root.find('./clouds/org.jenkinsci.plugins.mesos.MesosCloud')
 
-    mesos_master = mesos.find('./master')
-    mesos_master.text = master
-
-    mesos_frameworkName = mesos.find('./frameworkName')
-    mesos_frameworkName.text = name
-
-    mesos_jenkinsURL = mesos.find('./jenkinsURL')
-    mesos_jenkinsURL.text = ''.join(['http://', host, ':', port])
+    _find_and_set(mesos, './master', master)
+    _find_and_set(mesos, './frameworkName', name)
+    _find_and_set(mesos, './jenkinsURL', "http://{}:{}".format(host, port))
 
     tree.write(config_xml)
 

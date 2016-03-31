@@ -49,20 +49,18 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port):
     tree.write(config_xml)
 
 
-def populate_jenkins_location_config(location_xml, host, port):
-    """Modifies a Jenkins master's location config at runtime. Essentially,
-    this replaces the value of 'jenkinsUrl' with a newly constructed URL
-    based on the host and port that the Marathon app instance is running on.
+def populate_jenkins_location_config(location_xml, url):
+    """Modifies a Jenkins master's location config at runtime. This
+    replaces the value of 'jenkinsUrl' with url.
 
     :param location_xml: the path to Jenkins'
         'jenkins.model.JenkinsLocationConfiguration.xml' file
-    :param host: the Mesos agent the task is running on
-    :param port: the Mesos port the task is running on
+    :type location_xml: str
+    :param url: the Jenkins instance URL
+    :type url: str
     """
-    tree = ET.parse(location_xml)
-    root = tree.getroot()
-    jenkinsUrl = root.find('jenkinsUrl')
-    jenkinsUrl.text = ''.join(['http://', host, ':', port])
+    tree, root = _get_xml_root(location_xml)
+    _find_and_set(root, 'jenkinsUrl', url)
     tree.write(location_xml)
 
 
@@ -127,6 +125,11 @@ def main():
         print("ERROR: missing one or more required environment variables.")
         return 1
 
+    # optional environment variables
+    jenkins_instance_url = os.environ.get('JENKINS_INSTANCE_URL')
+    if jenkins_instance_url is None:
+        jenkins_instance_url = "http://{}:{}".format(marathon_host, marathon_nginx_port)
+
     # If this is the first run of the script, make changes to the staging
     # directory first, so we can then use these files to populate the host
     # volume. If data exists in that directory (e.g. Marathon has restarted
@@ -144,7 +147,7 @@ def main():
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
-        marathon_host, marathon_nginx_port)
+        jenkins_instance_url)
 
     populate_known_hosts(ssh_known_hosts, '/etc/ssh/ssh_known_hosts')
 

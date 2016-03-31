@@ -168,5 +168,32 @@ def main():
         jenkins_app_context)
 
 
+def _get_xml_root(config_xml):
+    """Return the ET tree and root XML element.
+
+    :param config_xml: path to config XML file
+    :type config_xml: str
+    :return: a tuple (tree,root)
+    :rtype: tuple
+    """
+    tree = ET.parse(config_xml)
+    root = tree.getroot()
+    return tuple([tree, root])
+
+
+def _find_and_set(element, term, text):
+    """Find the desired term within the XML element and replace
+    its text with text.
+
+    :param element: XML element
+    :type element: xml.etree.ElementTree.Element
+    :param term: XML element to find
+    :type term: str
+    :param text: New element text
+    :type text: str
+    """
+    element.find(term).text = text
+
+
 if __name__ == '__main__':
     sys.exit(main())

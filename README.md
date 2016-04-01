@@ -20,20 +20,20 @@ Base packages:
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
-  * [build-pipeline][build-pipeline-plugin] v1.4.9
-  * [credentials][credentials-plugin] v1.24
-  * [credentials-binding][credentials-binding-plugin] v1.6
-  * [git][git-plugin] v2.4.1
-  * [git-client][git-client-plugin] v1.19.2
-  * [github][github-plugin] v1.17.1
+  * [build-pipeline][build-pipeline-plugin] v1.5.2
+  * [credentials][credentials-plugin] v1.26
+  * [credentials-binding][credentials-binding-plugin] v1.7
+  * [git][git-plugin] v2.4.4
+  * [git-client][git-client-plugin] v1.19.6
+  * [github][github-plugin] v1.18.1
   * [github-api][github-api-plugin] v1.72.1
   * [greenballs][greenballs-plugin] v1.15
-  * [job-dsl][job-dsl-plugin] v1.42
-  * [jobConfigHistory][jobConfigHistory-plugin] v2.12
-  * [jquery][jquery] v1.7.2-1
+  * [job-dsl][job-dsl-plugin] v1.44
+  * [jobConfigHistory][jobConfigHistory-plugin] v2.13
+  * [jquery][jquery] v1.11.2-0
   * [marathon][marathon-plugin] v1.1
-  * [mesos][mesos-plugin] v0.11.0
-  * [monitoring][monitoring-plugin] v1.58.0
+  * [mesos][mesos-plugin] v0.12.0
+  * [monitoring][monitoring-plugin] v1.59.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [plain-credentials][plain-credentials] v1.1
   * [rebuild][rebuild-plugin] v1.25
@@ -42,7 +42,7 @@ Jenkins plugins:
   * [script-security][script-security-plugin] v1.17
   * [ssh-credentials][ssh-credentials-plugin] v1.11
   * [token-macro][token-macro-plugin] v1.12.1
-  * [workflow-step-api][workflow-step-api] v1.14
+  * [workflow-step-api][workflow-step-api] v1.15
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].

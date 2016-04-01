@@ -120,7 +120,7 @@ def main():
         return 1
 
     # optional environment variables
-    jenkins_instance_url = os.environ.get('JENKINS_INSTANCE_URL')
+    jenkins_instance_url = os.getenv('JENKINS_INSTANCE_URL')
     if jenkins_instance_url is None:
         jenkins_instance_url = "http://{}:{}".format(marathon_host, marathon_nginx_port)
 

@@ -178,7 +178,7 @@ def _get_xml_root(config_xml):
     return tuple([tree, root])
 
 
-def _find_and_set(element, term, text):
+def _find_and_set(element, term, new_text):
     """Find the desired term within the XML element and replace
     its text with text.
 
@@ -186,10 +186,10 @@ def _find_and_set(element, term, text):
     :type element: xml.etree.ElementTree.Element
     :param term: XML element to find
     :type term: str
-    :param text: New element text
-    :type text: str
+    :param new_text: New element text
+    :type new_text: str
     """
-    element.find(term).text = text
+    element.find(term).text = new_text
 
 
 if __name__ == '__main__':

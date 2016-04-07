@@ -20,6 +20,7 @@ Base packages:
 
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
+  * [artifactory][artifactory-plugin] v2.4.7
   * [build-pipeline][build-pipeline-plugin] v1.5.2
   * [credentials][credentials-plugin] v1.26
   * [credentials-binding][credentials-binding-plugin] v1.7
@@ -70,6 +71,7 @@ To release a new version of this package:
 
 
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
+[artifactory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+Plugin
 [build-pipeline-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin

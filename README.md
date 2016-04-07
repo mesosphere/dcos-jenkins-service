@@ -38,6 +38,7 @@ Jenkins plugins:
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [plain-credentials][plain-credentials] v1.1
   * [rebuild][rebuild-plugin] v1.25
+  * [role-strategy][role-strategy-plugin] v2.2.0
   * [saferestart][saferestart-plugin] v0.3
   * [scm-api][scm-api-plugin] v0.2
   * [script-security][script-security-plugin] v1.17
@@ -95,6 +96,7 @@ To release a new version of this package:
 [parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin
 [plain-credentials]: https://wiki.jenkins-ci.org/display/JENKINS/Plain+Credentials+Plugin
 [rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
+[role-strategy-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Role+Strategy+Plugin
 [saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin

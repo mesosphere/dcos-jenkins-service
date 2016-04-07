@@ -32,6 +32,7 @@ JENKINS_PLUGINS=(
     "parameterized-trigger~2.30"
     "plain-credentials~1.1"
     "rebuild~1.25"
+    "role-strategy~2.2.0"
     "saferestart~0.3"
     "scm-api~0.2"
     "script-security~1.17"

@@ -4,6 +4,7 @@ Reconfigures a Jenkins master running in Docker at container runtime.
 """
 
 from __future__ import print_function
+
 import os
 import re
 import subprocess
@@ -120,9 +121,9 @@ def main():
         return 1
 
     # optional environment variables
-    jenkins_instance_url = os.getenv('JENKINS_ROOT_URL')
-    if jenkins_instance_url is None:
-        jenkins_instance_url = "http://{}:{}".format(marathon_host, marathon_nginx_port)
+    jenkins_root_url = os.getenv(
+            'JENKINS_ROOT_URL',
+            "http://{}:{}".format(marathon_host, marathon_nginx_port))
 
     # If this is the first run of the script, make changes to the staging
     # directory first, so we can then use these files to populate the host
@@ -141,7 +142,7 @@ def main():
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
-        jenkins_instance_url)
+        jenkins_root_url)
 
     populate_known_hosts(ssh_known_hosts, '/etc/ssh/ssh_known_hosts')
 

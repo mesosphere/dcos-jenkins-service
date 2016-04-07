@@ -34,6 +34,7 @@ JENKINS_PLUGINS=(
     "rebuild~1.25"
     "role-strategy~2.2.0"
     "saferestart~0.3"
+    "saml~0.5"
     "scm-api~0.2"
     "script-security~1.17"
     "ssh-credentials~1.11"

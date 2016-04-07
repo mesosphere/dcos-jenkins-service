@@ -40,6 +40,7 @@ Jenkins plugins:
   * [rebuild][rebuild-plugin] v1.25
   * [role-strategy][role-strategy-plugin] v2.2.0
   * [saferestart][saferestart-plugin] v0.3
+  * [saml][saml-plugin] v0.5
   * [scm-api][scm-api-plugin] v0.2
   * [script-security][script-security-plugin] v1.17
   * [ssh-credentials][ssh-credentials-plugin] v1.11
@@ -98,6 +99,7 @@ To release a new version of this package:
 [rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
 [role-strategy-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Role+Strategy+Plugin
 [saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
+[saml-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SAML+Plugin
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin

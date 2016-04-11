@@ -17,6 +17,7 @@ JENKINS_PLUGINS=(
     "ansicolor~0.4.2"
     "artifactory~2.4.7"
     "build-pipeline-plugin~1.5.2"
+    "cloudbees-folder~5.7"
     "credentials~1.26"
     "credentials-binding~1.7"
     "embeddable-build-status~1.9"

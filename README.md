@@ -22,6 +22,7 @@ Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
   * [artifactory][artifactory-plugin] v2.4.7
   * [build-pipeline][build-pipeline-plugin] v1.5.2
+  * [cloudbees-folder][folders-plugin] v5.7
   * [credentials][credentials-plugin] v1.26
   * [credentials-binding][credentials-binding-plugin] v1.7
   * [embeddable-build-status][embeddable-build-status-plugin] v1.9
@@ -81,6 +82,7 @@ To release a new version of this package:
 [credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
+[folders-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [ghprb-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin

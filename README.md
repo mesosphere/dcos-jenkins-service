@@ -24,6 +24,7 @@ Jenkins plugins:
   * [build-pipeline][build-pipeline-plugin] v1.5.2
   * [credentials][credentials-plugin] v1.26
   * [credentials-binding][credentials-binding-plugin] v1.7
+  * [embeddable-build-status][embeddable-build-status-plugin] v1.9
   * [git][git-plugin] v2.4.4
   * [git-client][git-client-plugin] v1.19.6
   * [github][github-plugin] v1.18.1
@@ -78,6 +79,7 @@ To release a new version of this package:
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
+[embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin

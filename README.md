@@ -25,6 +25,7 @@ Jenkins plugins:
   * [credentials][credentials-plugin] v1.26
   * [credentials-binding][credentials-binding-plugin] v1.7
   * [embeddable-build-status][embeddable-build-status-plugin] v1.9
+  * [ghprb][ghprb-plugin] v1.31.3
   * [git][git-plugin] v2.4.4
   * [git-client][git-client-plugin] v1.19.6
   * [github][github-plugin] v1.18.1
@@ -81,6 +82,7 @@ To release a new version of this package:
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
+[ghprb-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
 [github-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin

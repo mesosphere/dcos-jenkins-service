@@ -20,6 +20,7 @@ JENKINS_PLUGINS=(
     "credentials~1.26"
     "credentials-binding~1.7"
     "embeddable-build-status~1.9"
+    "ghprb~1.31.3"
     "git~2.4.4"
     "git-client~1.19.6"
     "github~1.18.1"

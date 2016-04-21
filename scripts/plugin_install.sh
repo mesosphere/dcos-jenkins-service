@@ -43,6 +43,7 @@ JENKINS_PLUGINS=(
     "scm-api~0.2"
     "script-security~1.17"
     "ssh-credentials~1.11"
+    "timestamper~1.7.4"
     "token-macro~1.12.1"
     "workflow-step-api~1.15"
     "marathon~1.1~https://s3.amazonaws.com/downloads.mesosphere.io/velocity/jenkins/plugins/marathon-1.1.hpi"

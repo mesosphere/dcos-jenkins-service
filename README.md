@@ -49,6 +49,7 @@ Jenkins plugins:
   * [scm-api][scm-api-plugin] v0.2
   * [script-security][script-security-plugin] v1.17
   * [ssh-credentials][ssh-credentials-plugin] v1.11
+  * [timestamper][timestamper-plugin] v1.7.4
   * [token-macro][token-macro-plugin] v1.12.1
   * [workflow-step-api][workflow-step-api] v1.15
 
@@ -114,6 +115,7 @@ To release a new version of this package:
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
 [jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/
+[timestamper-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Timestamper
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [universe]: https://github.com/mesosphere/universe
 [workflow-step-api]: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin

@@ -18,6 +18,7 @@ JENKINS_PLUGINS=(
     "artifactory~2.4.7"
     "build-name-setter~1.6.3"
     "build-pipeline-plugin~1.5.2"
+    "build-timeout~1.16"
     "cloudbees-folder~5.7"
     "credentials~1.26"
     "credentials-binding~1.7"

@@ -16,6 +16,7 @@ JENKINS_UPDATE_CENTER_JSON=$(curl -sL https://updates.jenkins.io/update-center.j
 JENKINS_PLUGINS=(
     "ansicolor~0.4.2"
     "artifactory~2.4.7"
+    "build-name-setter~1.6.3"
     "build-pipeline-plugin~1.5.2"
     "cloudbees-folder~5.7"
     "credentials~1.26"

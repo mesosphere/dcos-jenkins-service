@@ -21,6 +21,7 @@ Base packages:
 Jenkins plugins:
   * [ansicolor][ansicolor-plugin] v0.4.2
   * [artifactory][artifactory-plugin] v2.4.7
+  * [build-name-setter][build-name-setter-plugin] v1.6.3
   * [build-pipeline][build-pipeline-plugin] v1.5.2
   * [cloudbees-folder][folders-plugin] v5.7
   * [credentials][credentials-plugin] v1.26
@@ -77,6 +78,7 @@ To release a new version of this package:
 
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [artifactory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+Plugin
+[build-name-setter-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Name+Setter+Plugin
 [build-pipeline-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
 [credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
 [credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin

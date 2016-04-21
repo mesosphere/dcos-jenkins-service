@@ -9,8 +9,8 @@ set -e
 #set -x
 
 JENKINS_PLUGINS_DIR="${1-$PWD}"
-JENKINS_PLUGINS_MIRROR="https://updates.jenkins-ci.org/download/plugins"
-JENKINS_UPDATE_CENTER_JSON=$(curl -sL https://updates.jenkins-ci.org/update-center.json | sed '1d;$d')
+JENKINS_PLUGINS_MIRROR="https://updates.jenkins.io/download/plugins"
+JENKINS_UPDATE_CENTER_JSON=$(curl -sL https://updates.jenkins.io/update-center.json | sed '1d;$d')
 
 # Jenkins plugins are specified here, following the format "pluginname/version"
 JENKINS_PLUGINS=(

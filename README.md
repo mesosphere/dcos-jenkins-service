@@ -36,6 +36,7 @@ Jenkins plugins:
   * [job-dsl][job-dsl-plugin] v1.44
   * [jobConfigHistory][jobConfigHistory-plugin] v2.13
   * [jquery][jquery] v1.11.2-0
+  * [mailer][mailer-plugin] v1.16
   * [marathon][marathon-plugin] v1.1
   * [mesos][mesos-plugin] v0.12.0
   * [monitoring][monitoring-plugin] v1.59.0
@@ -98,6 +99,7 @@ To release a new version of this package:
 [job-dsl-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
 [jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin
 [jquery]: https://wiki.jenkins-ci.org/display/JENKINS/jQuery+Plugin
+[mailer-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mailer
 [marathon-plugin]: https://github.com/mesosphere/jenkins-marathon-plugin
 [mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring

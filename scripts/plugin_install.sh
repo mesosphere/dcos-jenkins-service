@@ -31,6 +31,7 @@ JENKINS_PLUGINS=(
     "jquery~1.11.2-0"
     "job-dsl~1.44"
     "jobConfigHistory~2.13"
+    "mailer~1.16"
     "mesos~0.12.0"
     "monitoring~1.59.0"
     "parameterized-trigger~2.30"

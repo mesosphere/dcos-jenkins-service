@@ -54,6 +54,11 @@ Jenkins plugins:
   * [token-macro][token-macro-plugin] v1.12.1
   * [workflow-step-api][workflow-step-api] v1.15
 
+## Creating the WAR
+The included `pom.xml` file is used to create a WAR file containing the plugins
+listed above. To assemble the WAR file, run the [maven][apache-maven] command:
+`mvn package`.
+
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].
 To make changes to the Jenkins package, submit a pull request against the
@@ -79,6 +84,7 @@ To release a new version of this package:
   pull request against [the Universe][universe] referencing the new tag.
 
 
+[apache-maven]: https://maven.apache.org
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 [artifactory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+Plugin
 [build-name-setter-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Name+Setter+Plugin

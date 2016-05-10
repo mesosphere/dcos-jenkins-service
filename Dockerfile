@@ -10,7 +10,6 @@ WORKDIR /tmp
 #                   data directory. This cannot be populated before Marathon
 #                   has a chance to create the host-container volume mapping.
 #
-ENV JENKINS_WAR_URL ./target/velocity-*.war
 ENV JENKINS_STAGING /var/jenkins_staging
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_FOLDER /usr/share/jenkins/
@@ -25,7 +24,7 @@ COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
 RUN mkdir -p $JENKINS_HOME
 RUN mkdir -p ${JENKINS_FOLDER}/war
 
-COPY ${JENKINS_WAR_URL} ${JENKINS_FOLDER}/jenkins.war
+COPY target/jenkins-*.war ${JENKINS_FOLDER}/jenkins.war
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 
 COPY conf/jenkins/config.xml "${JENKINS_STAGING}/config.xml"

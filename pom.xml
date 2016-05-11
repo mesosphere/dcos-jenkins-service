@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>org.jenkins-ci.main</groupId>
 			<artifactId>jenkins-war</artifactId>
-			<version>1.651.1</version>
+			<version>1.651.2</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>

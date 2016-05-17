@@ -38,7 +38,7 @@ Jenkins plugins:
   * [jobConfigHistory][jobConfigHistory-plugin] v2.13
   * [jquery][jquery] v1.11.2-0
   * [mailer][mailer-plugin] v1.16
-  * [marathon][marathon-plugin] v1.1
+  * [marathon][marathon-plugin] v1.2.1
   * [mesos][mesos-plugin] v0.12.0
   * [monitoring][monitoring-plugin] v1.59.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30

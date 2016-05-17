@@ -3,4 +3,5 @@
 README.md
 demo/
 docs/
+scripts/release.sh
 tests/

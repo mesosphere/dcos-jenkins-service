@@ -339,7 +339,7 @@
 							<goal>wget</goal>
 						</goals>
 						<configuration>
-							<url>https://s3.amazonaws.com/downloads.mesosphere.io/velocity/jenkins/plugins/marathon-1.2.0.hpi</url>
+							<url>https://s3.amazonaws.com/downloads.mesosphere.io/velocity/jenkins/plugins/marathon-1.2.1.hpi</url>
 							<unpack>false</unpack>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 							<outputFileName>marathon.hpi</outputFileName>

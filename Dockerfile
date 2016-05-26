@@ -39,7 +39,6 @@ java ${JVM_OPTS}                                    \
     -Dhudson.udp=-1                                 \
     -Djava.awt.headless=true                        \
     -Dhudson.DNSMultiCast.disabled=true             \
-    -Dhudson.model.ParametersAction.keepUndefinedParameters=true  \
     -jar ${JENKINS_FOLDER}/jenkins.war              \
     --httpPort=${PORT1}                             \
     --webroot=${JENKINS_FOLDER}/war                 \

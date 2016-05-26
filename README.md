@@ -28,7 +28,7 @@ Jenkins plugins:
   * [credentials][credentials-plugin] v1.26
   * [credentials-binding][credentials-binding-plugin] v1.7
   * [embeddable-build-status][embeddable-build-status-plugin] v1.9
-  * [ghprb][ghprb-plugin] v1.31.3
+  * [ghprb][ghprb-plugin] v1.32.2
   * [git][git-plugin] v2.4.4
   * [git-client][git-client-plugin] v1.19.6
   * [github][github-plugin] v1.18.1

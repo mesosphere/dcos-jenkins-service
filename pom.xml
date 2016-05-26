@@ -40,6 +40,7 @@
 		<job-dsl.version>1.44</job-dsl.version>
 		<jobConfigHistory.version>2.13</jobConfigHistory.version>
 		<mailer.version>1.16</mailer.version>
+		<matrix-project.version>1.7</matrix-project.version>
 		<mesos.version>0.12.0</mesos.version>
 		<monitoring.version>1.59.0</monitoring.version>
 		<parameterized-trigger.version>2.30</parameterized-trigger.version>
@@ -222,6 +223,13 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>mailer</artifactId>
 							<version>${mailer.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>matrix-project</artifactId>
+							<version>${matrix-project.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>

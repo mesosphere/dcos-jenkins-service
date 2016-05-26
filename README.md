@@ -38,6 +38,7 @@ Jenkins plugins:
   * [jobConfigHistory][jobConfigHistory-plugin] v2.13
   * [jquery][jquery] v1.11.2-0
   * [mailer][mailer-plugin] v1.16
+  * [matrix-project][matrix-project] v1.7
   * [marathon][marathon-plugin] v1.2.1
   * [mesos][mesos-plugin] v0.12.0
   * [monitoring][monitoring-plugin] v1.59.0
@@ -110,6 +111,7 @@ To release a new version of this package:
 [jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin
 [jquery]: https://wiki.jenkins-ci.org/display/JENKINS/jQuery+Plugin
 [mailer-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mailer
+[matrix-project]: https://wiki.jenkins-ci.org/display/JENKINS/Matrix+Project+Plugin
 [marathon-plugin]: https://github.com/mesosphere/jenkins-marathon-plugin
 [mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
 [monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring

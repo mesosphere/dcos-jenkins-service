@@ -43,7 +43,7 @@ following the instructions.
         $ bundle exec jekyll serve --watch
 
 7. Visit the site at
-   [http://localhost:4000/jenkins/](http://localhost:4000/jenkins/)
+   [http://localhost:4000/jenkins-mesos/](http://localhost:4000/jenkins-mesos/)
 
 ## Deploying the site
 

@@ -11,14 +11,14 @@ Fortunately, Jenkins allows for the configuration of custom log recorders of you
 The following example details how to access the system log in the Jenkins web GUI and set up a custom logger that looks at the logs for just the Jenkins-Mesos scheduler.
 
 
-##### Accessing the system log in the Jenkins UI
+#### Accessing the system log in the Jenkins UI
 
 
 From the 'Manage Jenkins' page of the web UI, select 'System Log'
 ![Accessing the system log in the Jenkins UI]({{site.baseurl}}/img/access-system-log.png)
 
 
-##### Creating a new custom logger
+#### Creating and configuring a new custom logger
 
 
 Here you will see the default log recorder provided by Jenkins and the option to create a custom log recorder.
@@ -29,6 +29,7 @@ After creating a new logger and naming it, you will reach the logger configurati
 
 ![Configure a logger]({{site.baseurl}}/img/logger-configuration.png)
 
+#### Viewing logger output
 At this point, Jenkins requires a quick restart for the new log recorder to begin doing work. Afterwards, navigate back to the 'System Log' page and select your new log recorder. We can now see that the log recorder has begun recording messages from the Jenkins-Mesos scheduler.
 
-![Configure a logger]({{site.baseurl}}/img/log.png)
+![Viewing Logger Output]({{site.baseurl}}/img/log.png)

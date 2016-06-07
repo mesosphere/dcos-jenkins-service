@@ -1,5 +1,5 @@
 # Jenkins on Mesos
-[![Build Status](https://teamcity.mesosphere.io/guestAuth/app/rest/builds/buildType:(id:Oss_Jenkins_PublishDevelopmentDocker)/statusIcon)](https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishDevelopmentDocker&guest=1)
+[![velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=public-jenkins-mesos-master)](http://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/)
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
 [![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins/0.2.3.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.3)

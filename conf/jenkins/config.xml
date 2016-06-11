@@ -41,7 +41,7 @@
           <jnlpArgs>-noReconnect</jnlpArgs>
           <containerInfo>
             <type>DOCKER</type>
-            <dockerImage>mesosphere/jenkins-dind:0.3.0</dockerImage>
+            <dockerImage>mesosphere/jenkins-dind:0.3.1</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
             <customDockerCommandShell>wrapper.sh</customDockerCommandShell>

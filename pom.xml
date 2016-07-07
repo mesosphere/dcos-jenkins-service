@@ -40,6 +40,7 @@
 		<job-dsl.version>1.44</job-dsl.version>
 		<jobConfigHistory.version>2.13</jobConfigHistory.version>
 		<mailer.version>1.16</mailer.version>
+		<marathon.version>1.3.1</marathon.version>
 		<matrix-project.version>1.7</matrix-project.version>
 		<mesos.version>0.12.0</mesos.version>
 		<monitoring.version>1.59.0</monitoring.version>
@@ -228,6 +229,13 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>marathon</artifactId>
+							<version>${marathon.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>matrix-project</artifactId>
 							<version>${matrix-project.version}</version>
 							<type>hpi</type>
@@ -333,28 +341,6 @@
 						</artifactItem>
 					</artifactItems>
 				</configuration>
-			</plugin>
-
-			<plugin>
-				<groupId>com.googlecode.maven-download-plugin</groupId>
-				<artifactId>download-maven-plugin</artifactId>
-				<version>1.3.0</version>
-				<executions>
-					<execution>
-						<id>fetch-marathon-deploy</id>
-						<phase>generate-sources</phase>
-						<goals>
-							<goal>wget</goal>
-						</goals>
-						<configuration>
-							<url>https://s3.amazonaws.com/downloads.mesosphere.io/velocity/jenkins/plugins/marathon-1.2.1.hpi</url>
-							<unpack>false</unpack>
-							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
-							<outputFileName>marathon.hpi</outputFileName>
-							<!-- <md5>df65b5642f33676313ebe4d5b69a3fff</md5> -->
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 			<plugin>

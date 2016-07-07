@@ -73,7 +73,7 @@ To release a new version of this package:
   1. Update [the Jenkins conf][jenkins-conf] to reference the current release of
   the [jenkins-dind][jenkins-dind] Docker image (if needed).
   2. Tag the commit on master that you want to be released.
-  3. Once [the build][teamcity-build] has successfully completed, submit a new
+  3. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
 
 
@@ -113,7 +113,7 @@ To release a new version of this package:
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
-[teamcity-build]: https://teamcity.mesosphere.io/viewType.html?buildTypeId=Oss_Jenkins_PublishReleaseDocker
+[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [universe]: https://github.com/mesosphere/universe
 [workflow-step-api]: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin

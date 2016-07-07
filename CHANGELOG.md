@@ -1,6 +1,15 @@
 # Changes
+
 ## v1.0.0 (2016-07-07)
   * Includes the [Marathon plugin][marathon-plugin].
+  * Allow Jenkins instance URL to be configurable
+  * Add several plugins, including Artifactory, Role Strategy, SAML,
+  Embeddable Build Status, GitHub Pull Request Builder, etc.
+  * Update various plugins to latest versions
+  * Update Jenkins core to latest LTS release
+  * Bundle plugins with the Jenkins war itself, instead of being
+  loaded by `plugin_install.sh`.
+  * Upgraded plugins affected by SECURITY-170.
 
 ## v0.2.3 (2016-03-17)
   * Separate Jenkins dind-agent into a standalone project:

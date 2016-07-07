@@ -1,4 +1,7 @@
 # Changes
+## v1.0.0 (2016-07-07)
+  * Includes the [Marathon plugin][marathon-plugin].
+
 ## v0.2.3 (2016-03-17)
   * Separate Jenkins dind-agent into a standalone project:
   https://github.com/mesosphere/jenkins-dind-agent

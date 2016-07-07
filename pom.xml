@@ -228,7 +228,7 @@
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
 						<artifactItem>
-							<groupId>org.jenkins-ci.plugins</groupId>
+							<groupId>com.mesosphere.velocity</groupId>
 							<artifactId>marathon</artifactId>
 							<version>${marathon.version}</version>
 							<type>hpi</type>

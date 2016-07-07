@@ -79,10 +79,11 @@ To release a new version of this package:
 
   1. Update [the Jenkins conf][jenkins-conf] to reference the current release of
   the [jenkins-dind][jenkins-dind] Docker image (if needed).
-  2. Tag the commit on master that you want to be released.
-  3. Once [the build][jenkins-build] has successfully completed, submit a new
+  2. Update the Jenkins release version in [pom.xml](pom.xml).
+  3. Add some release notes to [CHANGELOG.md](CHANGELOG.md)
+  4. Tag the commit on master that you want to be released.
+  5. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
-
 
 [apache-maven]: https://maven.apache.org
 [ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin

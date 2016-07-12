@@ -6,7 +6,7 @@ title: Contributor Guidelines
 
 ## Getting Started
 
-Third-party patches are key to making Jenkins on Mesos the best way to run
+Third-party patches are key to making Jenkins on DC/OS the best way to run
 an efficient CI system. We want to keep it as easy as possible to contribute
 changes that improve this project, or get it working in your environment. There
 are a few guidelines we'd like contributors to follow to ensure a consistent

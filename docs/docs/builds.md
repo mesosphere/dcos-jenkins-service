@@ -4,11 +4,11 @@ title: Configuring Builds
 
 # Configuring Builds
 
-DCOS runs everything inside Docker by default. This is to minimise dependencies
+DC/OS runs everything inside Docker by default. This is to minimise dependencies
 on the underlying host operating system and to allow for maximum resilience in
 the case of a host failing.
 
-When using Jenkins on DCOS, the Mesos scheduler creates new Jenkins slaves that
+When using Jenkins on DC/OS, the Mesos scheduler creates new Jenkins slaves that
 run as Mesos tasks within a Docker container. Builds that the user configures
 are then run inside the same container. Since many builds typically involve
 steps that invoke the Docker utility, e.g. `docker build` or `docker push`, we
@@ -16,7 +16,7 @@ provide a `mesosphere/jenkins-dind` Docker image and configure the Mesos plugin
 to use this by default.
 
 This image includes many tools by default
-([Dockerfile](https://github.com/mesosphere/jenkins-mesos/blob/master/dind-agent/Dockerfile)):
+([Dockerfile](https://github.com/mesosphere/jenkins-dcos/blob/master/dind-agent/Dockerfile)):
 
     * OpenJDK 7
     * Python 2
@@ -69,7 +69,7 @@ over ssh will fail if your host keys aren't explicitly added.
 ## Pushing
 
 Once built, you can then push this to DockerHub or your own private Docker
-registry. This registry must be accessible by DCOS agents.
+registry. This registry must be accessible by DC/OS agents.
 
 ## Configuring Jenkins
 

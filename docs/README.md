@@ -21,7 +21,7 @@ following the instructions.
 
             $ apt-get install ruby-dev make autoconf nodejs nodejs-legacy python-dev
     * On Mac OS X:
-    
+
             $ brew install node
 
 2. Clone the Jenkins repository
@@ -43,14 +43,14 @@ following the instructions.
         $ bundle exec jekyll serve --watch
 
 7. Visit the site at
-   [http://localhost:4000/jenkins-mesos/](http://localhost:4000/jenkins-mesos/)
+   [http://localhost:4000/jenkins-dcos/](http://localhost:4000/jenkins-dcos/)
 
 ## Deploying the site
 
 1. Clone a separate copy of the Jenkins repo as a sibling of your normal
    Jenkins project directory and name it "jenkins-gh-pages".
 
-        $ git clone git@github.com:mesosphere/jenkins-on-mesos.git jenkins-gh-pages
+        $ git clone git@github.com:mesosphere/jenkins-dcos.git jenkins-gh-pages
 
 2. Check out the "gh-pages" branch.
 

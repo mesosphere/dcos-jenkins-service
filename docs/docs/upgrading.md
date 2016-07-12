@@ -6,7 +6,7 @@ title: Upgrade Notes
 
 ## Upgrade Procedure
 
-To upgrade from one version of the Jenkins on Mesos package to another, simply uninstall the current versions, update your package repository cache and install a new version.
+To upgrade from one version of the Jenkins on DC/OS package to another, simply uninstall the current versions, update your package repository cache and install a new version.
 
 1. Uninstall Jenkins as per the instructions on [Getting Started]({{ site.baseurl }}/docs/). Any builds that are current in progress or queued will be lost.
 
@@ -14,7 +14,7 @@ To upgrade from one version of the Jenkins on Mesos package to another, simply u
 
 3. Install Jenkins, again following the instructions on [Getting Started]({{ site.baseurl }}/docs/). Make sure you use the same configuration file as previously, specifically pointing Jenkins to the same `host-volume`.
 
-4. Currently it is necessary to upgrade plugins by hand using the Jenkins UI at `<dcos_url>/service/jenkins/pluginManager`. In the future, it will be possible to do this through the DCOS package configuration.
+4. Currently it is necessary to upgrade plugins by hand using the Jenkins UI at `<dcos_url>/service/jenkins/pluginManager`. In the future, it will be possible to do this through the DC/OS package configuration.
 
 ## Upgrading to 0.1.3
 

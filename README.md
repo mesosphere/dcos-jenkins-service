@@ -40,7 +40,7 @@ Jenkins plugins:
   * [mailer][mailer-plugin] v1.16
   * [matrix-project][matrix-project] v1.7
   * [marathon][marathon-plugin] v1.2.1
-  * [mesos][mesos-plugin] v0.12.0
+  * [mesos][mesos-plugin] v0.13.0
   * [monitoring][monitoring-plugin] v1.59.0
   * [parameterized-trigger][parameterized-trigger-plugin] v2.30
   * [plain-credentials][plain-credentials] v1.1

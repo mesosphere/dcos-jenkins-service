@@ -1,9 +1,7 @@
-# Jenkins on Mesos
-[![velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=public-jenkins-mesos-master)](http://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/)
+# Jenkins on DC/OS
+[![velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=public-jenkins-dcos-master)](http://velocity.mesosphere.com/service/velocity/job/public-jenkins-dcos-master/)
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
-[![Image Size](https://img.shields.io/imagelayers/image-size/mesosphere/jenkins/0.2.3.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.3)
-[![Image Layers](https://img.shields.io/imagelayers/layers/mesosphere/jenkins/0.2.3.svg)](https://imagelayers.io/?images=mesosphere/jenkins:0.2.3)
 
 Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 

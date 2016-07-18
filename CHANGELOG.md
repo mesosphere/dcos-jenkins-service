@@ -1,6 +1,6 @@
 # Changes
 
-## v1.0.0 (2016-07-07)
+## v1.0.0 (2016-07-18)
   * Includes the [Marathon plugin][marathon-plugin].
   * Allow Jenkins instance URL to be configurable
   * Add several plugins, including Artifactory, Role Strategy, SAML,

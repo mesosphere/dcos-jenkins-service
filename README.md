@@ -93,7 +93,7 @@ To release a new version of this package:
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
 [folders-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin
-[getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
+[getting-started]: http://mesosphere.github.io/jenkins-dcos/docs/
 [ghprb-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
@@ -121,7 +121,7 @@ To release a new version of this package:
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
-[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/
+[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-dcos-master/
 [timestamper-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Timestamper
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [universe]: https://github.com/mesosphere/universe

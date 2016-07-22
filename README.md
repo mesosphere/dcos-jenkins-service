@@ -9,7 +9,7 @@ Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 This repo contains a [Dockerfile](Dockerfile) that runs Jenkins inside a Docker
 container and uses [Nginx][nginx-home] as a reverse proxy. It also provides
 several Jenkins plugins and a basic Jenkins configuration in order to get you
-up and running quickly with Jenkins on DCOS.
+up and running quickly with Jenkins on DC/OS.
 
 ## Included in this repo
 Base packages:
@@ -64,10 +64,8 @@ To make changes to the Jenkins package, submit a pull request against the
 Universe.
 
 ## Installation
-To install Jenkins for the DCOS, perform the following steps.
 
-  1. Run `dcos package update`
-  2. Run `dcos package install jenkins`
+To install Jenkins for the DC/OS, simply run `dcos package install jenkins` or install via the Universe page in the DC/OS UI.
 
 Jenkins should now be available at <http://dcos.example.com/service/jenkins>.
 See [Getting Started][getting-started] for more in-depth instructions and
@@ -95,7 +93,7 @@ To release a new version of this package:
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
 [folders-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin
-[getting-started]: http://mesosphere.github.io/jenkins-mesos/docs/
+[getting-started]: http://mesosphere.github.io/jenkins-dcos/docs/
 [ghprb-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin
 [git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
 [git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
@@ -123,7 +121,7 @@ To release a new version of this package:
 [scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
 [script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
 [ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
-[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-mesos-master/
+[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-dcos-master/
 [timestamper-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Timestamper
 [token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
 [universe]: https://github.com/mesosphere/universe

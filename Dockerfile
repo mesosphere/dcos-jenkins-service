@@ -45,5 +45,4 @@ java ${JVM_OPTS}                                    \
     --ajp13Port=-1                                  \
     --httpListenAddress=127.0.0.1                   \
     --ajp13ListenAddress=127.0.0.1                  \
-    --preferredClassLoader=java.net.URLClassLoader  \
     --prefix=${JENKINS_CONTEXT}

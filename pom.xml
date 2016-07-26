@@ -3,12 +3,12 @@
 
 	<groupId>com.mesosphere.velocity</groupId>
 	<artifactId>jenkins</artifactId>
-	<version>1.0-SNAPSHOT</version>
+	<version>2.0.0-2.7.1-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
 			<id>jenkins</id>
-			<url>http://repo.jenkins-ci.org/releases/</url>
+			<url>https://repo.jenkins-ci.org/releases/</url>
 		</repository>
 	</repositories>
 	<dependencies>
@@ -21,43 +21,115 @@
 	</dependencies>
 
 	<properties>
-		<ansicolor.version>0.4.2</ansicolor.version>
-		<artifactory.version>2.4.7</artifactory.version>
-		<build-name-setter.version>1.6.3</build-name-setter.version>
-		<build-timeout.version>1.16</build-timeout.version>
-		<cloudbees-folder.version>5.7</cloudbees-folder.version>
-		<credentials.version>1.26</credentials.version>
-		<credentials-binding.version>1.7</credentials-binding.version>
-		<embeddable-build-status.version>1.9</embeddable-build-status.version>
-		<ghprb.version>1.33.0</ghprb.version>
-		<git.version>2.4.4</git.version>
-		<git-client.version>1.19.6</git-client.version>
-		<github.version>1.18.1</github.version>
-		<github-api.version>1.72.1</github-api.version>
-		<greenballs.version>1.15</greenballs.version>
-		<icon-shim.version>2.0.3</icon-shim.version>
-		<jquery.version>1.11.2-0</jquery.version>
-		<job-dsl.version>1.44</job-dsl.version>
-		<jobConfigHistory.version>2.13</jobConfigHistory.version>
-		<mailer.version>1.16</mailer.version>
-		<marathon.version>1.3.1</marathon.version>
-		<matrix-project.version>1.7</matrix-project.version>
-		<mesos.version>0.13.0</mesos.version>
-		<monitoring.version>1.59.0</monitoring.version>
-		<parameterized-trigger.version>2.30</parameterized-trigger.version>
-		<plain-credentials.version>1.1</plain-credentials.version>
-		<rebuild.version>1.25</rebuild.version>
-		<role-strategy.version>2.2.0</role-strategy.version>
-		<saferestart.version>0.3</saferestart.version>
+		<!-- Blueocean UI -->
+		<blueocean.version>1.0-alpha-4</blueocean.version>
+		<blueocean-commons.version>1.0-alpha-4</blueocean-commons.version>
+		<blueocean-dashboard.version>1.0-alpha-4</blueocean-dashboard.version>
+		<blueocean-events.version>1.0-alpha-4</blueocean-events.version>
+		<blueocean-personalization.version>1.0-alpha-4</blueocean-personalization.version>
+		<blueocean-pipeline-api-impl.version>1.0-alpha-4</blueocean-pipeline-api-impl.version>
+		<blueocean-rest.version>1.0-alpha-4</blueocean-rest.version>
+		<blueocean-rest-impl.version>1.0-alpha-4</blueocean-rest-impl.version>
+		<blueocean-web.version>1.0-alpha-4</blueocean-web.version>
+		<!-- Pipeline (nee Workflow) plugins -->
+		<durable-task.version>1.11</durable-task.version>
+		<pipeline-build-step.version>2.2</pipeline-build-step.version>
+		<pipeline-input-step.version>2.0</pipeline-input-step.version>
+		<pipeline-rest-api.version>1.6</pipeline-rest-api.version>
+		<pipeline-stage-step.version>2.1</pipeline-stage-step.version>
+		<pipeline-stage-view.version>1.6</pipeline-stage-view.version>
+		<workflow-aggregator.version>2.2</workflow-aggregator.version>
+		<workflow-api.version>2.1</workflow-api.version>
+		<workflow-basic-steps.version>2.0</workflow-basic-steps.version>
+		<workflow-cps.version>2.9</workflow-cps.version>
+		<workflow-cps-global-lib.version>2.1</workflow-cps-global-lib.version>
+		<workflow-durable-task-step.version>2.3</workflow-durable-task-step.version>
+		<workflow-job.version>2.3</workflow-job.version>
+		<workflow-multibranch.version>2.8</workflow-multibranch.version>
+		<workflow-scm-step.version>2.2</workflow-scm-step.version>
+		<workflow-step-api.version>2.2</workflow-step-api.version>
+		<workflow-support.version>2.2</workflow-support.version>
+		<!-- Security -->
+		<aws-credentials.version>1.16</aws-credentials.version>
+		<credentials.version>2.1.4</credentials.version>
+		<credentials-binding.version>1.8</credentials-binding.version>
+		<ldap.version>1.12</ldap.version>
+		<matrix-auth.version>1.4</matrix-auth.version>
+		<pam-auth.version>1.3</pam-auth.version>
+		<plain-credentials.version>1.2</plain-credentials.version>
+		<role-strategy.version>2.3.2</role-strategy.version>
 		<saml.version>0.5</saml.version>
-		<scm-api.version>0.2</scm-api.version>
-		<script-security.version>1.17</script-security.version>
-		<ssh-agent.version>1.10</ssh-agent.version>
-		<ssh-credentials.version>1.11</ssh-credentials.version>
+		<script-security.version>1.21</script-security.version>
+		<ssh-credentials.version>1.12</ssh-credentials.version>
+		<!-- Version control -->
+		<branch-api.version>1.10</branch-api.version>
+		<cvs.version>2.12</cvs.version>
+		<ghprb.version>1.33.0</ghprb.version>
+		<git.version>2.5.2</git.version>
+		<git-client.version>1.19.7</git-client.version>
+		<git-server.version>1.7</git-server.version>
+		<github.version>1.20.0</github.version>
+		<github-api.version>1.76</github-api.version>
+		<github-branch-source.version>1.8.1</github-branch-source.version>
+		<scm-api.version>1.2</scm-api.version>
+		<subversion.version>2.6</subversion.version>
+		<!-- Everything else (including misc dependencies) -->
+		<ace-editor.version>1.1</ace-editor.version>
+		<ansicolor.version>0.4.2</ansicolor.version>
+		<ant.version>1.3</ant.version>
+		<antisamy-markup-formatter.version>1.5</antisamy-markup-formatter.version>
+		<artifactory.version>2.5.1</artifactory.version>
+		<aws-java-sdk.version>1.10.50</aws-java-sdk.version>
+		<azure-slave-plugin.version>0.3.3</azure-slave-plugin.version>
+		<build-name-setter.version>1.6.5</build-name-setter.version>
+		<build-timeout.version>1.17.1</build-timeout.version>
+		<bouncycastle-api.version>1.648.3</bouncycastle-api.version>
+		<cloudbees-folder.version>5.12</cloudbees-folder.version>
+		<conditional-buildstep.version>1.3.5</conditional-buildstep.version>
+		<config-file-provider.version>2.11</config-file-provider.version>
+		<copyartifact.version>1.38.1</copyartifact.version>
+		<ec2.version>1.35</ec2.version>
+		<embeddable-build-status.version>1.9</embeddable-build-status.version>
+		<external-monitor-job.version>1.6</external-monitor-job.version>
+		<favorite.version>1.16</favorite.version>
+		<gradle.version>1.25</gradle.version>
+		<greenballs.version>1.15</greenballs.version>
+		<handlebars.version>1.1.1</handlebars.version>
+		<icon-shim.version>2.0.3</icon-shim.version>
+		<ivy.version>1.26</ivy.version>
+		<jackson2-api.version>2.7.3</jackson2-api.version>
+		<javadoc.version>1.4</javadoc.version>
+		<jquery.version>1.11.2-0</jquery.version>
+		<jquery-detached.version>1.2.1</jquery-detached.version>
+		<job-dsl.version>1.48</job-dsl.version>
+		<jobConfigHistory.version>2.15</jobConfigHistory.version>
+		<junit.version>1.15</junit.version>
+		<mailer.version>1.17</mailer.version>
+		<mapdb-api.version>1.0.9.0</mapdb-api.version>
+		<marathon.version>1.3.1</marathon.version>
+		<matrix-project.version>1.7.1</matrix-project.version>
+		<maven-plugin.version>2.13</maven-plugin.version>
+		<mesos.version>0.13.1</mesos.version>
+		<metrics.version>3.1.2.9</metrics.version>
+		<momentjs.version>1.1.1</momentjs.version>
+		<monitoring.version>1.60.0</monitoring.version>
+		<nant.version>1.4.3</nant.version>
+		<node-iterator-api.version>1.5.0</node-iterator-api.version>
+		<parameterized-trigger.version>2.32</parameterized-trigger.version>
+		<rebuild.version>1.25</rebuild.version>
+		<run-condition.version>1.0</run-condition.version>
+		<s3.version>0.10.7</s3.version>
+		<saferestart.version>0.3</saferestart.version>
+		<sse-gateway.version>1.5</sse-gateway.version>
+		<ssh-agent.version>1.13</ssh-agent.version>
 		<ssh-slaves.version>1.11</ssh-slaves.version>
-		<timestamper.version>1.7.4</timestamper.version>
+		<support-core.version>2.32</support-core.version>
+		<structs.version>1.2</structs.version>
+		<timestamper.version>1.8.4</timestamper.version>
 		<token-macro.version>1.12.1</token-macro.version>
-		<workflow-step-api.version>1.15</workflow-step-api.version>
+		<translation.version>1.15</translation.version>
+		<variant.version>1.0</variant.version>
+		<windows-slaves.version>1.1</windows-slaves.version>
 	</properties>
 
 	<build>
@@ -77,30 +149,13 @@
 				<configuration>
 					<stripVersion>true</stripVersion>
 					<artifactItems>
-						<!-- Built in Plugins -->
 						<artifactItem>
-							<groupId>org.jenkins-ci.plugins</groupId>
-							<artifactId>ssh-slaves</artifactId>
-							<version>${ssh-slaves.version}</version>
+							<groupId>org.jenkins-ci.ui</groupId>
+							<artifactId>ace-editor</artifactId>
+							<version>${ace-editor.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
-						<!-- Dependencies for Additional Plugins -->
-						<artifactItem>
-							<groupId>org.jenkins-ci.plugins.icon-shim</groupId>
-							<artifactId>icon-shim</artifactId>
-							<version>${icon-shim.version}</version>
-							<type>hpi</type>
-							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
-						</artifactItem>
-						<artifactItem>
-							<groupId>org.jenkins-ci.plugins</groupId>
-							<artifactId>ssh-agent</artifactId>
-							<version>${ssh-agent.version}</version>
-							<type>hpi</type>
-							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
-						</artifactItem>
-						<!-- Additional Plugins -->
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>ansicolor</artifactId>
@@ -110,8 +165,113 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ant</artifactId>
+							<version>${ant.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>antisamy-markup-formatter</artifactId>
+							<version>${antisamy-markup-formatter.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>artifactory</artifactId>
 							<version>${artifactory.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>aws-credentials</artifactId>
+							<version>${aws-credentials.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>aws-java-sdk</artifactId>
+							<version>${aws-java-sdk.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>azure-slave-plugin</artifactId>
+							<version>${azure-slave-plugin.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean</artifactId>
+							<version>${blueocean.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-commons</artifactId>
+							<version>${blueocean-commons.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-dashboard</artifactId>
+							<version>${blueocean-dashboard.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-events</artifactId>
+							<version>${blueocean-events.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-personalization</artifactId>
+							<version>${blueocean-personalization.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-pipeline-api-impl</artifactId>
+							<version>${blueocean-pipeline-api-impl.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-rest</artifactId>
+							<version>${blueocean-rest.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-rest-impl</artifactId>
+							<version>${blueocean-rest-impl.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-web</artifactId>
+							<version>${blueocean-web.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>branch-api</artifactId>
+							<version>${branch-api.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -131,8 +291,36 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>bouncycastle-api</artifactId>
+							<version>${bouncycastle-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>cloudbees-folder</artifactId>
 							<version>${cloudbees-folder.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>conditional-buildstep</artifactId>
+							<version>${conditional-buildstep.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>config-file-provider</artifactId>
+							<version>${config-file-provider.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>copyartifact</artifactId>
+							<version>${copyartifact.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -152,8 +340,43 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>cvs</artifactId>
+							<version>${cvs.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>durable-task</artifactId>
+							<version>${durable-task.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ec2</artifactId>
+							<version>${ec2.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>embeddable-build-status</artifactId>
 							<version>${embeddable-build-status.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>external-monitor-job</artifactId>
+							<version>${external-monitor-job.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jvnet.hudson.plugins</groupId>
+							<artifactId>favorite</artifactId>
+							<version>${favorite.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -179,6 +402,13 @@
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
 						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>git-server</artifactId>
+							<version>${git-server.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
 							<groupId>com.coravy.hudson.plugins.github</groupId>
 							<artifactId>github</artifactId>
 							<version>${github.version}</version>
@@ -194,8 +424,57 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>github-branch-source</artifactId>
+							<version>${github-branch-source.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>gradle</artifactId>
+							<version>${gradle.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>greenballs</artifactId>
 							<version>${greenballs.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.ui</groupId>
+							<artifactId>handlebars</artifactId>
+							<version>${handlebars.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.icon-shim</groupId>
+							<artifactId>icon-shim</artifactId>
+							<version>${icon-shim.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ivy</artifactId>
+							<version>${ivy.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>jackson2-api</artifactId>
+							<version>${jackson2-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>javadoc</artifactId>
+							<version>${javadoc.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -203,6 +482,13 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>jquery</artifactId>
 							<version>${jquery.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.ui</groupId>
+							<artifactId>jquery-detached</artifactId>
+							<version>${jquery-detached.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -222,8 +508,29 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>junit</artifactId>
+							<version>${junit.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ldap</artifactId>
+							<version>${ldap.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>mailer</artifactId>
 							<version>${mailer.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>mapdb-api</artifactId>
+							<version>${mapdb-api.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -236,8 +543,22 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>matrix-auth</artifactId>
+							<version>${matrix-auth.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>matrix-project</artifactId>
 							<version>${matrix-project.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.main</groupId>
+							<artifactId>maven-plugin</artifactId>
+							<version>${maven-plugin.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -245,6 +566,20 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>mesos</artifactId>
 							<version>${mesos.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>metrics</artifactId>
+							<version>${metrics.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.ui</groupId>
+							<artifactId>momentjs</artifactId>
+							<version>${momentjs.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -257,8 +592,64 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>nant</artifactId>
+							<version>${nant.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>node-iterator-api</artifactId>
+							<version>${node-iterator-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pam-auth</artifactId>
+							<version>${pam-auth.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>parameterized-trigger</artifactId>
 							<version>${parameterized-trigger.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pipeline-build-step</artifactId>
+							<version>${pipeline-build-step.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pipeline-input-step</artifactId>
+							<version>${pipeline-input-step.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.pipeline-stage-view</groupId>
+							<artifactId>pipeline-rest-api</artifactId>
+							<version>${pipeline-rest-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pipeline-stage-step</artifactId>
+							<version>${pipeline-stage-step.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.pipeline-stage-view</groupId>
+							<artifactId>pipeline-stage-view</artifactId>
+							<version>${pipeline-stage-view.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -285,8 +676,29 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>run-condition</artifactId>
+							<version>${run-condition.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>s3</artifactId>
+							<version>${s3.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>saferestart</artifactId>
 							<version>${saferestart.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>sse-gateway</artifactId>
+							<version>${sse-gateway.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -313,8 +725,43 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ssh-agent</artifactId>
+							<version>${ssh-agent.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>ssh-credentials</artifactId>
 							<version>${ssh-credentials.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>ssh-slaves</artifactId>
+							<version>${ssh-slaves.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>subversion</artifactId>
+							<version>${subversion.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>support-core</artifactId>
+							<version>${support-core.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>structs</artifactId>
+							<version>${structs.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
@@ -333,9 +780,100 @@
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>
 						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>translation</artifactId>
+							<version>${translation.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>variant</artifactId>
+							<version>${variant.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>windows-slaves</artifactId>
+							<version>${windows-slaves.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-api</artifactId>
+							<version>${workflow-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-aggregator</artifactId>
+							<version>${workflow-aggregator.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-basic-steps</artifactId>
+							<version>${workflow-basic-steps.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-cps</artifactId>
+							<version>${workflow-cps.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-cps-global-lib</artifactId>
+							<version>${workflow-cps-global-lib.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-durable-task-step</artifactId>
+							<version>${workflow-durable-task-step.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-job</artifactId>
+							<version>${workflow-job.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-multibranch</artifactId>
+							<version>${workflow-multibranch.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-scm-step</artifactId>
+							<version>${workflow-scm-step.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
 							<groupId>org.jenkins-ci.plugins.workflow</groupId>
 							<artifactId>workflow-step-api</artifactId>
 							<version>${workflow-step-api.version}</version>
+							<type>hpi</type>
+							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins.workflow</groupId>
+							<artifactId>workflow-support</artifactId>
+							<version>${workflow-support.version}</version>
 							<type>hpi</type>
 							<outputDirectory>${project.build.directory}/plugins</outputDirectory>
 						</artifactItem>

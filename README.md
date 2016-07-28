@@ -17,41 +17,111 @@ Base packages:
   * [Nginx][nginx-home] 1.9.9
 
 Jenkins plugins:
-  * [ansicolor][ansicolor-plugin] v0.4.2
-  * [artifactory][artifactory-plugin] v2.4.7
-  * [build-name-setter][build-name-setter-plugin] v1.6.3
-  * [build-pipeline][build-pipeline-plugin] v1.5.2
-  * [build-timeout][build-timeout-plugin] v1.16
-  * [cloudbees-folder][folders-plugin] v5.7
-  * [credentials][credentials-plugin] v1.26
-  * [credentials-binding][credentials-binding-plugin] v1.7
-  * [embeddable-build-status][embeddable-build-status-plugin] v1.9
-  * [ghprb][ghprb-plugin] v1.33.0
-  * [git][git-plugin] v2.4.4
-  * [git-client][git-client-plugin] v1.19.6
-  * [github][github-plugin] v1.18.1
-  * [github-api][github-api-plugin] v1.72.1
-  * [greenballs][greenballs-plugin] v1.15
-  * [job-dsl][job-dsl-plugin] v1.44
-  * [jobConfigHistory][jobConfigHistory-plugin] v2.13
-  * [jquery][jquery] v1.11.2-0
-  * [mailer][mailer-plugin] v1.16
-  * [matrix-project][matrix-project] v1.7
-  * [marathon][marathon-plugin] v1.3.1
-  * [mesos][mesos-plugin] v0.13.0
-  * [monitoring][monitoring-plugin] v1.59.0
-  * [parameterized-trigger][parameterized-trigger-plugin] v2.30
-  * [plain-credentials][plain-credentials] v1.1
-  * [rebuild][rebuild-plugin] v1.25
-  * [role-strategy][role-strategy-plugin] v2.2.0
-  * [saferestart][saferestart-plugin] v0.3
-  * [saml][saml-plugin] v0.5
-  * [scm-api][scm-api-plugin] v0.2
-  * [script-security][script-security-plugin] v1.17
-  * [ssh-credentials][ssh-credentials-plugin] v1.11
-  * [timestamper][timestamper-plugin] v1.7.4
-  * [token-macro][token-macro-plugin] v1.12.1
-  * [workflow-step-api][workflow-step-api] v1.15
+  * ace-editor v1.1
+  * ansicolor v0.4.2
+  * ant v1.3
+  * antisamy-markup-formatter v1.5
+  * artifactory v2.5.1
+  * aws-credentials v1.16
+  * aws-java-sdk v1.10.50
+  * azure-slave-plugin v0.3.3
+  * blueocean v1.0-alpha-4
+  * blueocean-commons v1.0-alpha-4
+  * blueocean-dashboard v1.0-alpha-4
+  * blueocean-events v1.0-alpha-4
+  * blueocean-personalization v1.0-alpha-4
+  * blueocean-pipeline-api-impl v1.0-alpha-4
+  * blueocean-rest v1.0-alpha-4
+  * blueocean-rest-impl v1.0-alpha-4
+  * blueocean-web v1.0-alpha-4
+  * bouncycastle-api v1.648.3
+  * branch-api v1.10
+  * build-name-setter v1.6.5
+  * build-timeout v1.17.1
+  * cloudbees-folder v5.12
+  * conditional-buildstep v1.3.5
+  * config-file-provider v2.11
+  * copyartifact v1.38.1
+  * credentials v2.1.4
+  * credentials-binding v1.8
+  * cvs v2.12
+  * durable-task v1.11
+  * ec2 v1.35
+  * embeddable-build-status v1.9
+  * external-monitor-job v1.6
+  * favorite v1.16
+  * ghprb v1.33.0
+  * git v2.5.2
+  * git-client v1.19.7
+  * git-server v1.7
+  * github v1.20.0
+  * github-api v1.76
+  * github-branch-source v1.8.1
+  * gradle v1.25
+  * greenballs v1.15
+  * handlebars v1.1.1
+  * icon-shim v2.0.3
+  * ivy v1.26
+  * jackson2-api v2.7.3
+  * javadoc v1.4
+  * job-dsl v1.48
+  * jobConfigHistory v2.15
+  * jquery v1.11.2-0
+  * jquery-detached v1.2.1
+  * junit v1.15
+  * ldap v1.12
+  * mailer v1.17
+  * mapdb-api v1.0.9.0
+  * marathon v1.3.1
+  * matrix-auth v1.4
+  * matrix-project v1.7.1
+  * maven-plugin v2.13
+  * mesos v0.13.1
+  * metrics v3.1.2.9
+  * momentjs v1.1.1
+  * monitoring v1.60.0
+  * nant v1.4.3
+  * node-iterator-api v1.5.0
+  * pam-auth v1.3
+  * parameterized-trigger v2.32
+  * pipeline-build-step v2.2
+  * pipeline-input-step v2.0
+  * pipeline-rest-api v1.6
+  * pipeline-stage-step v2.1
+  * pipeline-stage-view v1.6
+  * plain-credentials v1.2
+  * rebuild v1.25
+  * role-strategy v2.3.2
+  * run-condition v1.0
+  * s3 v0.10.7
+  * saferestart v0.3
+  * saml v0.5
+  * scm-api v1.2
+  * script-security v1.21
+  * sse-gateway v1.5
+  * ssh-agent v1.13
+  * ssh-credentials v1.12
+  * ssh-slaves v1.11
+  * structs v1.2
+  * subversion v2.6
+  * support-core v2.32
+  * timestamper v1.8.4
+  * token-macro v1.12.1
+  * translation v1.15
+  * variant v1.0
+  * windows-slaves v1.1
+  * workflow-aggregator v2.2
+  * workflow-api v2.1
+  * workflow-basic-steps v2.0
+  * workflow-cps v2.9
+  * workflow-cps-global-lib v2.1
+  * workflow-durable-task-step v2.3
+  * workflow-job v2.3
+  * workflow-multibranch v2.8
+  * workflow-scm-step v2.2
+  * workflow-step-api v2.2
+  * workflow-support v2.2
+
 
 ## Creating the WAR
 The included `pom.xml` file is used to create a WAR file containing the plugins
@@ -83,46 +153,11 @@ To release a new version of this package:
   pull request against [the Universe][universe] referencing the new tag.
 
 [apache-maven]: https://maven.apache.org
-[ansicolor-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
-[artifactory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Artifactory+Plugin
-[build-name-setter-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Name+Setter+Plugin
-[build-pipeline-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build+Pipeline+Plugin
-[build-timeout-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Build-timeout+Plugin
-[credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Plugin
-[credentials-binding-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Credentials+Binding+Plugin
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
-[embeddable-build-status-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Embeddable+Build+Status+Plugin
-[folders-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/CloudBees+Folders+Plugin
 [getting-started]: http://mesosphere.github.io/jenkins-dcos/docs/
-[ghprb-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+pull+request+builder+plugin
-[git-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Plugin
-[git-client-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Git+Client+Plugin
-[github-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
-[github-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+API+Plugin
-[greenballs-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
 [jenkins-conf]: /conf/jenkins/config.xml
 [jenkins-dind]: https://github.com/mesosphere/jenkins-dind-agent
 [jenkins-home]: https://jenkins-ci.org/
-[job-dsl-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Job+DSL+Plugin
-[jobConfigHistory-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/JobConfigHistory+Plugin
-[jquery]: https://wiki.jenkins-ci.org/display/JENKINS/jQuery+Plugin
-[mailer-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mailer
-[matrix-project]: https://wiki.jenkins-ci.org/display/JENKINS/Matrix+Project+Plugin
-[marathon-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Marathon+Plugin
-[mesos-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Mesos+Plugin
-[monitoring-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Monitoring
 [nginx-home]: http://nginx.org/en/
-[parameterized-trigger-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Parameterized+Trigger+Plugin
-[plain-credentials]: https://wiki.jenkins-ci.org/display/JENKINS/Plain+Credentials+Plugin
-[rebuild-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Rebuild+Plugin
-[role-strategy-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Role+Strategy+Plugin
-[saferestart-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SafeRestart+Plugin
-[saml-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SAML+Plugin
-[scm-api-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SCM+API+Plugin
-[script-security-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Script+Security+Plugin
-[ssh-credentials-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Credentials+Plugin
-[jenkins-build]: https://velocity.mesosphere.com/service/velocity/job/public-jenkins-dcos-master/
-[timestamper-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Timestamper
-[token-macro-plugin]: https://wiki.jenkins-ci.org/display/JENKINS/Token+Macro+Plugin
+[jenkins-build]: https://jenkins.mesosphere.com/service/jenkins/job/public-jenkins-dcos-master/
 [universe]: https://github.com/mesosphere/universe
-[workflow-step-api]: https://wiki.jenkins-ci.org/display/JENKINS/Pipeline+Plugin

@@ -1,5 +1,5 @@
 # Jenkins on DC/OS
-[![velocity](http://velocity.mesosphere.com/service/velocity/buildStatus/icon?job=public-jenkins-dcos-master)](http://velocity.mesosphere.com/service/velocity/job/public-jenkins-dcos-master/)
+[![jenkins](http://jenkins.mesosphere.com/service/jenkins/buildStatus/icon?job=public-jenkins-dcos-master)](http://jenkins.mesosphere.com/service/jenkins/job/public-jenkins-dcos-master/)
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
 

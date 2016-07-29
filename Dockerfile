@@ -16,7 +16,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins/
 ENV JAVA_HOME "/usr/lib/jvm/java-7-openjdk-amd64"
 
 RUN apt-get update
-RUN apt-get install -y git python zip curl default-jre jq
+RUN apt-get install -y git python zip curl default-jre jq gradle ant maven
 
 RUN mkdir -p /var/log/nginx/jenkins
 COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -39,11 +39,11 @@ java ${JVM_OPTS}                                    \
     -Dhudson.udp=-1                                 \
     -Djava.awt.headless=true                        \
     -Dhudson.DNSMultiCast.disabled=true             \
+    -Djenkins.install.runSetupWizard=false          \
     -jar ${JENKINS_FOLDER}/jenkins.war              \
     --httpPort=${PORT1}                             \
     --webroot=${JENKINS_FOLDER}/war                 \
     --ajp13Port=-1                                  \
     --httpListenAddress=127.0.0.1                   \
     --ajp13ListenAddress=127.0.0.1                  \
-    --preferredClassLoader=java.net.URLClassLoader  \
     --prefix=${JENKINS_CONTEXT}

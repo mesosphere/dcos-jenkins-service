@@ -1,6 +1,20 @@
 # Changes
 
-## v1.0.0 (2016-07-18)
+## v2.0.0-2.7.1-rc1 (2016-08-02)
+  * Includes Jenkins 2.7.1 LTS and re-bundles common plugins. Note that the new
+  "Getting Started" wizard has been disabled for this package
+  * Includes the new "Pipeline" set of plugins
+  * Includes the new Blue Ocean UI (currently in Alpha) as an optional UI
+  * Added AWS and Azure plugins for on-demand cloud VMs, for when containers
+  might not work for a specific build
+  * Added the Support plugin, for easily generating support bundles
+  * Added the Metrics plugin
+  * Bumped all previously installed plugins to their latest versions
+  * Removed the Build Pipeline plugin, since it has been superseded by the
+  newer, shinier Pipeline plugin
+
+
+## v1.0.0-1.651.3 (2016-07-19)
   * Includes the [Marathon plugin][marathon-plugin].
   * Allow Jenkins instance URL to be configurable
   * Add several plugins, including Artifactory, Role Strategy, SAML,

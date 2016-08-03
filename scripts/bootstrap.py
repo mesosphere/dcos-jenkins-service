@@ -23,7 +23,7 @@ def is_firstrun(jenkins_home_dir):
     return len(os.listdir(jenkins_home_dir)) == 0
 
 
-def populate_jenkins_config_xml(config_xml, master, name, host, port):
+def populate_jenkins_config_xml(config_xml, master, name, host, port, role):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
     framework name and the Jenkins URL that agents use to connect back to the
@@ -33,6 +33,7 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port):
     :param name: the name of the framework, e.g. 'jenkins'
     :param host: the Mesos agent the task is running on
     :param port: the Mesos port the task is running on
+    :param role: The role passed to the internal Jenkins configuration that denotes which resources can be launched
     """
     tree, root = _get_xml_root(config_xml)
     mesos = root.find('./clouds/org.jenkinsci.plugins.mesos.MesosCloud')
@@ -40,6 +41,7 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port):
     _find_and_set(mesos, './master', master)
     _find_and_set(mesos, './frameworkName', name)
     _find_and_set(mesos, './jenkinsURL', "http://{}:{}".format(host, port))
+    _find_and_set(mesos, './role', role)
 
     tree.write(config_xml)
 
@@ -104,6 +106,7 @@ def populate_known_hosts(hosts, dest_file):
 
 def main():
     try:
+        jenkins_agent_role = os.environ['JENKINS_AGENT_ROLE']
         jenkins_staging_dir = os.environ['JENKINS_STAGING']
         jenkins_home_dir = os.environ['JENKINS_HOME']
         jenkins_framework_name = os.environ['JENKINS_FRAMEWORK_NAME']
@@ -138,7 +141,8 @@ def main():
         mesos_master,
         jenkins_framework_name,
         marathon_host,
-        marathon_nginx_port)
+        marathon_nginx_port, 
+        jenkins_agent_role)
 
     populate_jenkins_location_config(os.path.join(
         jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),

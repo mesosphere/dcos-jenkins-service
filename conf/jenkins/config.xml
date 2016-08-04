@@ -22,6 +22,7 @@
       <master>zk://leader.mesos:2181/mesos</master>
       <description></description>
       <frameworkName>jenkins</frameworkName>
+      <role>*</role>
       <slavesUser>root</slavesUser>
       <principal>jenkins</principal>
       <secret></secret>

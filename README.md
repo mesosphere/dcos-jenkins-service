@@ -2,6 +2,7 @@
 [![jenkins](http://jenkins.mesosphere.com/service/jenkins/buildStatus/icon?job=public-jenkins-dcos-master)](http://jenkins.mesosphere.com/service/jenkins/job/public-jenkins-dcos-master/)
 [![Docker Stars](https://img.shields.io/docker/stars/mesosphere/jenkins.svg)][docker-hub]
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
+[![](https://images.microbadger.com/badges/image/mesosphere/jenkins.svg)](http://microbadger.com/images/mesosphere/jenkins "Get your own image badge on microbadger.com")
 
 Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
 

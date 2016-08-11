@@ -1,7 +1,7 @@
 # Changes
 
-## v2.0.0-2.7.1-rc1 (2016-08-02)
-  * Includes Jenkins 2.7.1 LTS and re-bundles common plugins. Note that the new
+## v2.0.0-2.7.2 (2016-08-11)
+  * Includes Jenkins 2.7.2 LTS and re-bundles common plugins. Note that the new
   "Getting Started" wizard has been disabled for this package
   * Includes the new "Pipeline" set of plugins
   * Includes the new Blue Ocean UI (currently in Alpha) as an optional UI

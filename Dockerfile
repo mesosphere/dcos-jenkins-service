@@ -1,4 +1,4 @@
-FROM nginx:1.9.9
+FROM nginx:1.10.1
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile

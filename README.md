@@ -15,7 +15,7 @@ up and running quickly with Jenkins on DC/OS.
 ## Included in this repo
 Base packages:
   * [Jenkins][jenkins-home] 2.7.2 (LTS)
-  * [Nginx][nginx-home] 1.9.9
+  * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
   * ace-editor v1.1

@@ -22,7 +22,7 @@ Jenkins plugins:
   * ansicolor v0.4.2
   * ant v1.3
   * antisamy-markup-formatter v1.5
-  * artifactory v2.5.1
+  * artifactory v2.6.0
   * aws-credentials v1.16
   * aws-java-sdk v1.10.50
   * azure-slave-plugin v0.3.3
@@ -44,20 +44,20 @@ Jenkins plugins:
   * config-file-provider v2.11
   * copyartifact v1.38.1
   * credentials v2.1.4
-  * credentials-binding v1.8
+  * credentials-binding v1.9
   * cvs v2.12
-  * durable-task v1.11
+  * durable-task v1.12
   * ec2 v1.35
   * embeddable-build-status v1.9
   * external-monitor-job v1.6
   * favorite v1.16
-  * ghprb v1.33.0
-  * git v2.5.2
-  * git-client v1.19.7
+  * ghprb v1.33.1
+  * git v2.5.3
+  * git-client v1.21.0
   * git-server v1.7
-  * github v1.20.0
-  * github-api v1.76
-  * github-branch-source v1.8.1
+  * github v1.21.1
+  * github-api v1.77
+  * github-branch-source v1.9
   * gradle v1.25
   * greenballs v1.15
   * handlebars v1.1.1
@@ -65,15 +65,15 @@ Jenkins plugins:
   * ivy v1.26
   * jackson2-api v2.7.3
   * javadoc v1.4
-  * job-dsl v1.48
+  * job-dsl v1.50
   * jobConfigHistory v2.15
   * jquery v1.11.2-0
   * jquery-detached v1.2.1
-  * junit v1.15
+  * junit v1.18
   * ldap v1.12
   * mailer v1.17
   * mapdb-api v1.0.9.0
-  * marathon v1.3.1
+  * marathon v1.3.2
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.13
@@ -86,41 +86,41 @@ Jenkins plugins:
   * pam-auth v1.3
   * parameterized-trigger v2.32
   * pipeline-build-step v2.2
-  * pipeline-input-step v2.0
-  * pipeline-rest-api v1.6
+  * pipeline-input-step v2.1
+  * pipeline-rest-api v1.7
   * pipeline-stage-step v2.1
-  * pipeline-stage-view v1.6
+  * pipeline-stage-view v1.7
   * plain-credentials v1.2
   * rebuild v1.25
   * role-strategy v2.3.2
   * run-condition v1.0
   * s3 v0.10.7
   * saferestart v0.3
-  * saml v0.5
+  * saml v0.6
   * scm-api v1.2
-  * script-security v1.21
+  * script-security v1.22
   * sse-gateway v1.5
   * ssh-agent v1.13
   * ssh-credentials v1.12
   * ssh-slaves v1.11
-  * structs v1.2
+  * structs v1.4
   * subversion v2.6
   * support-core v2.32
   * timestamper v1.8.4
   * token-macro v1.12.1
   * translation v1.15
   * variant v1.0
-  * windows-slaves v1.1
+  * windows-slaves v1.2
   * workflow-aggregator v2.2
-  * workflow-api v2.1
-  * workflow-basic-steps v2.0
-  * workflow-cps v2.9
-  * workflow-cps-global-lib v2.1
-  * workflow-durable-task-step v2.3
-  * workflow-job v2.3
+  * workflow-api v2.2
+  * workflow-basic-steps v2.1
+  * workflow-cps v2.13
+  * workflow-cps-global-lib v2.2
+  * workflow-durable-task-step v2.4
+  * workflow-job v2.6
   * workflow-multibranch v2.8
   * workflow-scm-step v2.2
-  * workflow-step-api v2.2
+  * workflow-step-api v2.3
   * workflow-support v2.2
 
 

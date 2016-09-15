@@ -1,5 +1,11 @@
 # Changes
 
+## v2.0.1-2.7.4 (2016-09-15)
+  * Upgrades Jenkins to 2.7.4 LTS
+  * Adds the ability to specify arbitrary Jenkins options via `$JENKINS_OPTS`
+  * Adds the GitLab plugin
+  * Updates various plugins to their latest versions
+
 ## v2.0.0-2.7.2 (2016-08-11)
   * Includes Jenkins 2.7.2 LTS and re-bundles common plugins. Note that the new
   "Getting Started" wizard has been disabled for this package

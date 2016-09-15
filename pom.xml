@@ -92,6 +92,7 @@
 		<embeddable-build-status.version>1.9</embeddable-build-status.version>
 		<external-monitor-job.version>1.6</external-monitor-job.version>
 		<favorite.version>1.16</favorite.version>
+		<gitlab.version>1.4.0</gitlab.version>
 		<gradle.version>1.25</gradle.version>
 		<greenballs.version>1.15</greenballs.version>
 		<handlebars.version>1.1.1</handlebars.version>
@@ -387,6 +388,12 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>github-branch-source</artifactId>
 							<version>${github-branch-source.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>gitlab-plugin</artifactId>
+							<version>${gitlab.version}</version>
 							<type>hpi</type>
 						</artifactItem>
 						<artifactItem>

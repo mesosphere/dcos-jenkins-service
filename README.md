@@ -58,6 +58,7 @@ Jenkins plugins:
   * github v1.21.1
   * github-api v1.77
   * github-branch-source v1.9
+  * gitlab v1.4.0
   * gradle v1.25
   * greenballs v1.15
   * handlebars v1.1.1

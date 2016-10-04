@@ -119,11 +119,11 @@ def main():
         marathon_jenkins_port = os.environ['PORT1']
         mesos_master = os.environ['JENKINS_MESOS_MASTER']
         ssh_known_hosts = os.environ['SSH_KNOWN_HOSTS']
-    except KeyError:
+    except KeyError as e:
         # Since each of the environment variables above are set either in the
         # DCOS marathon.json or by Marathon itself, the user should never get
         # to this point.
-        print("ERROR: missing one or more required environment variables.")
+        print("ERROR: missing required environment variable {}.".format(e.args[0]))
         return 1
 
     # optional environment variables

@@ -3,7 +3,7 @@
 
 	<groupId>com.mesosphere.velocity</groupId>
 	<artifactId>jenkins</artifactId>
-	<version>2.1.0-2.7.4-SNAPSHOT</version>
+	<version>2.0.2-2.19.1-SNAPSHOT</version>
 
 	<repositories>
 		<repository>
@@ -15,84 +15,94 @@
 		<dependency>
 			<groupId>org.jenkins-ci.main</groupId>
 			<artifactId>jenkins-war</artifactId>
-			<version>2.7.4</version>
+			<version>2.19.1</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>
 
 	<properties>
 		<!-- Blueocean UI -->
-		<blueocean.version>1.0-alpha-4</blueocean.version>
-		<blueocean-commons.version>1.0-alpha-4</blueocean-commons.version>
-		<blueocean-dashboard.version>1.0-alpha-4</blueocean-dashboard.version>
-		<blueocean-events.version>1.0-alpha-4</blueocean-events.version>
-		<blueocean-personalization.version>1.0-alpha-4</blueocean-personalization.version>
-		<blueocean-pipeline-api-impl.version>1.0-alpha-4</blueocean-pipeline-api-impl.version>
-		<blueocean-rest.version>1.0-alpha-4</blueocean-rest.version>
-		<blueocean-rest-impl.version>1.0-alpha-4</blueocean-rest-impl.version>
-		<blueocean-web.version>1.0-alpha-4</blueocean-web.version>
+		<blueocean.version>1.0.0-b09</blueocean.version>
+		<blueocean-commons.version>1.0.0-b09</blueocean-commons.version>
+		<blueocean-config.version>1.0.0-b09</blueocean-config.version>
+		<blueocean-dashboard.version>1.0.0-b09</blueocean-dashboard.version>
+		<blueocean-events.version>1.0.0-b09</blueocean-events.version>
+		<blueocean-jwt.version>1.0.0-b09</blueocean-jwt.version>
+		<blueocean-personalization.version>1.0.0-b09</blueocean-personalization.version>
+		<blueocean-pipeline-api-impl.version>1.0.0-b09</blueocean-pipeline-api-impl.version>
+		<blueocean-rest.version>1.0.0-b09</blueocean-rest.version>
+		<blueocean-rest-impl.version>1.0.0-b09</blueocean-rest-impl.version>
+		<blueocean-web.version>1.0.0-b09</blueocean-web.version>
 		<!-- Pipeline (nee Workflow) plugins -->
 		<durable-task.version>1.12</durable-task.version>
-		<pipeline-build-step.version>2.2</pipeline-build-step.version>
-		<pipeline-input-step.version>2.1</pipeline-input-step.version>
-		<pipeline-rest-api.version>1.7</pipeline-rest-api.version>
-		<pipeline-stage-step.version>2.1</pipeline-stage-step.version>
-		<pipeline-stage-view.version>1.7</pipeline-stage-view.version>
-		<workflow-aggregator.version>2.2</workflow-aggregator.version>
-		<workflow-api.version>2.2</workflow-api.version>
-		<workflow-basic-steps.version>2.1</workflow-basic-steps.version>
-		<workflow-cps.version>2.13</workflow-cps.version>
-		<workflow-cps-global-lib.version>2.2</workflow-cps-global-lib.version>
-		<workflow-durable-task-step.version>2.4</workflow-durable-task-step.version>
-		<workflow-job.version>2.6</workflow-job.version>
-		<workflow-multibranch.version>2.8</workflow-multibranch.version>
+		<pipeline-build-step.version>2.3</pipeline-build-step.version>
+		<pipeline-graph-analysis.version>1.2</pipeline-graph-analysis.version>
+		<pipeline-input-step.version>2.3</pipeline-input-step.version>
+		<pipeline-milestone-step.version>1.1</pipeline-milestone-step.version>
+		<pipeline-model-definition.version>0.4</pipeline-model-definition.version>
+		<pipeline-rest-api.version>2.1</pipeline-rest-api.version>
+		<pipeline-stage-step.version>2.2</pipeline-stage-step.version>
+		<pipeline-stage-view.version>2.1</pipeline-stage-view.version>
+		<workflow-aggregator.version>2.4</workflow-aggregator.version>
+		<workflow-api.version>2.5</workflow-api.version>
+		<workflow-basic-steps.version>2.2</workflow-basic-steps.version>
+		<workflow-cps.version>2.21</workflow-cps.version>
+		<workflow-cps-global-lib.version>2.4</workflow-cps-global-lib.version>
+		<workflow-docker.version>1.9</workflow-docker.version>
+		<workflow-durable-task-step.version>2.5</workflow-durable-task-step.version>
+		<workflow-job.version>2.7</workflow-job.version>
+		<workflow-multibranch.version>2.9</workflow-multibranch.version>
 		<workflow-scm-step.version>2.2</workflow-scm-step.version>
-		<workflow-step-api.version>2.3</workflow-step-api.version>
-		<workflow-support.version>2.2</workflow-support.version>
+		<workflow-step-api.version>2.4</workflow-step-api.version>
+		<workflow-support.version>2.10</workflow-support.version>
 		<!-- Security -->
+		<authentication-tokens.version>1.3</authentication-tokens.version>
 		<aws-credentials.version>1.16</aws-credentials.version>
-		<credentials.version>2.1.4</credentials.version>
+		<credentials.version>2.1.7</credentials.version>
 		<credentials-binding.version>1.9</credentials-binding.version>
-		<ldap.version>1.12</ldap.version>
+		<ldap.version>1.13</ldap.version>
 		<matrix-auth.version>1.4</matrix-auth.version>
 		<pam-auth.version>1.3</pam-auth.version>
-		<plain-credentials.version>1.2</plain-credentials.version>
+		<plain-credentials.version>1.3</plain-credentials.version>
 		<role-strategy.version>2.3.2</role-strategy.version>
-		<saml.version>0.6</saml.version>
-		<script-security.version>1.22</script-security.version>
+		<saml.version>0.12</saml.version>
+		<script-security.version>1.24</script-security.version>
 		<ssh-credentials.version>1.12</ssh-credentials.version>
 		<!-- Version control -->
-		<branch-api.version>1.10</branch-api.version>
+		<branch-api.version>1.11</branch-api.version>
 		<cvs.version>2.12</cvs.version>
 		<ghprb.version>1.33.1</ghprb.version>
-		<git.version>2.5.3</git.version>
+		<git.version>2.6.0</git.version>
 		<git-client.version>1.21.0</git-client.version>
 		<git-server.version>1.7</git-server.version>
-		<github.version>1.21.1</github.version>
+		<github.version>1.22.3</github.version>
 		<github-api.version>1.77</github-api.version>
-		<github-branch-source.version>1.9</github-branch-source.version>
-		<scm-api.version>1.2</scm-api.version>
-		<subversion.version>2.6</subversion.version>
+		<github-branch-source.version>1.10</github-branch-source.version>
+		<scm-api.version>1.3</scm-api.version>
+		<subversion.version>2.7.1</subversion.version>
 		<!-- Everything else (including misc dependencies) -->
 		<ace-editor.version>1.1</ace-editor.version>
 		<ansicolor.version>0.4.2</ansicolor.version>
-		<ant.version>1.3</ant.version>
+		<ant.version>1.4</ant.version>
 		<antisamy-markup-formatter.version>1.5</antisamy-markup-formatter.version>
-		<artifactory.version>2.6.0</artifactory.version>
-		<aws-java-sdk.version>1.10.50</aws-java-sdk.version>
+		<artifactory.version>2.7.2</artifactory.version>
+		<async-http-client.version>1.7.24.1</async-http-client.version>
+		<aws-java-sdk.version>1.11.37</aws-java-sdk.version>
 		<azure-slave-plugin.version>0.3.3</azure-slave-plugin.version>
 		<build-name-setter.version>1.6.5</build-name-setter.version>
 		<build-timeout.version>1.17.1</build-timeout.version>
-		<bouncycastle-api.version>1.648.3</bouncycastle-api.version>
-		<cloudbees-folder.version>5.12</cloudbees-folder.version>
+		<bouncycastle-api.version>2.16.0</bouncycastle-api.version>
+		<cloudbees-folder.version>5.13</cloudbees-folder.version>
 		<conditional-buildstep.version>1.3.5</conditional-buildstep.version>
-		<config-file-provider.version>2.11</config-file-provider.version>
+		<config-file-provider.version>2.13</config-file-provider.version>
 		<copyartifact.version>1.38.1</copyartifact.version>
-		<ec2.version>1.35</ec2.version>
+		<display-url.version>0.5</display-url.version>
+		<docker-commons.version>1.5</docker-commons.version>
+		<ec2.version>1.36</ec2.version>
 		<embeddable-build-status.version>1.9</embeddable-build-status.version>
 		<external-monitor-job.version>1.6</external-monitor-job.version>
 		<favorite.version>1.16</favorite.version>
-		<gitlab.version>1.4.0</gitlab.version>
+		<gitlab.version>1.4.2</gitlab.version>
 		<gradle.version>1.25</gradle.version>
 		<greenballs.version>1.15</greenballs.version>
 		<handlebars.version>1.1.1</handlebars.version>
@@ -102,32 +112,32 @@
 		<javadoc.version>1.4</javadoc.version>
 		<jquery.version>1.11.2-0</jquery.version>
 		<jquery-detached.version>1.2.1</jquery-detached.version>
-		<job-dsl.version>1.50</job-dsl.version>
+		<job-dsl.version>1.52</job-dsl.version>
 		<jobConfigHistory.version>2.15</jobConfigHistory.version>
-		<junit.version>1.18</junit.version>
-		<mailer.version>1.17</mailer.version>
+		<junit.version>1.19</junit.version>
+		<mailer.version>1.18</mailer.version>
 		<mapdb-api.version>1.0.9.0</mapdb-api.version>
 		<marathon.version>1.3.2</marathon.version>
 		<matrix-project.version>1.7.1</matrix-project.version>
-		<maven-plugin.version>2.13</maven-plugin.version>
+		<maven-plugin.version>2.14</maven-plugin.version>
 		<mesos.version>0.13.1</mesos.version>
 		<metrics.version>3.1.2.9</metrics.version>
 		<momentjs.version>1.1.1</momentjs.version>
-		<monitoring.version>1.60.0</monitoring.version>
+		<monitoring.version>1.62.0</monitoring.version>
 		<nant.version>1.4.3</nant.version>
 		<node-iterator-api.version>1.5.0</node-iterator-api.version>
 		<parameterized-trigger.version>2.32</parameterized-trigger.version>
 		<rebuild.version>1.25</rebuild.version>
 		<run-condition.version>1.0</run-condition.version>
-		<s3.version>0.10.7</s3.version>
+		<s3.version>0.10.10</s3.version>
 		<saferestart.version>0.3</saferestart.version>
-		<sse-gateway.version>1.5</sse-gateway.version>
+		<sse-gateway.version>1.10</sse-gateway.version>
 		<ssh-agent.version>1.13</ssh-agent.version>
 		<ssh-slaves.version>1.11</ssh-slaves.version>
-		<support-core.version>2.32</support-core.version>
-		<structs.version>1.4</structs.version>
-		<timestamper.version>1.8.4</timestamper.version>
-		<token-macro.version>1.12.1</token-macro.version>
+		<support-core.version>2.33</support-core.version>
+		<structs.version>1.5</structs.version>
+		<timestamper.version>1.8.7</timestamper.version>
+		<token-macro.version>2.0</token-macro.version>
 		<translation.version>1.15</translation.version>
 		<variant.version>1.0</variant.version>
 		<windows-slaves.version>1.2</windows-slaves.version>
@@ -182,6 +192,18 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>async-http-client</artifactId>
+							<version>${async-http-client.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>authentication-tokens</artifactId>
+							<version>${authentication-tokens.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>aws-credentials</artifactId>
 							<version>${aws-credentials.version}</version>
 							<type>hpi</type>
@@ -212,6 +234,12 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-config</artifactId>
+							<version>${blueocean-config.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
 							<artifactId>blueocean-dashboard</artifactId>
 							<version>${blueocean-dashboard.version}</version>
 							<type>hpi</type>
@@ -220,6 +248,12 @@
 							<groupId>io.jenkins.blueocean</groupId>
 							<artifactId>blueocean-events</artifactId>
 							<version>${blueocean-events.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>io.jenkins.blueocean</groupId>
+							<artifactId>blueocean-jwt</artifactId>
+							<version>${blueocean-jwt.version}</version>
 							<type>hpi</type>
 						</artifactItem>
 						<artifactItem>
@@ -316,6 +350,24 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>cvs</artifactId>
 							<version>${cvs.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>display-url-api</artifactId>
+							<version>${display-url.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>docker-commons</artifactId>
+							<version>${docker-commons.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>docker-workflow</artifactId>
+							<version>${workflow-docker.version}</version>
 							<type>hpi</type>
 						</artifactItem>
 						<artifactItem>
@@ -566,8 +618,26 @@
 						</artifactItem>
 						<artifactItem>
 							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pipeline-graph-analysis</artifactId>
+							<version>${pipeline-graph-analysis.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>pipeline-input-step</artifactId>
 							<version>${pipeline-input-step.version}</version>
+							<type>hpi</type>
+						</artifactItem>						
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>pipeline-milestone-step</artifactId>
+							<version>${pipeline-milestone-step.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkinsci.plugins</groupId>
+							<artifactId>pipeline-model-definition</artifactId>
+							<version>${pipeline-model-definition.version}</version>
 							<type>hpi</type>
 						</artifactItem>
 						<artifactItem>

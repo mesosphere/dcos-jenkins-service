@@ -76,7 +76,7 @@
 		<git-client.version>1.21.0</git-client.version>
 		<git-server.version>1.7</git-server.version>
 		<github.version>1.22.3</github.version>
-		<github-api.version>1.77</github-api.version>
+		<github-api.version>1.79</github-api.version>
 		<github-branch-source.version>1.10</github-branch-source.version>
 		<scm-api.version>1.3</scm-api.version>
 		<subversion.version>2.7.1</subversion.version>
@@ -97,12 +97,13 @@
 		<config-file-provider.version>2.13</config-file-provider.version>
 		<copyartifact.version>1.38.1</copyartifact.version>
 		<display-url.version>0.5</display-url.version>
+		<docker-build-publish.version>1.3.2</docker-build-publish.version>
 		<docker-commons.version>1.5</docker-commons.version>
 		<ec2.version>1.36</ec2.version>
 		<embeddable-build-status.version>1.9</embeddable-build-status.version>
 		<external-monitor-job.version>1.6</external-monitor-job.version>
 		<favorite.version>1.16</favorite.version>
-		<gitlab.version>1.4.2</gitlab.version>
+		<gitlab.version>1.4.3</gitlab.version>
 		<gradle.version>1.25</gradle.version>
 		<greenballs.version>1.15</greenballs.version>
 		<handlebars.version>1.1.1</handlebars.version>
@@ -356,6 +357,12 @@
 							<groupId>org.jenkins-ci.plugins</groupId>
 							<artifactId>display-url-api</artifactId>
 							<version>${display-url.version}</version>
+							<type>hpi</type>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jenkins-ci.plugins</groupId>
+							<artifactId>docker-build-publish</artifactId>
+							<version>${docker-build-publish.version}</version>
 							<type>hpi</type>
 						</artifactItem>
 						<artifactItem>

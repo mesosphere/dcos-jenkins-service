@@ -51,6 +51,7 @@ Jenkins plugins:
   * credentials-binding v1.9
   * cvs v2.12
   * display-url v0.5
+  * docker-build-publish v1.3.2
   * docker-commons v1.5
   * durable-task v1.12
   * ec2 v1.36
@@ -62,9 +63,9 @@ Jenkins plugins:
   * git-client v1.21.0
   * git-server v1.7
   * github v1.22.3
-  * github-api v1.77
+  * github-api v1.79
   * github-branch-source v1.10
-  * gitlab v1.4.2
+  * gitlab v1.4.3
   * gradle v1.25
   * greenballs v1.15
   * handlebars v1.1.1

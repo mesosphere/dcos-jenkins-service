@@ -1,5 +1,11 @@
 # Changes
 
+## v2.1.0-2.19.1 (2016-11-03)
+  * Upgrades Jenkins to 2.19.1 LTS
+  * Adds Docker Build and Publish plugin
+  * Updates Blue Ocean to beta 9
+  * Updates various plugins to their latest versions
+
 ## v2.0.1-2.7.4 (2016-09-15)
   * Upgrades Jenkins to 2.7.4 LTS
   * Adds the ability to specify arbitrary Jenkins options via `$JENKINS_OPTS`

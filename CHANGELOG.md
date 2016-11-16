@@ -1,5 +1,8 @@
 # Changes
 
+## v2.1.0-2.19.3 (2016-11-16)
+  * Upgrades Jenkins to 2.19.3 LTS
+
 ## v2.1.0-2.19.1 (2016-11-03)
   * Upgrades Jenkins to 2.19.1 LTS
   * Adds Docker Build and Publish plugin

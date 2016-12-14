@@ -167,7 +167,7 @@ To release a new version of this package:
 
 [apache-maven]: https://maven.apache.org
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
-[getting-started]: http://mesosphere.github.io/jenkins-dcos/docs/
+[getting-started]: https://docs.mesosphere.com/latest/usage/service-guides/jenkins/
 [jenkins-conf]: /conf/jenkins/config.xml
 [jenkins-dind]: https://github.com/mesosphere/jenkins-dind-agent
 [jenkins-home]: https://jenkins-ci.org/

@@ -26,6 +26,7 @@ RUN mkdir -p ${JENKINS_FOLDER}/war
 
 COPY target/jenkins-*.war ${JENKINS_FOLDER}/jenkins.war
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
+COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
 
 COPY conf/jenkins/config.xml "${JENKINS_STAGING}/config.xml"
 COPY conf/jenkins/jenkins.model.JenkinsLocationConfiguration.xml "${JENKINS_STAGING}/jenkins.model.JenkinsLocationConfiguration.xml"
@@ -34,7 +35,8 @@ COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
 # Override the default property for DNS lookup caching
 RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security
 
-CMD /usr/local/jenkins/bin/bootstrap.py && nginx && \
+CMD . /usr/local/jenkins/bin/export-libssl.sh && \
+	/usr/local/jenkins/bin/bootstrap.py && nginx && \
 java ${JVM_OPTS}                                    \
     -Dhudson.udp=-1                                 \
     -Djava.awt.headless=true                        \

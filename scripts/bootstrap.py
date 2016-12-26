@@ -20,7 +20,7 @@ def is_firstrun(jenkins_home_dir):
     :param jenkins_home_dir: the path to $JENKINS_HOME on disk
     :return: boolean; True if $JENKINS_HOME isn't populated, false otherwise
     """
-    return len(os.listdir(jenkins_home_dir)) == 0
+    return os.path.isfile(os.path.join(jenkins_home_dir,'config.xml')) == 0
 
 
 def populate_jenkins_config_xml(config_xml, master, name, host, port, role, user):

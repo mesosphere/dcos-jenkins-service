@@ -39,23 +39,74 @@ RUN chown -R jenkins "$JENKINS_HOME" "$JENKINS_FOLDER" "$JENKINS_STAGING"
 #USER jenkins
 
 # add our giant list of plugins
-RUN /usr/local/bin/install-plugins.sh blueocean:1.0.0-b14	\
+RUN /usr/local/bin/install-plugins.sh 	\
+	blueocean:1.0.0-b14				\
 	ant:1.4							\
 	ace-editor:1.1					\
 	ansicolor:0.4.2					\
 	antisamy-markup-formatter:1.5	\
 	artifactory:2.7.2				\
-	async-http-client:1.7.24.1		\
 	authentication-tokens:1.3		\
-	aws-credentials:1.16			\
-	aws-java-sdk:1.11.37			\
 	azure-slave-plugin:0.3.3		\
-	bouncycastle-api:2.16.0			\
 	branch-api:1.11					\
 	build-name-setter:1.6.5			\
 	build-timeout:1.17.1			\
 	cloudbees-folder:5.13			\
-	conditional-buildstep:1.3.5
+	conditional-buildstep:1.3.5		\
+	config-file-provider:2.13		\
+	copyartifact:1.38.1				\
+	cvs:2.12						\
+	docker-build-publish:1.3.2		\
+	durable-task:1.12				\
+	ec2:1.36						\
+	embeddable-build-status:1.9		\
+	external-monitor-job:1.6		\
+	ghprb:1.33.1					\
+	git:2.6.0						\
+	git-client:1.21.0				\
+	git-server:1.7					\
+	github:1.22.3					\
+	github-api:1.79					\
+	github-branch-source:1.10		\
+	gitlab:1.4.3					\
+	gradle:1.25						\
+	greenballs:1.15					\
+	handlebars:1.1.1				\
+	ivy:1.26						\
+	jackson2-api:2.7.3				\
+	job-dsl:1.52					\
+	jobConfigHistory:2.15			\
+	jquery:1.11.2-0					\
+	ldap:1.13						\
+	mapdb-api:1.0.9.0				\
+	marathon:1.3.2					\
+	matrix-auth:1.4					\
+	matrix-project:1.7.1			\
+	maven-plugin:2.14				\
+	mesos:0.13.1					\
+	metrics:3.1.2.9					\
+	momentjs:1.1.1					\
+	monitoring:1.62.0				\
+	nant:1.4.3						\
+	node-iterator-api:1.5.0			\
+	pam-auth:1.3					\
+	parameterized-trigger:2.32		\
+	plain-credentials:1.3			\
+	rebuild:1.25					\
+	role-strategy:2.3.2				\
+	run-condition:1.0				\
+	s3:0.10.10						\
+	saferestart:0.3					\
+	saml:0.12						\
+	scm-api:1.3						\
+	ssh-agent:1.13					\
+	ssh-slaves:1.11					\
+	subversion:2.7.1				\
+	timestamper:1.8.7				\
+	translation:1.15				\
+	variant:1.0						\
+	windows-slaves:1.2				\
+	workflow-aggregator:2.4
 
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state

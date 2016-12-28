@@ -22,8 +22,7 @@ RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.sec
 # jenkins setup
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
-RUN mkdir -p "$JENKINS_HOME"
-RUN mkdir -p "${JENKINS_FOLDER}/war"
+RUN mkdir -p "$JENKINS_HOME" "${JENKINS_STAGING}" "${JENKINS_FOLDER}/war"
 
 # nginx setup
 RUN mkdir -p /var/log/nginx/jenkins

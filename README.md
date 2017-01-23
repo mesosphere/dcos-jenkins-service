@@ -135,12 +135,6 @@ Jenkins plugins:
   * workflow-step-api v2.4
   * workflow-support v2.10
 
-
-## Creating the WAR
-The included `pom.xml` file is used to create a WAR file containing the plugins
-listed above. To assemble the WAR file, run the [maven][apache-maven] command:
-`mvn package`.
-
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].
 To make changes to the Jenkins package, submit a pull request against the
@@ -159,10 +153,9 @@ To release a new version of this package:
 
   1. Update [the Jenkins conf][jenkins-conf] to reference the current release of
   the [jenkins-dind][jenkins-dind] Docker image (if needed).
-  2. Update the Jenkins release version in [pom.xml](pom.xml).
-  3. Add some release notes to [CHANGELOG.md](CHANGELOG.md)
-  4. Tag the commit on master that you want to be released.
-  5. Once [the build][jenkins-build] has successfully completed, submit a new
+  2. Add some release notes to [CHANGELOG.md](CHANGELOG.md)
+  3. Tag the commit on master that you want to be released.
+  4. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
 
 [apache-maven]: https://maven.apache.org

@@ -1,4 +1,4 @@
-FROM jenkins:2.19.3
+FROM jenkins:2.32.1
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -99,7 +99,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   jquery:1.11.2-0                \
   ldap:1.13                      \
   mapdb-api:1.0.9.0              \
-  marathon:1.3.2                 \
+  marathon:1.4.0                 \
   matrix-auth:1.4                \
   matrix-project:1.7.1           \
   maven-plugin:2.14              \

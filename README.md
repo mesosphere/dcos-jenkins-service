@@ -14,7 +14,7 @@ up and running quickly with Jenkins on DC/OS.
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.19.3 (LTS)
+  * [Jenkins][jenkins-home] 2.32.1 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
@@ -81,7 +81,7 @@ Jenkins plugins:
   * ldap v1.13
   * mailer v1.18
   * mapdb-api v1.0.9.0
-  * marathon v1.3.2
+  * marathon v1.4.0
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.14

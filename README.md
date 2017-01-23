@@ -85,7 +85,7 @@ Jenkins plugins:
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.14
-  * mesos v0.13.1
+  * mesos v0.14.0
   * metrics v3.1.2.9
   * momentjs v1.1.1
   * monitoring v1.62.0

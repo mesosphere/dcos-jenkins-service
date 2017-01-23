@@ -103,7 +103,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   matrix-auth:1.4                \
   matrix-project:1.7.1           \
   maven-plugin:2.14              \
-  mesos:0.13.1                   \
+  mesos:0.14.0                   \
   metrics:3.1.2.9                \
   momentjs:1.1.1                 \
   monitoring:1.62.0              \

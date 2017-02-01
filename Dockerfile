@@ -10,13 +10,13 @@ WORKDIR /tmp
 #                   data directory. This cannot be populated before Marathon
 #                   has a chance to create the host-container volume mapping.
 #
-ENV JENKINS_STAGING /var/jenkins_staging
 ENV JENKINS_FOLDER /usr/share/jenkins
 
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.8.7-1.0.2-2.tar.gz
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
 ARG BLUEOCEAN_VERSION=1.0.0-b14
+ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
 # install more things
 USER root
@@ -32,14 +32,14 @@ RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.sec
 # jenkins setup
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
-RUN mkdir -p "$JENKINS_HOME" "${JENKINS_STAGING}" "${JENKINS_FOLDER}/war"
+RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
 
 # nginx setup
 RUN mkdir -p /var/log/nginx/jenkins
 COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # more file copying
-RUN chown -R jenkins "$JENKINS_HOME" "$JENKINS_FOLDER" "$JENKINS_STAGING"
+RUN chown -R jenkins "$JENKINS_HOME" "$JENKINS_FOLDER" 
 
 # back to jenkins user
 #USER jenkins

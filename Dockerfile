@@ -25,6 +25,8 @@ RUN curl -fsSL "$LIBMESOS_DOWNLOAD_URL" -o libmesos-bundle.tar.gz  \
   && echo "$LIBMESOS_DOWNLOAD_SHA256 libmesos-bundle.tar.gz" | sha256sum -c - \
   && tar -C / -xzf libmesos-bundle.tar.gz  \
   && rm libmesos-bundle.tar.gz
+RUN echo "deb http://ftp.debian.org/debian testing main" >> /etc/apt/sources.list \
+  && apt-get update && apt-get -t testing install -y git
 
 # Override the default property for DNS lookup caching
 RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security

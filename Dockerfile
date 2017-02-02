@@ -15,7 +15,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.8.7-1.0.2-2.tar.gz
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
-ARG BLUEOCEAN_VERSION=1.0.0-b20
+ARG BLUEOCEAN_VERSION=1.0.0-b21
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
 # install more things
@@ -55,6 +55,8 @@ RUN /usr/local/bin/install-plugins.sh       \
   blueocean-config:${BLUEOCEAN_VERSION}     \
   blueocean-dashboard:${BLUEOCEAN_VERSION}  \
   blueocean-events:${BLUEOCEAN_VERSION}     \
+  blueocean-git-pipeline:${BLUEOCEAN_VERSION}          \
+  blueocean-github-pipeline:${BLUEOCEAN_VERSION}       \
   blueocean-i18n:${BLUEOCEAN_VERSION}       \
   blueocean-jwt:${BLUEOCEAN_VERSION}        \
   blueocean-personalization:${BLUEOCEAN_VERSION}    \

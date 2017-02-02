@@ -28,17 +28,19 @@ Jenkins plugins:
   * aws-credentials v1.16
   * aws-java-sdk v1.11.37
   * azure-slave-plugin v0.3.3
-  * blueocean v1.0.0-b20
-  * blueocean-commons v1.0.0-b20
-  * blueocean-config v1.0.0-b20
-  * blueocean-dashboard v1.0.0-b20
-  * blueocean-events v1.0.0-b20
-  * blueocean-jwt v1.0.0-b20
-  * blueocean-personalization v1.0.0-b20
-  * blueocean-pipeline-api-impl v1.0.0-b20
-  * blueocean-rest v1.0.0-b20
-  * blueocean-rest-impl v1.0.0-b20
-  * blueocean-web v1.0.0-b20
+  * blueocean v1.0.0-b21
+  * blueocean-commons v1.0.0-b21
+  * blueocean-config v1.0.0-b21
+  * blueocean-dashboard v1.0.0-b21
+  * blueocean-events v1.0.0-b21
+  * blueocean-git-pipeline v1.0.0-b21
+  * blueocean-github-pipeline v1.0.0-b21
+  * blueocean-jwt v1.0.0-b21
+  * blueocean-personalization v1.0.0-b21
+  * blueocean-pipeline-api-impl v1.0.0-b21
+  * blueocean-rest v1.0.0-b21
+  * blueocean-rest-impl v1.0.0-b21
+  * blueocean-web v1.0.0-b21
   * bouncycastle-api v2.16.0
   * branch-api v1.11
   * build-name-setter v1.6.5

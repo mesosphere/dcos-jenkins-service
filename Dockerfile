@@ -3,9 +3,6 @@ WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
 #
-# $JENKINS_STAGING  will be used to download plugins and copy config files
-#                   during the Docker build process.
-#
 # $JENKINS_HOME     will be the final destination that Jenkins will use as its
 #                   data directory. This cannot be populated before Marathon
 #                   has a chance to create the host-container volume mapping.
@@ -18,20 +15,23 @@ ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545
 ARG BLUEOCEAN_VERSION=1.0.0-b21
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
-# install more things
 USER root
+
+# install dependencies
 RUN apt-get update && apt-get install -y nginx python zip jq
+# libmesos bundle
 RUN curl -fsSL "$LIBMESOS_DOWNLOAD_URL" -o libmesos-bundle.tar.gz  \
   && echo "$LIBMESOS_DOWNLOAD_SHA256 libmesos-bundle.tar.gz" | sha256sum -c - \
   && tar -C / -xzf libmesos-bundle.tar.gz  \
   && rm libmesos-bundle.tar.gz
+# update to newer git version
 RUN echo "deb http://ftp.debian.org/debian testing main" >> /etc/apt/sources.list \
   && apt-get update && apt-get -t testing install -y git
 
 # Override the default property for DNS lookup caching
 RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security
 
-# jenkins setup
+# bootstrap scripts and needed dir setup
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
 RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
@@ -40,16 +40,12 @@ RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
 RUN mkdir -p /var/log/nginx/jenkins
 COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
 
-# more file copying
-RUN chown -R jenkins "$JENKINS_HOME" "$JENKINS_FOLDER" 
-
-# back to jenkins user
-#USER jenkins
+# jenkins setup
 COPY conf/jenkins/config.xml "${JENKINS_STAGING}/config.xml"
 COPY conf/jenkins/jenkins.model.JenkinsLocationConfiguration.xml "${JENKINS_STAGING}/jenkins.model.JenkinsLocationConfiguration.xml"
 COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
 
-# add our giant list of plugins
+# add plugins
 RUN /usr/local/bin/install-plugins.sh       \
   blueocean-commons:${BLUEOCEAN_VERSION}    \
   blueocean-config:${BLUEOCEAN_VERSION}     \

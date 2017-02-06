@@ -68,26 +68,27 @@ RUN /usr/local/bin/install-plugins.sh       \
   artifactory:2.7.2              \
   authentication-tokens:1.3      \
   azure-slave-plugin:0.3.3       \
-  branch-api:1.11                \
+  branch-api:2.0.2               \
   build-name-setter:1.6.5        \
   build-timeout:1.17.1           \
-  cloudbees-folder:5.13          \
+  cloudbees-folder:5.17          \
   conditional-buildstep:1.3.5    \
   config-file-provider:2.13      \
   copyartifact:1.38.1            \
   cvs:2.12                       \
   docker-build-publish:1.3.2     \
+  docker-workflow:1.9.1          \
   durable-task:1.12              \
   ec2:1.36                       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.6       \
   ghprb:1.33.1                   \
-  git:2.6.0                      \
-  git-client:1.21.0              \
+  git:3.0.4                      \
+  git-client:2.1.0               \
   git-server:1.7                 \
-  github:1.22.3                  \
-  github-api:1.79                \
-  github-branch-source:1.10      \
+  github:1.25.1                  \
+  github-api:1.84                \
+  github-branch-source:2.0.1     \
   gitlab:1.4.3                   \
   gradle:1.25                    \
   greenballs:1.15                \
@@ -111,6 +112,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
   parameterized-trigger:2.32     \
+  pipeline-github-lib:1.0        \
   plain-credentials:1.3          \
   rebuild:1.25                   \
   role-strategy:2.3.2            \
@@ -118,7 +120,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   s3:0.10.10                     \
   saferestart:0.3                \
   saml:0.12                      \
-  scm-api:1.3                    \
+  scm-api:2.0.2                  \
   ssh-agent:1.13                 \
   ssh-slaves:1.11                \
   subversion:2.7.1               \
@@ -126,7 +128,13 @@ RUN /usr/local/bin/install-plugins.sh       \
   translation:1.15               \
   variant:1.0                    \
   windows-slaves:1.2             \
-  workflow-aggregator:2.4
+  workflow-aggregator:2.5        \
+  workflow-api:2.8               \
+  workflow-durable-task-step:2.8 \
+  workflow-multibranch:2.12      \
+  workflow-scm-step:2.3          \
+  workflow-step-api:2.7          \
+  workflow-support:2.12
 
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state

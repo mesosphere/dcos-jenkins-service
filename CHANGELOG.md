@@ -1,6 +1,6 @@
 # Changes
 
-## v2.2.0-2.32.2 (2017-02-08)
+## v3.0.0-2.32.2 (2017-02-08)
   * Now using the Jenkins docker image
   * Remove pom.xml file and maven requirements
   * Upgrades Jenkins to 2.32.2 LTS
@@ -37,7 +37,6 @@
   * Bumped all previously installed plugins to their latest versions
   * Removed the Build Pipeline plugin, since it has been superseded by the
   newer, shinier Pipeline plugin
-
 
 ## v1.0.0-1.651.3 (2016-07-19)
   * Includes the [Marathon plugin][marathon-plugin].

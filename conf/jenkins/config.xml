@@ -36,7 +36,7 @@
           <executorCpus>0.1</executorCpus>
           <maxExecutors>4</maxExecutors>
           <executorMem>128</executorMem>
-          <remoteFSRoot>jenkins</remoteFSRoot>
+          <remoteFSRoot>/mnt/mesos/sandbox</remoteFSRoot>
           <idleTerminationMinutes>3</idleTerminationMinutes>
           <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
           <jnlpArgs>-noReconnect</jnlpArgs>

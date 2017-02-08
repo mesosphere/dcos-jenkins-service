@@ -149,7 +149,6 @@ To release a new version of this package:
   4. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
 
-[apache-maven]: https://maven.apache.org
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [getting-started]: https://docs.mesosphere.com/latest/usage/service-guides/jenkins/
 [jenkins-conf]: /conf/jenkins/config.xml

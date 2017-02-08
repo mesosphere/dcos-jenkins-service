@@ -12,17 +12,6 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-def is_firstrun(jenkins_home_dir):
-    """A small helper utility to determine if this is the first run of this
-    bootstrap script. Checks to see if the 'jenkins_home_dir' directory
-    is empty, or if it contains existing data.
-
-    :param jenkins_home_dir: the path to $JENKINS_HOME on disk
-    :return: boolean; True if $JENKINS_HOME isn't populated, false otherwise
-    """
-    return len(os.listdir(jenkins_home_dir)) == 0
-
-
 def populate_jenkins_config_xml(config_xml, master, name, host, port, role, user):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
@@ -110,7 +99,6 @@ def main():
     try:
         jenkins_agent_user = os.environ['JENKINS_AGENT_USER']
         jenkins_agent_role = os.environ['JENKINS_AGENT_ROLE']
-        jenkins_staging_dir = os.environ['JENKINS_STAGING']
         jenkins_home_dir = os.environ['JENKINS_HOME']
         jenkins_framework_name = os.environ['JENKINS_FRAMEWORK_NAME']
         jenkins_app_context = os.environ['JENKINS_CONTEXT']
@@ -132,16 +120,8 @@ def main():
             "http://{}:{}".format(marathon_host, marathon_nginx_port))
 
 
-    # If this is the first run of the script, make changes to the staging
-    # directory first, so we can then use these files to populate the host
-    # volume. If data exists in that directory (e.g. Marathon has restarted
-    # a Jenkins master task), then we'll make changes in-place to the existing
-    # data without overwriting anything the user already has.
-    firstrun = is_firstrun(jenkins_home_dir)
-    jenkins_data_dir = jenkins_staging_dir if firstrun else jenkins_home_dir
-
     populate_jenkins_config_xml(
-        os.path.join(jenkins_data_dir, 'config.xml'),
+        os.path.join(jenkins_home_dir, 'config.xml'),
         mesos_master,
         jenkins_framework_name,
         marathon_host,
@@ -150,20 +130,10 @@ def main():
         jenkins_agent_user)
 
     populate_jenkins_location_config(os.path.join(
-        jenkins_data_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
+        jenkins_home_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),
         jenkins_root_url)
 
     populate_known_hosts(ssh_known_hosts, '/etc/ssh/ssh_known_hosts')
-
-    # os.rename() doesn't work here because the destination directory is
-    # actually a mount point to the volume on the host. shutil.move() here
-    # also doesn't work because of some weird recursion problem.
-    #
-    # TODO(roger): figure out how to implement this in Python.
-    #
-    if firstrun:
-        subprocess.call("/bin/mv {src}/* {dst}/.".format(
-            src=jenkins_staging_dir, dst=jenkins_home_dir), shell=True)
 
     # nginx changes here are really "run once". The context should never
     # change as long as a Jenkins instance is alive, since the rewrite will

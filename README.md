@@ -14,7 +14,7 @@ up and running quickly with Jenkins on DC/OS.
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.19.3 (LTS)
+  * [Jenkins][jenkins-home] 2.32.2 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
@@ -28,22 +28,24 @@ Jenkins plugins:
   * aws-credentials v1.16
   * aws-java-sdk v1.11.37
   * azure-slave-plugin v0.3.3
-  * blueocean v1.0.0-b09
-  * blueocean-commons v1.0.0-b09
-  * blueocean-config v1.0.0-b09
-  * blueocean-dashboard v1.0.0-b09
-  * blueocean-events v1.0.0-b09
-  * blueocean-jwt v1.0.0-b09
-  * blueocean-personalization v1.0.0-b09
-  * blueocean-pipeline-api-impl v1.0.0-b09
-  * blueocean-rest v1.0.0-b09
-  * blueocean-rest-impl v1.0.0-b09
-  * blueocean-web v1.0.0-b09
+  * blueocean v1.0.0-b21
+  * blueocean-commons v1.0.0-b21
+  * blueocean-config v1.0.0-b21
+  * blueocean-dashboard v1.0.0-b21
+  * blueocean-events v1.0.0-b21
+  * blueocean-git-pipeline v1.0.0-b21
+  * blueocean-github-pipeline v1.0.0-b21
+  * blueocean-jwt v1.0.0-b21
+  * blueocean-personalization v1.0.0-b21
+  * blueocean-pipeline-api-impl v1.0.0-b21
+  * blueocean-rest v1.0.0-b21
+  * blueocean-rest-impl v1.0.0-b21
+  * blueocean-web v1.0.0-b21
   * bouncycastle-api v2.16.0
-  * branch-api v1.11
+  * branch-api v2.0.2
   * build-name-setter v1.6.5
   * build-timeout v1.17.1
-  * cloudbees-folder v5.13
+  * cloudbees-folder v5.17
   * conditional-buildstep v1.3.5
   * config-file-provider v2.13
   * copyartifact v1.38.1
@@ -53,18 +55,19 @@ Jenkins plugins:
   * display-url v0.5
   * docker-build-publish v1.3.2
   * docker-commons v1.5
+  * docker-workflow v1.9.1
   * durable-task v1.12
   * ec2 v1.36
   * embeddable-build-status v1.9
   * external-monitor-job v1.6
   * favorite v1.16
   * ghprb v1.33.1
-  * git v2.6.0
-  * git-client v1.21.0
+  * git v3.0.4
+  * git-client v2.1.0
   * git-server v1.7
-  * github v1.22.3
-  * github-api v1.79
-  * github-branch-source v1.10
+  * github v1.25.1
+  * github-api v1.84
+  * github-branch-source v2.0.1
   * gitlab v1.4.3
   * gradle v1.25
   * greenballs v1.15
@@ -81,11 +84,11 @@ Jenkins plugins:
   * ldap v1.13
   * mailer v1.18
   * mapdb-api v1.0.9.0
-  * marathon v1.3.2
+  * marathon v1.4.0
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.14
-  * mesos v0.13.1
+  * mesos v0.14.0
   * metrics v3.1.2.9
   * momentjs v1.1.1
   * monitoring v1.62.0
@@ -93,14 +96,7 @@ Jenkins plugins:
   * node-iterator-api v1.5.0
   * pam-auth v1.3
   * parameterized-trigger v2.32
-  * pipeline-build-step v2.3
-  * pipeline-graph-analysis v1.2
-  * pipeline-input-step v2.3
-  * pipeline-milestone-step v1.1
-  * pipeline-model-definition v0.4
-  * pipeline-rest-api v2.1
-  * pipeline-stage-step v2.2
-  * pipeline-stage-view v2.1
+  * pipeline-github-lib v1.0
   * plain-credentials v1.3
   * rebuild v1.25
   * role-strategy v2.3.2
@@ -108,7 +104,7 @@ Jenkins plugins:
   * s3 v0.10.10
   * saferestart v0.3
   * saml v0.12
-  * scm-api v1.3
+  * scm-api v2.0.2
   * script-security v1.24
   * sse-gateway v1.10
   * ssh-agent v1.13
@@ -122,24 +118,13 @@ Jenkins plugins:
   * translation v1.15
   * variant v1.0
   * windows-slaves v1.2
-  * workflow-aggregator v2.4
-  * workflow-api v2.5
-  * workflow-basic-steps v2.2
-  * workflow-cps v2.21
-  * workflow-cps-global-lib v2.4
-  * workflow-docker v1.9
-  * workflow-durable-task-step v2.5
-  * workflow-job v2.7
-  * workflow-multibranch v2.9
-  * workflow-scm-step v2.2
-  * workflow-step-api v2.4
-  * workflow-support v2.10
-
-
-## Creating the WAR
-The included `pom.xml` file is used to create a WAR file containing the plugins
-listed above. To assemble the WAR file, run the [maven][apache-maven] command:
-`mvn package`.
+  * workflow-aggregator v2.5
+  * workflow-api v2.8
+  * workflow-durable-task-step v2.8
+  * workflow-multibranch v2.12
+  * workflow-scm-step v2.3
+  * workflow-step-api v2.7
+  * workflow-support v2.12
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].
@@ -159,10 +144,9 @@ To release a new version of this package:
 
   1. Update [the Jenkins conf][jenkins-conf] to reference the current release of
   the [jenkins-dind][jenkins-dind] Docker image (if needed).
-  2. Update the Jenkins release version in [pom.xml](pom.xml).
-  3. Add some release notes to [CHANGELOG.md](CHANGELOG.md)
-  4. Tag the commit on master that you want to be released.
-  5. Once [the build][jenkins-build] has successfully completed, submit a new
+  2. Add some release notes to [CHANGELOG.md](CHANGELOG.md)
+  3. Tag the commit on master that you want to be released.
+  4. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
 
 [apache-maven]: https://maven.apache.org

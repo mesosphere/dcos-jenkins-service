@@ -8,7 +8,7 @@
   * Updates BlueOcean to b21
   * Updates several plugins 
   * Upgrades installed git
-  * Changed default FS root to use the sandbox directory
+  * Changes default FS root to use the sandbox directory
 
 ## v2.1.0-2.19.3 (2016-11-16)
   * Upgrades Jenkins to 2.19.3 LTS

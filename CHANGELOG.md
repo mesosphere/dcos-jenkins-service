@@ -1,5 +1,8 @@
 # Changes
 
+## v3.0.1-2.32.2 (2017-02-10)
+  * Adds more plugins to list of tracked plugins
+
 ## v3.0.0-2.32.2 (2017-02-08)
   * Now using the Jenkins docker image
   * Remove pom.xml file and maven requirements

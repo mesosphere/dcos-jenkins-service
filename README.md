@@ -123,6 +123,7 @@ Jenkins plugins:
   * workflow-cps v2.24
   * workflow-cps-global-lib v2.5
   * workflow-durable-task-step v2.8
+  * workflow-job v2.10
   * workflow-multibranch v2.11
   * workflow-scm-step v2.3
   * workflow-step-api v2.7

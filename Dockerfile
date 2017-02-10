@@ -130,8 +130,10 @@ RUN /usr/local/bin/install-plugins.sh       \
   windows-slaves:1.2             \
   workflow-aggregator:2.5        \
   workflow-api:2.8               \
+  workflow-cps:2.24              \
+  workflow-cps-global-lib:2.5    \
   workflow-durable-task-step:2.8 \
-  workflow-multibranch:2.12      \
+  workflow-multibranch:2.11      \
   workflow-scm-step:2.3          \
   workflow-step-api:2.7          \
   workflow-support:2.12

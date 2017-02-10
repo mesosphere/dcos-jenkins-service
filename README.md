@@ -120,8 +120,10 @@ Jenkins plugins:
   * windows-slaves v1.2
   * workflow-aggregator v2.5
   * workflow-api v2.8
+  * workflow-cps v2.24
+  * workflow-cps-global-lib v2.5
   * workflow-durable-task-step v2.8
-  * workflow-multibranch v2.12
+  * workflow-multibranch v2.11
   * workflow-scm-step v2.3
   * workflow-step-api v2.7
   * workflow-support v2.12

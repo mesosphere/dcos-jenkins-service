@@ -89,6 +89,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   github:1.25.1                  \
   github-api:1.84                \
   github-branch-source:2.0.1     \
+  github-organization-folder:1.5 \
   gitlab:1.4.3                   \
   gradle:1.25                    \
   greenballs:1.15                \
@@ -112,7 +113,13 @@ RUN /usr/local/bin/install-plugins.sh       \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
   parameterized-trigger:2.32     \
+  pipeline-build-step:2.4        \
   pipeline-github-lib:1.0        \
+  pipeline-input-step:2.5        \
+  pipeline-milestone-step:1.3    \
+  pipeline-model-definition:1.0  \
+  pipeline-stage-step:2.2        \
+  pipeline-stage-view:2.4        \
   plain-credentials:1.3          \
   rebuild:1.25                   \
   role-strategy:2.3.2            \
@@ -130,11 +137,12 @@ RUN /usr/local/bin/install-plugins.sh       \
   windows-slaves:1.2             \
   workflow-aggregator:2.5        \
   workflow-api:2.8               \
+  workflow-basic-steps:2.3       \
   workflow-cps:2.24              \
   workflow-cps-global-lib:2.5    \
   workflow-durable-task-step:2.8 \
-  workflow-job:2.10              \
-  workflow-multibranch:2.11      \
+  workflow-job:2.9               \
+  workflow-multibranch:2.9.2     \
   workflow-scm-step:2.3          \
   workflow-step-api:2.7          \
   workflow-support:2.12

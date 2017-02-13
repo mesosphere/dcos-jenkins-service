@@ -68,6 +68,7 @@ Jenkins plugins:
   * github v1.25.1
   * github-api v1.84
   * github-branch-source v2.0.1
+  * github-organization-folder v1.5
   * gitlab v1.4.3
   * gradle v1.25
   * greenballs v1.15
@@ -96,7 +97,13 @@ Jenkins plugins:
   * node-iterator-api v1.5.0
   * pam-auth v1.3
   * parameterized-trigger v2.32
+  * pipeline-build-step v2.4
   * pipeline-github-lib v1.0
+  * pipeline-input-step v2.5
+  * pipeline-milestone-step v1.3
+  * pipeline-model-definition v1.0
+  * pipeline-stage-step v2.2
+  * pipeline-stage-view v2.4
   * plain-credentials v1.3
   * rebuild v1.25
   * role-strategy v2.3.2
@@ -120,11 +127,12 @@ Jenkins plugins:
   * windows-slaves v1.2
   * workflow-aggregator v2.5
   * workflow-api v2.8
+  * workflow-basic-steps v2.3
   * workflow-cps v2.24
   * workflow-cps-global-lib v2.5
   * workflow-durable-task-step v2.8
-  * workflow-job v2.10
-  * workflow-multibranch v2.11
+  * workflow-job v2.9
+  * workflow-multibranch v2.9.2
   * workflow-scm-step v2.3
   * workflow-step-api v2.7
   * workflow-support v2.12

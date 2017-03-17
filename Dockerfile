@@ -1,4 +1,4 @@
-FROM jenkins:2.32.2
+FROM jenkins:2.32.3
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -105,7 +105,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   matrix-auth:1.4                \
   matrix-project:1.7.1           \
   maven-plugin:2.14              \
-  mesos:0.14.0                   \
+  mesos:0.14.1                   \
   metrics:3.1.2.9                \
   momentjs:1.1.1                 \
   monitoring:1.62.0              \
@@ -118,6 +118,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   pipeline-input-step:2.5        \
   pipeline-milestone-step:1.3    \
   pipeline-model-definition:1.0  \
+  pipeline-rest-api:2.4          \
   pipeline-stage-step:2.2        \
   pipeline-stage-view:2.4        \
   plain-credentials:1.3          \

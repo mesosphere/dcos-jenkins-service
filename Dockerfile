@@ -34,6 +34,7 @@ RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.sec
 # bootstrap scripts and needed dir setup
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
+COPY scripts/dcos-account.sh /usr/local/jenkins/bin/dcos-account.sh
 RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
 
 # nginx setup
@@ -155,6 +156,7 @@ CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:$LD_LIBRARY_PATH                
   && export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)   \
   && . /usr/local/jenkins/bin/export-libssl.sh       \
   && /usr/local/jenkins/bin/bootstrap.py && nginx    \
+  && . /usr/local/jenkins/bin/dcos-account.sh        \
   && java ${JVM_OPTS}                                \
      -Dhudson.udp=-1                                 \
      -Djava.awt.headless=true                        \

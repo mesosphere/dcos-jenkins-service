@@ -117,7 +117,7 @@ Jenkins plugins:
   * sse-gateway v1.10
   * ssh-agent v1.13
   * ssh-credentials v1.12
-  * ssh-slaves v1.11
+  * ssh-slaves v1.14
   * structs v1.5
   * subversion v2.7.1
   * support-core v2.33

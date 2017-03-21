@@ -4,8 +4,9 @@
 # variables accordingly.
 #
 
-# check if the SSL file exists and if not assume it needs
-# the MESOS_SANDBOX prefix.
+# Check if DCOS_SERVICE_ACCOUNT_CREDENTIAL is present in env variables
+# and if so write content to local disk. This will overwrite the env 
+# variable with the file location.
 write_cred_file()
 {
     if [ -n "$DCOS_SERVICE_ACCOUNT_CREDENTIAL" ] && [ "$DCOS_SERVICE_ACCOUNT_CREDENTIAL" != file* ]; then

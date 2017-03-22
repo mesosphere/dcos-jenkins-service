@@ -14,7 +14,7 @@ up and running quickly with Jenkins on DC/OS.
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.32.2 (LTS)
+  * [Jenkins][jenkins-home] 2.32.3 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
@@ -89,7 +89,7 @@ Jenkins plugins:
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.14
-  * mesos v0.14.0
+  * mesos v0.14.1
   * metrics v3.1.2.9
   * momentjs v1.1.1
   * monitoring v1.62.0
@@ -102,6 +102,7 @@ Jenkins plugins:
   * pipeline-input-step v2.5
   * pipeline-milestone-step v1.3
   * pipeline-model-definition v1.0
+  * pipeline-rest-api v2.4
   * pipeline-stage-step v2.2
   * pipeline-stage-view v2.4
   * plain-credentials v1.3
@@ -116,7 +117,7 @@ Jenkins plugins:
   * sse-gateway v1.10
   * ssh-agent v1.13
   * ssh-credentials v1.12
-  * ssh-slaves v1.11
+  * ssh-slaves v1.14
   * structs v1.5
   * subversion v2.7.1
   * support-core v2.33

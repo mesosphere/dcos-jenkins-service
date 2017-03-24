@@ -152,7 +152,7 @@ RUN /usr/local/bin/install-plugins.sh       \
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
-CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:$LD_LIBRARY_PATH                 \
+CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_LIBRARY_PATH \
   && export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)   \
   && . /usr/local/jenkins/bin/export-libssl.sh       \
   && /usr/local/jenkins/bin/bootstrap.py && nginx    \

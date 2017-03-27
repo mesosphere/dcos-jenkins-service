@@ -131,7 +131,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   saml:0.12                      \
   scm-api:2.0.2                  \
   ssh-agent:1.13                 \
-  ssh-slaves:1.14                \
+  ssh-slaves:1.16                \
   subversion:2.7.1               \
   timestamper:1.8.7              \
   translation:1.15               \

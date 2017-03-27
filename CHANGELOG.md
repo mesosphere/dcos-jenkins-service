@@ -1,6 +1,6 @@
 # Changes
 
-## v3.0.2-2.32.3 (2017-03-27)
+## v3.0.3-2.32.3 (2017-03-27)
   * Upgrades Jenkins to 2.32.3 LTS
   * Include entire LD_LIBRARY_PATH in Docker CMD
   * Updated default label to use 0.5.0-alpine of jenkins-dind

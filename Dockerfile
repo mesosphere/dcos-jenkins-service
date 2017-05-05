@@ -1,4 +1,4 @@
-FROM jenkins:2.32.2
+FROM jenkins:2.32.3
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -34,6 +34,7 @@ RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.sec
 # bootstrap scripts and needed dir setup
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
+COPY scripts/dcos-account.sh /usr/local/jenkins/bin/dcos-account.sh
 RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
 
 # nginx setup
@@ -89,6 +90,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   github:1.25.1                  \
   github-api:1.84                \
   github-branch-source:2.0.1     \
+  github-organization-folder:1.5 \
   gitlab:1.4.3                   \
   gradle:1.25                    \
   greenballs:1.15                \
@@ -104,7 +106,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   matrix-auth:1.4                \
   matrix-project:1.7.1           \
   maven-plugin:2.14              \
-  mesos:0.14.0                   \
+  mesos:0.14.1                   \
   metrics:3.1.2.9                \
   momentjs:1.1.1                 \
   monitoring:1.62.0              \
@@ -112,7 +114,14 @@ RUN /usr/local/bin/install-plugins.sh       \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
   parameterized-trigger:2.32     \
+  pipeline-build-step:2.4        \
   pipeline-github-lib:1.0        \
+  pipeline-input-step:2.5        \
+  pipeline-milestone-step:1.3    \
+  pipeline-model-definition:1.0  \
+  pipeline-rest-api:2.4          \
+  pipeline-stage-step:2.2        \
+  pipeline-stage-view:2.4        \
   plain-credentials:1.3          \
   rebuild:1.25                   \
   role-strategy:2.3.2            \
@@ -122,7 +131,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   saml:0.12                      \
   scm-api:2.0.2                  \
   ssh-agent:1.13                 \
-  ssh-slaves:1.11                \
+  ssh-slaves:1.16                \
   subversion:2.7.1               \
   timestamper:1.8.7              \
   translation:1.15               \
@@ -130,8 +139,12 @@ RUN /usr/local/bin/install-plugins.sh       \
   windows-slaves:1.2             \
   workflow-aggregator:2.5        \
   workflow-api:2.8               \
+  workflow-basic-steps:2.3       \
+  workflow-cps:2.24              \
+  workflow-cps-global-lib:2.5    \
   workflow-durable-task-step:2.8 \
-  workflow-multibranch:2.12      \
+  workflow-job:2.9               \
+  workflow-multibranch:2.9.2     \
   workflow-scm-step:2.3          \
   workflow-step-api:2.7          \
   workflow-support:2.12
@@ -139,10 +152,11 @@ RUN /usr/local/bin/install-plugins.sh       \
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
-CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:$LD_LIBRARY_PATH                 \
+CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_LIBRARY_PATH \
   && export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)   \
   && . /usr/local/jenkins/bin/export-libssl.sh       \
   && /usr/local/jenkins/bin/bootstrap.py && nginx    \
+  && . /usr/local/jenkins/bin/dcos-account.sh        \
   && java ${JVM_OPTS}                                \
      -Dhudson.udp=-1                                 \
      -Djava.awt.headless=true                        \

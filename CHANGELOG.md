@@ -1,12 +1,25 @@
 # Changes
 
+## v3.0.3-2.32.3 (2017-03-27)
+  * Upgrades Jenkins to 2.32.3 LTS
+  * Include entire LD_LIBRARY_PATH in Docker CMD
+  * Updated default label to use 0.5.0-alpine of jenkins-dind
+  * Security improvement to remove service accounts credentials from environment
+  * Plugin upgrades to address [2017-03-20 security advisory](https://groups.google.com/forum/#!topic/jenkinsci-advisories/sHa2_nmmU0A).
+
+## v3.0.2-2.32.2 (2017-02-13)
+  * Adds more plugins to list of tracked plugins
+
+## v3.0.1-2.32.2 (2017-02-10)
+  * Adds more plugins to list of tracked plugins
+
 ## v3.0.0-2.32.2 (2017-02-08)
   * Now using the Jenkins docker image
   * Remove pom.xml file and maven requirements
   * Upgrades Jenkins to 2.32.2 LTS
   * Updates SCM API to 2.x
   * Updates BlueOcean to b21
-  * Updates several plugins 
+  * Updates several plugins
   * Upgrades installed git
   * Changes default FS root to use the sandbox directory
 

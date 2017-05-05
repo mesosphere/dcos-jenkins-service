@@ -4,7 +4,7 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/mesosphere/jenkins.svg)][docker-hub]
 [![](https://images.microbadger.com/badges/image/mesosphere/jenkins.svg)](http://microbadger.com/images/mesosphere/jenkins "Get your own image badge on microbadger.com")
 
-Run a Jenkins master on Mesos and Marathon, using Docker and Nginx.
+Run a Jenkins master on DC/OS, using Docker and Nginx. This Jenkins instance is pre-configured to autoscale build agents onto the DC/OS cluster using the [Jenkins Mesos plugin][mesos-plugin].
 
 ## Overview
 This repo contains a [Dockerfile](Dockerfile) that runs Jenkins inside a Docker
@@ -12,9 +12,13 @@ container and uses [Nginx][nginx-home] as a reverse proxy. It also provides
 several Jenkins plugins and a basic Jenkins configuration in order to get you
 up and running quickly with Jenkins on DC/OS.
 
+## Reporting issues
+
+Please report issues and submit feature requests for Jenkins on DC/OS by [creating an issue in the DC/OS JIRA][dcos-jira] (JIRA account required).
+
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.32.2 (LTS)
+  * [Jenkins][jenkins-home] 2.32.3 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
@@ -68,6 +72,7 @@ Jenkins plugins:
   * github v1.25.1
   * github-api v1.84
   * github-branch-source v2.0.1
+  * github-organization-folder v1.5
   * gitlab v1.4.3
   * gradle v1.25
   * greenballs v1.15
@@ -88,7 +93,7 @@ Jenkins plugins:
   * matrix-auth v1.4
   * matrix-project v1.7.1
   * maven-plugin v2.14
-  * mesos v0.14.0
+  * mesos v0.14.1
   * metrics v3.1.2.9
   * momentjs v1.1.1
   * monitoring v1.62.0
@@ -96,7 +101,14 @@ Jenkins plugins:
   * node-iterator-api v1.5.0
   * pam-auth v1.3
   * parameterized-trigger v2.32
+  * pipeline-build-step v2.4
   * pipeline-github-lib v1.0
+  * pipeline-input-step v2.5
+  * pipeline-milestone-step v1.3
+  * pipeline-model-definition v1.0
+  * pipeline-rest-api v2.4
+  * pipeline-stage-step v2.2
+  * pipeline-stage-view v2.4
   * plain-credentials v1.3
   * rebuild v1.25
   * role-strategy v2.3.2
@@ -109,7 +121,7 @@ Jenkins plugins:
   * sse-gateway v1.10
   * ssh-agent v1.13
   * ssh-credentials v1.12
-  * ssh-slaves v1.11
+  * ssh-slaves v1.16
   * structs v1.5
   * subversion v2.7.1
   * support-core v2.33
@@ -120,8 +132,12 @@ Jenkins plugins:
   * windows-slaves v1.2
   * workflow-aggregator v2.5
   * workflow-api v2.8
+  * workflow-basic-steps v2.3
+  * workflow-cps v2.24
+  * workflow-cps-global-lib v2.5
   * workflow-durable-task-step v2.8
-  * workflow-multibranch v2.12
+  * workflow-job v2.9
+  * workflow-multibranch v2.9.2
   * workflow-scm-step v2.3
   * workflow-step-api v2.7
   * workflow-support v2.12
@@ -149,11 +165,13 @@ To release a new version of this package:
   4. Once [the build][jenkins-build] has successfully completed, submit a new
   pull request against [the Universe][universe] referencing the new tag.
 
+[dcos-jira]: https://jira.mesosphere.com/secure/CreateIssueDetails!init.jspa?pid=14110&issuetype=3
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
 [getting-started]: https://docs.mesosphere.com/latest/usage/service-guides/jenkins/
 [jenkins-conf]: /conf/jenkins/config.xml
 [jenkins-dind]: https://github.com/mesosphere/jenkins-dind-agent
 [jenkins-home]: https://jenkins-ci.org/
+[mesos-plugin]: https://github.com/jenkinsci/mesos-plugin
 [nginx-home]: http://nginx.org/en/
 [jenkins-build]: https://jenkins.mesosphere.com/service/jenkins/job/public-jenkins-dcos-master/
 [universe]: https://github.com/mesosphere/universe

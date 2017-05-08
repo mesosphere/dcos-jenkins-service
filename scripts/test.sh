@@ -57,7 +57,7 @@ DCOS_URL="http://$(echo "${CLUSTER_INFO}" | jq -r ".DnsAddress")"
 echo "DCOS_URL is '${DCOS_URL}'"
 
 ln -s "${DOT_SHAKEDOWN}" ~/.shakedown
-TERM=velocity shakedown --stdout all --ssh-key-file "${CLI_TEST_SSH_KEY}" --dcos-url ${DCOS_URL}
+TERM=velocity shakedown --stdout all --ssh-key-file "${CLI_TEST_SSH_KEY}" --dcos-url "${DCOS_URL}"
 
 http                                                        \
     --ignore-stdin                                          \

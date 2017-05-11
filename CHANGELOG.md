@@ -1,5 +1,9 @@
 # Changes
 
+## v3.1.0-2.46.2 (2017-05-05)
+  * Upgrades Jenkins to 2.46.2 LTS
+  * Updates various plugins to their latest versions
+
 ## v3.0.3-2.32.3 (2017-03-27)
   * Upgrades Jenkins to 2.32.3 LTS
   * Include entire LD_LIBRARY_PATH in Docker CMD

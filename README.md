@@ -18,128 +18,96 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.46.2 (LTS)
+  * [Jenkins][jenkins-home] 2.60.1 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
+  * ant v1.5
   * ace-editor v1.1
-  * ansicolor v0.5
-  * ant v1.4
+  * ansicolor v0.5.0
   * antisamy-markup-formatter v1.5
-  * artifactory v2.10.4
-  * async-http-client v1.7.24.1
+  * artifactory v2.12.0
   * authentication-tokens v1.3
-  * aws-credentials v1.16
-  * aws-java-sdk v1.11.37
   * azure-slave-plugin v0.3.4
-  * blueocean v1.0.1
-  * blueocean-commons v1.0.1
-  * blueocean-config v1.0.1
-  * blueocean-dashboard v1.0.1
-  * blueocean-events v1.0.1
-  * blueocean-git-pipeline v1.0.1
-  * blueocean-github-pipeline v1.0.1
-  * blueocean-jwt v1.0.1
-  * blueocean-personalization v1.0.1
-  * blueocean-pipeline-api-impl v1.0.1
-  * blueocean-rest v1.0.1
-  * blueocean-rest-impl v1.0.1
-  * blueocean-web v1.0.1
-  * bouncycastle-api v2.16.0
-  * branch-api v2.0.9
+  * blueocean v1.1.4
+  * branch-api v2.0.10
   * build-name-setter v1.6.5
   * build-timeout v1.18
   * cloudbees-folder v6.0.4
   * conditional-buildstep v1.3.5
   * config-file-provider v2.15.7
   * copyartifact v1.38.1
-  * credentials v2.1.7
-  * credentials-binding v1.9
   * cvs v2.13
-  * display-url v0.5
   * docker-build-publish v1.3.2
-  * docker-commons v1.5
-  * docker-workflow v1.10
-  * durable-task v1.13
+  * docker-workflow v1.12
+  * durable-task v1.14
   * ec2 v1.36
   * embeddable-build-status v1.9
   * external-monitor-job v1.7
-  * favorite v1.16
-  * ghprb v1.36.2
+  * ghprb v1.39.0
   * git v3.3.0
-  * git-client v2.4.5
+  * git-client v2.4.6
   * git-server v1.7
   * github v1.27.0
-  * github-api v1.85
-  * github-branch-source v2.0.5
+  * github-api v1.85.1
+  * github-branch-source v2.0.8
   * github-organization-folder v1.6
-  * gitlab v1.4.5
-  * gradle v1.26
+  * gitlab v1.4.6
+  * gradle v1.27.1
   * greenballs v1.15
   * handlebars v1.1.1
-  * icon-shim v2.0.3
   * ivy v1.27.1
   * jackson2-api v2.7.3
-  * javadoc v1.4
-  * job-dsl v1.61
+  * job-dsl v1.64
   * jobConfigHistory v2.16
   * jquery v1.11.2-0
-  * jquery-detached v1.2.1
-  * junit v1.19
-  * ldap v1.15
-  * mailer v1.18
+  * ldap v1.16
   * mapdb-api v1.0.9.0
-  * marathon v1.4.0
-  * matrix-auth v1.5
-  * matrix-project v1.10
+  * marathon v1.5.0
+  * matrix-auth v1.7
+  * matrix-project v1.11
   * maven-plugin v2.15.1
   * mesos v0.14.1
   * metrics v3.1.2.9
   * momentjs v1.1.1
-  * monitoring v1.65.1
+  * monitoring v1.68.1
   * nant v1.4.3
   * node-iterator-api v1.5.0
   * pam-auth v1.3
-  * parameterized-trigger v2.33
-  * pipeline-build-step v2.5
+  * parameterized-trigger v2.35
+  * pipeline-build-step v2.5.1
   * pipeline-github-lib v1.0
   * pipeline-input-step v2.7
   * pipeline-milestone-step v1.3.1
-  * pipeline-model-definition v1.1.4
-  * pipeline-rest-api v2.6
+  * pipeline-model-definition v1.1.8
+  * pipeline-rest-api v2.8
   * pipeline-stage-step v2.2
-  * pipeline-stage-view v2.6
+  * pipeline-stage-view v2.8
   * plain-credentials v1.4
   * rebuild v1.25
-  * role-strategy v2.4.0
+  * role-strategy v2.5.1
   * run-condition v1.0
   * s3 v0.10.12
   * saferestart v0.3
-  * saml v0.13
+  * saml v0.14
   * scm-api v2.1.1
-  * script-security v1.24
-  * sse-gateway v1.10
   * ssh-agent v1.15
-  * ssh-credentials v1.12
-  * ssh-slaves v1.17
-  * structs v1.5
+  * ssh-slaves v1.20
   * subversion v2.7.2
-  * support-core v2.33
   * timestamper v1.8.8
-  * token-macro v2.0
   * translation v1.15
   * variant v1.1
   * windows-slaves v1.3.1
   * workflow-aggregator v2.5
-  * workflow-api v2.13
-  * workflow-basic-steps v2.4
-  * workflow-cps v2.30
+  * workflow-api v2.17
+  * workflow-basic-steps v2.6
+  * workflow-cps v2.33
   * workflow-cps-global-lib v2.8
-  * workflow-durable-task-step v2.11
-  * workflow-job v2.10
-  * workflow-multibranch v2.14
-  * workflow-scm-step v2.4
-  * workflow-step-api v2.9
+  * workflow-durable-task-step v2.12
+  * workflow-job v2.12
+  * workflow-multibranch v2.16
+  * workflow-scm-step v2.6
+  * workflow-step-api v2.12
   * workflow-support v2.14
 
 ## Packaging
@@ -175,3 +143,4 @@ To release a new version of this package:
 [nginx-home]: http://nginx.org/en/
 [jenkins-build]: https://jenkins.mesosphere.com/service/jenkins/job/public-jenkins-dcos-master/
 [universe]: https://github.com/mesosphere/universe
+

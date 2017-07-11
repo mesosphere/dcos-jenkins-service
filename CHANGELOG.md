@@ -1,5 +1,12 @@
 # Changes
 
+## v3.2.1-2.60.1 (2017-07-11)
+  * Addresses security bulletin for 2017-07-10
+
+## v3.2.0-2.60.1 (2017-07-11)
+  * Upgrades Jenkins to 2.60.1 LTS
+  * Updates various plugins to latest versions
+
 ## v3.1.0-2.46.2 (2017-05-05)
   * Upgrades Jenkins to 2.46.2 LTS
   * Updates various plugins to their latest versions

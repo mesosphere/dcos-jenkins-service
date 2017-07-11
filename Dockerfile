@@ -84,7 +84,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.7       \
   ghprb:1.39.0                   \
-  git:3.3.0                      \
+  git:3.3.2                      \
   git-client:2.4.6               \
   git-server:1.7                 \
   github:1.27.0                  \
@@ -132,7 +132,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   scm-api:2.1.1                  \
   ssh-agent:1.15                 \
   ssh-slaves:1.20                \
-  subversion:2.7.2               \
+  subversion:2.9                 \
   timestamper:1.8.8              \
   translation:1.15               \
   variant:1.1                    \
@@ -140,7 +140,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   workflow-aggregator:2.5        \
   workflow-api:2.17              \
   workflow-basic-steps:2.6       \
-  workflow-cps:2.33              \
+  workflow-cps:2.36.1            \
   workflow-cps-global-lib:2.8    \
   workflow-durable-task-step:2.12 \
   workflow-job:2.12              \

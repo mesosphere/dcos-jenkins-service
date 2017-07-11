@@ -45,7 +45,7 @@ Jenkins plugins:
   * embeddable-build-status v1.9
   * external-monitor-job v1.7
   * ghprb v1.39.0
-  * git v3.3.0
+  * git v3.3.2
   * git-client v2.4.6
   * git-server v1.7
   * github v1.27.0
@@ -93,7 +93,7 @@ Jenkins plugins:
   * scm-api v2.1.1
   * ssh-agent v1.15
   * ssh-slaves v1.20
-  * subversion v2.7.2
+  * subversion v2.9
   * timestamper v1.8.8
   * translation v1.15
   * variant v1.1
@@ -101,7 +101,7 @@ Jenkins plugins:
   * workflow-aggregator v2.5
   * workflow-api v2.17
   * workflow-basic-steps v2.6
-  * workflow-cps v2.33
+  * workflow-cps v2.36.1
   * workflow-cps-global-lib v2.8
   * workflow-durable-task-step v2.12
   * workflow-job v2.12

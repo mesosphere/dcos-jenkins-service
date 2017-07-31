@@ -1,4 +1,4 @@
-FROM jenkins:2.60.1
+FROM jenkins:2.60.2
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -12,7 +12,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.8.7-1.0.2-2.tar.gz
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
-ARG BLUEOCEAN_VERSION=1.1.4
+ARG BLUEOCEAN_VERSION=1.1.5
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
 USER root
@@ -66,15 +66,15 @@ RUN /usr/local/bin/install-plugins.sh       \
   ace-editor:1.1                 \
   ansicolor:0.5.0                \
   antisamy-markup-formatter:1.5  \
-  artifactory:2.12.0             \
+  artifactory:2.12.2             \
   authentication-tokens:1.3      \
   azure-slave-plugin:0.3.4       \
-  branch-api:2.0.10               \
-  build-name-setter:1.6.5        \
+  branch-api:2.0.11              \
+  build-name-setter:1.6.7        \
   build-timeout:1.18             \
-  cloudbees-folder:6.0.4         \
-  conditional-buildstep:1.3.5    \
-  config-file-provider:2.15.7    \
+  cloudbees-folder:6.1.0         \
+  conditional-buildstep:1.3.6    \
+  config-file-provider:2.16.1    \
   copyartifact:1.38.1            \
   cvs:2.13                       \
   docker-build-publish:1.3.2     \
@@ -84,14 +84,14 @@ RUN /usr/local/bin/install-plugins.sh       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.7       \
   ghprb:1.39.0                   \
-  git:3.3.2                      \
-  git-client:2.4.6               \
+  git:3.5.0                      \
+  git-client:2.5.0               \
   git-server:1.7                 \
   github:1.27.0                  \
-  github-api:1.85.1              \
-  github-branch-source:2.0.8     \
+  github-api:1.86                \
+  github-branch-source:2.2.3     \
   github-organization-folder:1.6 \
-  gitlab:1.4.6                   \
+  gitlab:1.4.7                   \
   gradle:1.27.1                  \
   greenballs:1.15                \
   handlebars:1.1.1               \
@@ -105,20 +105,20 @@ RUN /usr/local/bin/install-plugins.sh       \
   marathon:1.5.0                 \
   matrix-auth:1.7                \
   matrix-project:1.11            \
-  maven-plugin:2.15.1            \
-  mesos:0.14.1                   \
-  metrics:3.1.2.9                \
+  maven-plugin:2.17              \
+  mesos:0.15.0                   \
+  metrics:3.1.2.10               \
   momentjs:1.1.1                 \
   monitoring:1.68.1              \
   nant:1.4.3                     \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
-  parameterized-trigger:2.35     \
+  parameterized-trigger:2.35.1   \
   pipeline-build-step:2.5.1      \
   pipeline-github-lib:1.0        \
   pipeline-input-step:2.7        \
   pipeline-milestone-step:1.3.1  \
-  pipeline-model-definition:1.1.8 \
+  pipeline-model-definition:1.1.9 \
   pipeline-rest-api:2.8          \
   pipeline-stage-step:2.2        \
   pipeline-stage-view:2.8        \
@@ -129,7 +129,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   s3:0.10.12                     \
   saferestart:0.3                \
   saml:0.14                      \
-  scm-api:2.1.1                  \
+  scm-api:2.2.0                  \
   ssh-agent:1.15                 \
   ssh-slaves:1.20                \
   subversion:2.9                 \
@@ -138,12 +138,12 @@ RUN /usr/local/bin/install-plugins.sh       \
   variant:1.1                    \
   windows-slaves:1.3.1           \
   workflow-aggregator:2.5        \
-  workflow-api:2.17              \
+  workflow-api:2.19              \
   workflow-basic-steps:2.6       \
-  workflow-cps:2.36.1            \
+  workflow-cps:2.37              \
   workflow-cps-global-lib:2.8    \
-  workflow-durable-task-step:2.12 \
-  workflow-job:2.12              \
+  workflow-durable-task-step:2.13 \
+  workflow-job:2.12.1            \
   workflow-multibranch:2.16      \
   workflow-scm-step:2.6          \
   workflow-step-api:2.12         \

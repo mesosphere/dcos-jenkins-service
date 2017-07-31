@@ -68,7 +68,9 @@ RUN /usr/local/bin/install-plugins.sh       \
   antisamy-markup-formatter:1.5  \
   artifactory:2.12.2             \
   authentication-tokens:1.3      \
+  azure-credentials:1.2          \
   azure-slave-plugin:0.3.4       \
+  azure-vm-agents:0.4.6          \
   branch-api:2.0.11              \
   build-name-setter:1.6.7        \
   build-timeout:1.18             \

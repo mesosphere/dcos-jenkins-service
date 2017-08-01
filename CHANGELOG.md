@@ -1,5 +1,12 @@
 # Changes
 
+## v3.2.2-2.60.2 (2017-07-31)
+  * Upgrades Jenkins to 2.60.2 LTS
+  * Fixes escaping newlines in DC/OS authentication JSON
+  * Adds azure-credentials plugin
+  * Adds azure-vm-agents plugin
+  * Removes azure-slave-plugin
+
 ## v3.2.1-2.60.1 (2017-07-11)
   * Addresses security bulletin for 2017-07-10
 

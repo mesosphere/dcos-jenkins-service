@@ -103,7 +103,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   jquery:1.11.2-0                \
   ldap:1.16                      \
   mapdb-api:1.0.9.0              \
-  marathon:1.5.0                 \
+  marathon:1.6.0                 \
   matrix-auth:1.7                \
   matrix-project:1.11            \
   maven-plugin:2.17              \

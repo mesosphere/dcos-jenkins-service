@@ -63,7 +63,7 @@ Jenkins plugins:
   * jquery v1.11.2-0
   * ldap v1.16
   * mapdb-api v1.0.9.0
-  * marathon v1.5.0
+  * marathon v1.6.0
   * matrix-auth v1.7
   * matrix-project v1.11
   * maven-plugin v2.15.1

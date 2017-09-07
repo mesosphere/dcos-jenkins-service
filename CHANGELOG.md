@@ -1,5 +1,8 @@
 # Changes
 
+## v3.2.3-2.60.2 (2017-09-07)
+  * Updates marathon-plugin to v1.6.0
+
 ## v3.2.2-2.60.2 (2017-07-31)
   * Upgrades Jenkins to 2.60.2 LTS
   * Fixes escaping newlines in DC/OS authentication JSON

@@ -1,4 +1,4 @@
-FROM jenkins:2.60.2
+FROM jenkins/jenkins:lts
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -12,7 +12,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.8.7-1.0.2-2.tar.gz
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
-ARG BLUEOCEAN_VERSION=1.1.5
+ARG BLUEOCEAN_VERSION=1.2.3
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
 USER root
@@ -62,46 +62,46 @@ RUN /usr/local/bin/install-plugins.sh       \
   blueocean-rest:${BLUEOCEAN_VERSION}       \
   blueocean-web:${BLUEOCEAN_VERSION}        \
   blueocean:${BLUEOCEAN_VERSION}            \
-  ant:1.5                        \
+  ant:1.7                        \
   ace-editor:1.1                 \
-  ansicolor:0.5.0                \
+  ansicolor:0.5.2                \
   antisamy-markup-formatter:1.5  \
   artifactory:2.12.2             \
   authentication-tokens:1.3      \
   azure-credentials:1.2          \
-  azure-vm-agents:0.4.6          \
+  azure-vm-agents:0.4.7.1        \
   branch-api:2.0.11              \
   build-name-setter:1.6.7        \
   build-timeout:1.18             \
-  cloudbees-folder:6.1.0         \
+  cloudbees-folder:6.1.2         \
   conditional-buildstep:1.3.6    \
-  config-file-provider:2.16.1    \
+  config-file-provider:2.16.3    \
   copyartifact:1.38.1            \
   cvs:2.13                       \
   docker-build-publish:1.3.2     \
-  docker-workflow:1.12           \
+  docker-workflow:1.13           \
   durable-task:1.14              \
   ec2:1.36                       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.7       \
   ghprb:1.39.0                   \
-  git:3.5.0                      \
+  git:3.5.1                      \
   git-client:2.5.0               \
   git-server:1.7                 \
-  github:1.27.0                  \
+  github:1.28.0                  \
   github-api:1.86                \
   github-branch-source:2.2.3     \
   github-organization-folder:1.6 \
-  gitlab:1.4.7                   \
+  gitlab:1.4.8                   \
   gradle:1.27.1                  \
   greenballs:1.15                \
   handlebars:1.1.1               \
   ivy:1.27.1                     \
   jackson2-api:2.7.3             \
-  job-dsl:1.64                   \
-  jobConfigHistory:2.16          \
-  jquery:1.11.2-0                \
-  ldap:1.16                      \
+  job-dsl:1.65                   \
+  jobConfigHistory:2.17          \
+  jquery:1.11.2-1                \
+  ldap:1.17                      \
   mapdb-api:1.0.9.0              \
   marathon:1.6.0                 \
   matrix-auth:1.7                \
@@ -110,41 +110,41 @@ RUN /usr/local/bin/install-plugins.sh       \
   mesos:0.15.0                   \
   metrics:3.1.2.10               \
   momentjs:1.1.1                 \
-  monitoring:1.68.1              \
+  monitoring:1.69.0              \
   nant:1.4.3                     \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
-  parameterized-trigger:2.35.1   \
+  parameterized-trigger:2.35.2   \
   pipeline-build-step:2.5.1      \
   pipeline-github-lib:1.0        \
-  pipeline-input-step:2.7        \
+  pipeline-input-step:2.8        \
   pipeline-milestone-step:1.3.1  \
   pipeline-model-definition:1.1.9 \
-  pipeline-rest-api:2.8          \
+  pipeline-rest-api:2.9          \
   pipeline-stage-step:2.2        \
-  pipeline-stage-view:2.8        \
+  pipeline-stage-view:2.9        \
   plain-credentials:1.4          \
   rebuild:1.25                   \
-  role-strategy:2.5.1            \
+  role-strategy:2.6.0            \
   run-condition:1.0              \
   s3:0.10.12                     \
   saferestart:0.3                \
-  saml:0.14                      \
-  scm-api:2.2.0                  \
+  saml:1.0.3                     \
+  scm-api:2.2.2                  \
   ssh-agent:1.15                 \
-  ssh-slaves:1.20                \
+  ssh-slaves:1.21                \
   subversion:2.9                 \
   timestamper:1.8.8              \
   translation:1.15               \
   variant:1.1                    \
   windows-slaves:1.3.1           \
   workflow-aggregator:2.5        \
-  workflow-api:2.19              \
+  workflow-api:2.20              \
   workflow-basic-steps:2.6       \
-  workflow-cps:2.37              \
-  workflow-cps-global-lib:2.8    \
-  workflow-durable-task-step:2.13 \
-  workflow-job:2.12.1            \
+  workflow-cps:2.40              \
+  workflow-cps-global-lib:2.9    \
+  workflow-durable-task-step:2.15 \
+  workflow-job:2.12.2            \
   workflow-multibranch:2.16      \
   workflow-scm-step:2.6          \
   workflow-step-api:2.12         \

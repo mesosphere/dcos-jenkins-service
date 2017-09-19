@@ -58,7 +58,6 @@ RUN /usr/local/bin/install-plugins.sh       \
   blueocean-jwt:${BLUEOCEAN_VERSION}        \
   blueocean-personalization:${BLUEOCEAN_VERSION}    \
   blueocean-pipeline-api-impl:${BLUEOCEAN_VERSION}  \
-  blueocean-pipeline-editor:${BLUEOCEAN_VERSION}    \
   blueocean-pipeline-scm-api:${BLUEOCEAN_VERSION}   \
   blueocean-rest-impl:${BLUEOCEAN_VERSION}  \
   blueocean-rest:${BLUEOCEAN_VERSION}       \

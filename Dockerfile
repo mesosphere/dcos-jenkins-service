@@ -144,7 +144,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   workflow-cps:2.40              \
   workflow-cps-global-lib:2.9    \
   workflow-durable-task-step:2.15 \
-  workflow-job:2.12.2            \
+  workflow-job:2.14.1            \
   workflow-multibranch:2.16      \
   workflow-scm-step:2.6          \
   workflow-step-api:2.12         \

@@ -18,7 +18,7 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.60.1 (LTS)
+  * [Jenkins][jenkins-home] 2.60.2 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
@@ -29,7 +29,7 @@ Jenkins plugins:
   * artifactory v2.12.0
   * authentication-tokens v1.3
   * azure-vm-agents v0.4.7.1
-  * blueocean v1.1.4
+  * blueocean v1.1.5
   * branch-api v2.0.10
   * build-name-setter v1.6.5
   * build-timeout v1.18

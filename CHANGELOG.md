@@ -1,5 +1,9 @@
 # Changes
 
+## v3.2.4-2.60.2 (2017-09-25)
+  * Add blueocean scm-api dependency
+  * Add blueocean editor dependency
+
 ## v3.2.3-2.60.2 (2017-09-07)
   * Updates marathon-plugin to v1.6.0
 

@@ -29,8 +29,7 @@ Jenkins plugins:
   * artifactory v2.12.0
   * authentication-tokens v1.3
   * azure-vm-agents v0.4.7.1
-  * blueocean v1.1.5
-  * blueocean-pipeline-editor v0.2.0
+  * blueocean v1.2.4
   * branch-api v2.0.10
   * build-name-setter v1.6.5
   * build-timeout v1.18

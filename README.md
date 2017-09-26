@@ -136,7 +136,7 @@ To release a new version of this package:
 
 [dcos-jira]: https://jira.mesosphere.com/secure/CreateIssueDetails!init.jspa?pid=14110&issuetype=3
 [docker-hub]: https://hub.docker.com/r/mesosphere/jenkins
-[getting-started]: https://docs.mesosphere.com/latest/usage/service-guides/jenkins/
+[getting-started]: https://docs.mesosphere.com/service-docs/jenkins/quickstart/
 [jenkins-conf]: /conf/jenkins/config.xml
 [jenkins-dind]: https://github.com/mesosphere/jenkins-dind-agent
 [jenkins-home]: https://jenkins-ci.org/

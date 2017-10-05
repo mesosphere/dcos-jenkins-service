@@ -2,7 +2,9 @@
 
 ## v3.3.0-2.73.1 (2017-10-05)
   * Upgrades Jenkins to 2.73.1 LTS
+  * Updates blueocean to version 1.2.4
   * blueocean editor matches blueocean version
+  * Updates various plugins to latest versions
 
 ## v3.2.4-2.60.2 (2017-09-25)
   * Add blueocean scm-api dependency

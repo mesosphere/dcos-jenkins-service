@@ -121,7 +121,9 @@ RUN /usr/local/bin/install-plugins.sh       \
   pipeline-github-lib:1.0        \
   pipeline-input-step:2.8        \
   pipeline-milestone-step:1.3.1  \
+  pipeline-model-api:1.1.9       \
   pipeline-model-definition:1.1.9 \
+  pipeline-model-extensions:1.1.9 \
   pipeline-rest-api:2.9          \
   pipeline-stage-step:2.2        \
   pipeline-stage-view:2.9        \

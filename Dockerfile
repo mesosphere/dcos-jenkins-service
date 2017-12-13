@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.73.1
+FROM jenkins/jenkins:2.89.1
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -48,6 +48,7 @@ COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
 
 # add plugins
 RUN /usr/local/bin/install-plugins.sh       \
+  blueocean-bitbucket-pipeline:${BLUEOCEAN_VERSION}    \
   blueocean-commons:${BLUEOCEAN_VERSION}    \
   blueocean-config:${BLUEOCEAN_VERSION}     \
   blueocean-dashboard:${BLUEOCEAN_VERSION}  \
@@ -56,6 +57,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   blueocean-github-pipeline:${BLUEOCEAN_VERSION}       \
   blueocean-i18n:${BLUEOCEAN_VERSION}       \
   blueocean-jwt:${BLUEOCEAN_VERSION}        \
+  blueocean-jira:${BLUEOCEAN_VERSION}       \
   blueocean-personalization:${BLUEOCEAN_VERSION}    \
   blueocean-pipeline-api-impl:${BLUEOCEAN_VERSION}  \
   blueocean-pipeline-editor:${BLUEOCEAN_VERSION}           \
@@ -87,7 +89,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.7       \
   ghprb:1.39.0                   \
-  git:3.5.1                      \
+  git:3.6.4                      \
   git-client:2.5.0               \
   git-server:1.7                 \
   github:1.28.0                  \
@@ -143,7 +145,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   variant:1.1                    \
   windows-slaves:1.3.1           \
   workflow-aggregator:2.5        \
-  workflow-api:2.20              \
+  workflow-api:2.24              \
   workflow-basic-steps:2.6       \
   workflow-cps:2.40              \
   workflow-cps-global-lib:2.9    \

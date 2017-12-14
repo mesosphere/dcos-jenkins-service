@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.89.1
+FROM jenkins/jenkins:2.89.2
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile

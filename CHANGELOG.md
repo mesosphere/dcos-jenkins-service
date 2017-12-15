@@ -1,5 +1,10 @@
 # Changes
 
+## v3.4.0-2.89.2 (2017-12-14)
+  * Upgrades Jenkins to 2.89.2 LTS
+  * Updates blueocean to version 1.3.5
+  * Updates various plugins
+
 ## v3.3.0-2.73.1 (2017-10-05)
   * Upgrades Jenkins to 2.73.1 LTS
   * Updates blueocean to version 1.2.4

@@ -15,6 +15,7 @@ ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545
 ARG BLUEOCEAN_VERSION=1.3.5
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
+# Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
 
 USER root

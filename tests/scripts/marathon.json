@@ -1,0 +1,86 @@
+{
+  "id": "/dev/jenkinsmarathon",
+  "acceptedResourceRoles": [
+    "*"
+  ],
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "container": {
+    "type": "DOCKER",
+    "volumes": [
+      {
+        "containerPath": "/var/jenkins_home",
+        "hostPath": "/tmp/jenkins",
+        "mode": "RW"
+      }
+    ],
+    "docker": {
+      "image": "jeremykuhnash/dcos-jenkins-service:3.3.0-2.73.1-3",
+      "forcePullImage": true,
+      "privileged": false,
+      "parameters": []
+    }
+  },
+  "cpus": 2,
+  "disk": 0,
+  "env": {
+    "SSH_KNOWN_HOSTS": "github.com",
+    "JENKINS_CONTEXT": "/service/jenkinsmarathon",
+    "JENKINS_SLAVE_AGENT_PORT": "50000",
+    "JENKINS_AGENT_ROLE": "*",
+    "JVM_OPTS": "-Xms4096m -Xmx4096m",
+    "JENKINS_MESOS_MASTER": "zk://leader.mesos:2181/mesos",
+    "JENKINS_AGENT_USER": "root",
+    "JENKINS_FRAMEWORK_NAME": "jenkinsmarathon",
+    "DCOS_PEM": {
+      "secret": "dcosPEM"
+    }
+  },
+  "healthChecks": null,
+  "instances": 1,
+  "labels": {
+    "DCOS_SERVICE_PORT_INDEX": "0",
+    "DCOS_PACKAGE_FRAMEWORK_NAME": "jenkinsmarathon",
+    "DCOS_SERVICE_NAME": "jenkinsmarathon",
+    "DCOS_PACKAGE_NAME":	"jenkins",
+    "DCOS_SERVICE_SCHEME":	"http",
+    "MARATHON_SINGLE_INSTANCE_APP": "true",
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_0_VHOST": "nginx.dcos.com",
+    "HAPROXY_0_ENABLED": "true",
+    "HAPROXY_1_VHOST": "jenkins.dcos.com",
+    "HAPROXY_1_ENABLED": "true"
+  },
+  "maxLaunchDelaySeconds": 3600,
+  "mem": 8192,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "portDefinitions": [
+    {
+      "name": "nginx",
+      "protocol": "tcp"
+    },
+    {
+      "name": "jenkins",
+      "protocol": "tcp"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 0,
+    "minimumHealthCapacity": 0
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": null,
+  "fetch": [],
+  "secrets": {
+    "dcosPEM": {
+        "source": "dev/DCOS-pem"
+    }
+  },
+  "constraints": []
+}

@@ -9,20 +9,20 @@
 # variable with the file location and import the PEM into the JVM keystore.
 write_pem_file()
 {
-    if [ -n "$DCOS_PEM" ]; then
-        local target_file="$JENKINS_HOME/.dcos_pem_64"
-        printf "%s" "$DCOS_PEM" > $target_file
-        #printf "Found DCOS_PEM environment variable, writing for import to $target_file"
-
-        local decoded_target_file="$JENKINS_HOME/.dcos_pem"
-        /usr/bin/openssl base64 -d -in $target_file -out $decoded_target_file 
+    # DC/OS specific. 
+    if [ -f "$LIBPROCESS_SSL_CA_FILE" ]; then
+        echo "Adding $LIBPROCESS_SSL_CA_FILE to JVM keystore..."
+        local target_file="$JENKINS_HOME/.dcos_pem"
+        cat $LIBPROCESS_SSL_CA_FILE | openssl x509 -outform PEM > $target_file
 
         # fix env variable
         DCOS_PEM="file://$target_file"
         export DCOS_PEM
 
         # update the JVM keystore with the PEM
-        ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -import -alias dcos -file $decoded_target_file -storepass changeit -noprompt
+        ${JAVA_HOME}/bin/keytool -keystore ${JAVA_HOME}/jre/lib/security/cacerts -import -alias dcos -file $target_file -storepass changeit -noprompt
+    else
+        echo "Skipping cert import, file $LIBPROCESS_SSL_CA_FILE not found. This is ok if this container is not run on DC/OS..."
     fi
 }
 

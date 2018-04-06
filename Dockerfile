@@ -14,6 +14,7 @@ ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libme
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
 ARG BLUEOCEAN_VERSION=1.3.5
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
+ARG MESOS_PLUG_HASH=5f81e3c375
 
 USER root
 
@@ -111,7 +112,6 @@ RUN /usr/local/bin/install-plugins.sh       \
   matrix-auth:2.2                \
   matrix-project:1.12            \
   maven-plugin:3.0               \
-  mesos:0.15.0                   \
   metrics:3.1.2.10               \
   momentjs:1.1.1                 \
   monitoring:1.70.0              \
@@ -155,6 +155,9 @@ RUN /usr/local/bin/install-plugins.sh       \
   workflow-scm-step:2.6          \
   workflow-step-api:2.14         \
   workflow-support:2.16
+
+# add mesos plugin
+ADD https://infinity-artifacts.s3.amazonaws.com/mesos-jenkins/mesos.hpi-${MESOS_PLUG_HASH} "${JENKINS_STAGING}/plugins/mesos.hpi"
 
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state

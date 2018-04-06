@@ -14,6 +14,7 @@ ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmes
 ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
+ARG MESOS_PLUG_HASH=db4ef17c71a4cb4ba3473f9c3707d60874e0d0af
 
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
@@ -114,7 +115,6 @@ RUN /usr/local/bin/install-plugins.sh       \
   matrix-auth:2.2                \
   matrix-project:1.13            \
   maven-plugin:3.1.2             \
-  mesos:0.16                     \
   metrics:3.1.2.11               \
   monitoring:1.72.0              \
   nant:1.4.3                     \
@@ -157,6 +157,9 @@ RUN /usr/local/bin/install-plugins.sh       \
   workflow-scm-step:2.6          \
   workflow-step-api:2.14         \
   workflow-support:2.18
+
+# add mesos plugin
+ADD https://infinity-artifacts.s3.amazonaws.com/mesos-jenkins/mesos.hpi-${MESOS_PLUG_HASH} "${JENKINS_STAGING}/plugins/mesos.hpi"
 
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state

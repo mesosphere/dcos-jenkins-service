@@ -70,7 +70,7 @@ Jenkins plugins:
   * mesos v0.16
   * metrics v3.1.2.11
   * momentjs v1.1.1
-  * monitoring v1.70.0
+  * monitoring v1.72.0
   * nant v1.4.3
   * node-iterator-api v1.5.0
   * pam-auth v1.3
@@ -81,7 +81,7 @@ Jenkins plugins:
   * pipeline-milestone-step v1.3.1
   * pipeline-model-api:1.2.8
   * pipeline-model-definition v1.2.8
-  * pipeline-model-extensions v1.2.5
+  * pipeline-model-extensions v1.2.8
   * pipeline-rest-api v2.10
   * pipeline-stage-step v2.3
   * pipeline-stage-view v2.10
@@ -101,9 +101,9 @@ Jenkins plugins:
   * variant v1.1
   * windows-slaves v1.3.1
   * workflow-aggregator v2.5
-  * workflow-api v2.26
+  * workflow-api v2.27
   * workflow-basic-steps v2.6
-  * workflow-cps v2.47
+  * workflow-cps v2.48
   * workflow-cps-global-lib v2.9
   * workflow-durable-task-step v2.19
   * workflow-job v2.17

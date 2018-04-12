@@ -116,7 +116,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   maven-plugin:3.1.2             \
   mesos:0.16                     \
   metrics:3.1.2.11               \
-  monitoring:1.70.0              \
+  monitoring:1.72.0              \
   nant:1.4.3                     \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
@@ -127,7 +127,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   pipeline-milestone-step:1.3.1  \
   pipeline-model-api:1.2.8       \
   pipeline-model-definition:1.2.8 \
-  pipeline-model-extensions:1.2.5 \
+  pipeline-model-extensions:1.2.8 \
   pipeline-rest-api:2.10         \
   pipeline-stage-step:2.3        \
   pipeline-stage-view:2.10       \
@@ -147,9 +147,9 @@ RUN /usr/local/bin/install-plugins.sh       \
   variant:1.1                    \
   windows-slaves:1.3.1           \
   workflow-aggregator:2.5        \
-  workflow-api:2.26              \
+  workflow-api:2.27              \
   workflow-basic-steps:2.6       \
-  workflow-cps:2.47              \
+  workflow-cps:2.48              \
   workflow-cps-global-lib:2.9    \
   workflow-durable-task-step:2.19 \
   workflow-job:2.18              \

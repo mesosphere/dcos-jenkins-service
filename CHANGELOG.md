@@ -1,5 +1,11 @@
 # Changes
 
+## v3.5.0-2.107.2 (2018-04-12)
+  * Addresses security bulletin for 2018-04-11
+  * Updates blueocean to version 1.5.0
+  * Updates various plugins
+  * Remove ace-editor & momentjs as they should not be installed directly
+
 ## v3.4.0-2.89.2 (2017-12-14)
   * Upgrades Jenkins to 2.89.2 LTS
   * Updates blueocean to version 1.3.5

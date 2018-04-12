@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.89.4
+FROM jenkins/jenkins:2.107.2
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -12,7 +12,7 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.8.7-1.0.2-2.tar.gz
 ARG LIBMESOS_DOWNLOAD_SHA256=9757b2e86c975488f68ce325fdf08578669e3c0f1fcccf24545d3bd1bd423a25
-ARG BLUEOCEAN_VERSION=1.3.5
+ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
@@ -70,95 +70,93 @@ RUN /usr/local/bin/install-plugins.sh       \
   blueocean-rest:${BLUEOCEAN_VERSION}       \
   blueocean-web:${BLUEOCEAN_VERSION}        \
   blueocean:${BLUEOCEAN_VERSION}            \
-  ant:1.7                        \
-  ace-editor:1.1                 \
+  ant:1.8                        \
   ansicolor:0.5.2                \
   antisamy-markup-formatter:1.5  \
-  artifactory:2.13.1             \
+  artifactory:2.15.1             \
   authentication-tokens:1.3      \
-  azure-credentials:1.3.1        \
-  azure-vm-agents:0.5.0          \
-  branch-api:2.0.16              \
-  build-name-setter:1.6.7        \
+  azure-credentials:1.6.0        \
+  azure-vm-agents:0.7.0          \
+  branch-api:2.0.19              \
+  build-name-setter:1.6.9        \
   build-timeout:1.19             \
-  cloudbees-folder:6.2.1         \
+  cloudbees-folder:6.4           \
   conditional-buildstep:1.3.6    \
-  config-file-provider:2.16.4    \
-  copyartifact:1.39              \
-  cvs:2.13                       \
+  config-file-provider:2.18      \
+  copyartifact:1.39.1            \
+  cvs:2.14                       \
   docker-build-publish:1.3.2     \
-  docker-workflow:1.14           \
-  durable-task:1.17              \
-  ec2:1.38                       \
+  docker-workflow:1.15.1         \
+  durable-task:1.22              \
+  ec2:1.39                       \
   embeddable-build-status:1.9    \
   external-monitor-job:1.7       \
-  ghprb:1.39.0                   \
-  git:3.6.4                      \
-  git-client:2.6.0               \
+  ghprb:1.40.0                   \
+  git:3.8.0                      \
+  git-client:2.7.1               \
   git-server:1.7                 \
-  github:1.28.1                  \
+  github:1.29.0                  \
   github-api:1.90                \
-  github-branch-source:2.3.1     \
+  github-branch-source:2.3.3     \
   github-organization-folder:1.6 \
-  gitlab:1.5.2                   \
+  gitlab-plugin:1.5.5            \
   gradle:1.28                    \
   greenballs:1.15                \
   handlebars:1.1.1               \
   ivy:1.28                       \
-  jackson2-api:2.8.10.1          \
-  job-dsl:1.66                   \
+  jackson2-api:2.8.11.1          \
+  job-dsl:1.68                   \
   jobConfigHistory:2.18          \
   jquery:1.12.4-0                \
-  ldap:1.18                      \
+  ldap:1.20                      \
   mapdb-api:1.0.9.0              \
   marathon:1.6.0                 \
   matrix-auth:2.2                \
-  matrix-project:1.12            \
-  maven-plugin:3.0               \
-  mesos:0.15.0                   \
-  metrics:3.1.2.10               \
-  momentjs:1.1.1                 \
+  matrix-project:1.13            \
+  maven-plugin:3.1.2             \
+  mesos:0.16                     \
+  metrics:3.1.2.11               \
   monitoring:1.70.0              \
   nant:1.4.3                     \
   node-iterator-api:1.5.0        \
   pam-auth:1.3                   \
   parameterized-trigger:2.35.2   \
-  pipeline-build-step:2.6        \
+  pipeline-build-step:2.7        \
   pipeline-github-lib:1.0        \
   pipeline-input-step:2.8        \
   pipeline-milestone-step:1.3.1  \
-  pipeline-model-api:1.2.5       \
-  pipeline-model-definition:1.2.5 \
+  pipeline-model-api:1.2.8       \
+  pipeline-model-definition:1.2.8 \
   pipeline-model-extensions:1.2.5 \
-  pipeline-rest-api:2.9          \
+  pipeline-rest-api:2.10         \
   pipeline-stage-step:2.3        \
-  pipeline-stage-view:2.9        \
+  pipeline-stage-view:2.10       \
   plain-credentials:1.4          \
-  rebuild:1.27                   \
-  role-strategy:2.6.1            \
+  rebuild:1.28                   \
+  role-strategy:2.7.0            \
   run-condition:1.0              \
-  s3:0.10.12                     \
+  s3:0.11.0                      \
   saferestart:0.3                \
-  saml:1.0.4                     \
+  saml:1.0.5                     \
   scm-api:2.2.6                  \
   ssh-agent:1.15                 \
-  ssh-slaves:1.23                \
-  subversion:2.10.1              \
-  timestamper:1.8.8              \
-  translation:1.15               \
+  ssh-slaves:1.26                \
+  subversion:2.10.5              \
+  timestamper:1.8.9              \
+  translation:1.16               \
   variant:1.1                    \
   windows-slaves:1.3.1           \
   workflow-aggregator:2.5        \
-  workflow-api:2.24              \
+  workflow-api:2.26              \
   workflow-basic-steps:2.6       \
-  workflow-cps:2.42              \
+  workflow-cps:2.47              \
   workflow-cps-global-lib:2.9    \
-  workflow-durable-task-step:2.17 \
-  workflow-job:2.16              \
-  workflow-multibranch:2.16      \
+  workflow-durable-task-step:2.19 \
+  workflow-job:2.18              \
+  workflow-multibranch:2.17      \
   workflow-scm-step:2.6          \
   workflow-step-api:2.14         \
-  workflow-support:2.16
+  workflow-support:2.18
 
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state

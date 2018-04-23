@@ -131,6 +131,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   pipeline-stage-step:2.3        \
   pipeline-stage-view:2.10       \
   plain-credentials:1.4          \
+  prometheus:1.2.0               \
   rebuild:1.28                   \
   role-strategy:2.7.0            \
   run-condition:1.0              \
@@ -174,6 +175,7 @@ CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_L
      -Djava.awt.headless=true                        \
      -Dhudson.DNSMultiCast.disabled=true             \
      -Djenkins.install.runSetupWizard=false          \
+     -Djavamelody.statsd-address="${STATSD_UDP_HOST}:${STATSD_UDP_PORT}"  \
      -jar ${JENKINS_FOLDER}/jenkins.war              \
      ${JENKINS_OPTS}                                 \
      --httpPort=${PORT1}                             \

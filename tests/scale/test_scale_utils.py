@@ -15,7 +15,6 @@ def configure_package():
     try:
         sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
         sdk_install.install(config.PACKAGE_NAME, config.SERVICE_NAME, 0, wait_for_deployment=False)
-        jenkins.wait_for_jenkins_marathon_app_healthy(config.SERVICE_NAME, 3 * 60)
 
         yield # let the test session execute
     finally:

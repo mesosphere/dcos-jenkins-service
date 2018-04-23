@@ -5,11 +5,15 @@ import retrying
 import sdk_cmd
 import sdk_marathon
 
+from shakedown import *
+
 
 TIMEOUT_SECONDS = 15 * 60
 SHORT_TIMEOUT_SECONDS = 30
 
 log = logging.getLogger(__name__)
+
+DCOS_SERVICE_URL = dcos_service_url('jenkins')
 
 
 def wait_for_jenkins_marathon_app_healthy(service_name, timeout_seconds=TIMEOUT_SECONDS):
@@ -31,6 +35,19 @@ def is_jenkins_marathon_app_healthy(service_name, timeout_seconds=TIMEOUT_SECOND
     log.info("tasks_healthy: {}".format(tasks_healthy_count))
 
     return tasks_running_count == 1 and tasks_healthy_count == 1
+
+def create_job(service_name, job_name, timeout_seconds=TIMEOUT_SECONDS):   
+    here = os.path.dirname(__file__)
+    headers = {'Content-Type': 'application/xml'}  
+    job_config = ''
+    url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)
+    #alter config at /testData/test-job.xml to alter created job
+    with open(os.path.join(here, 'testData', 'test-job.xml')) as test_job:
+        job_config = test_job.read()
+
+    logger.info("creating job with config " + job_config)
+    r = http.post(url, headers=headers, data=job_config)
+    logger.info("Create job return code " + r.status_code)
 
 
 def copy_job(service_name, src_name, dst_name, timeout_seconds=SHORT_TIMEOUT_SECONDS):

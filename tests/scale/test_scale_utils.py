@@ -18,7 +18,8 @@ def configure_package():
 
         yield # let the test session execute
     finally:
-        sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
+        pass
+       # sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
 
 
 @pytest.mark.sanity
@@ -41,5 +42,5 @@ def test_copy_job():
 
 @pytest.mark.sanity
 def test_create_job():
-    jenkins.create_job(service_name, testJob)
+    jenkins.create_job(service_name, "testSampleJob")
     

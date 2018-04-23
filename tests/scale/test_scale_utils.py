@@ -38,3 +38,8 @@ def test_copy_job():
     for x in range(0, 100):
         copy_name = str(uuid.uuid4())
         jenkins.copy_job(service_name, 'test', copy_name)
+
+@pytest.mark.sanity
+def test_create_job():
+    jenkins.create_job(service_name, testJob)
+    

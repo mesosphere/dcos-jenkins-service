@@ -9,9 +9,13 @@ tmp/
 tools/env/
 tools/cluster-*.properties
 tools/*.pem
+tools/*.pyc
 tools/dcostests_env/
 tools/shakedown_env/
 tools/*/shakedown_env/
 
 # vscode
 .vscode
+
+# mac
+.DS_Store

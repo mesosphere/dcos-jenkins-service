@@ -2,10 +2,6 @@
 #
 # Uploads artifacts to S3.
 # Produces a universe, and uploads it to S3.
-<<<<<<< HEAD
-# If running in jenkins ($WORKSPACE is defined), writes $WORKSPACE/stub-universe.properties
-=======
->>>>>>> Add scale test utility tests
 #
 # Env:
 #   S3_BUCKET (default: infinity-artifacts)
@@ -32,15 +28,9 @@ class AWSPublisher(object):
     def __init__(
             self,
             package_name,
-<<<<<<< HEAD
-            input_dir_path,
-            artifact_paths,
-            package_version='stub-universe'):
-=======
             package_version,
             input_dir_path,
             artifact_paths):
->>>>>>> Add scale test utility tests
         self._dry_run = os.environ.get('DRY_RUN', '')
         self._pkg_name = package_name
         self._pkg_version = package_version
@@ -159,20 +149,6 @@ def main(argv):
         return 1
     # the package name:
     package_name = argv[1]
-<<<<<<< HEAD
-    # local path where the package template is located:
-    package_dir_path = argv[2].rstrip('/')
-    # artifact paths (to upload along with stub universe)
-    artifact_paths = argv[3:]
-    logger.info('''###
-Package:         {}
-Template path:   {}
-Artifacts:
-{}
-###'''.format(package_name, package_dir_path, '\n'.join(['- {}'.format(path) for path in artifact_paths])))
-
-    AWSPublisher(package_name, package_dir_path, artifact_paths).upload()
-=======
     # the package version:
     package_version = argv[2]
     # local path where the package template is located:
@@ -188,7 +164,6 @@ Artifacts:
 ###'''.format(package_name, package_version, package_dir_path, '\n'.join(['- {}'.format(path) for path in artifact_paths])))
 
     AWSPublisher(package_name, package_version, package_dir_path, artifact_paths).upload()
->>>>>>> Add scale test utility tests
     return 0
 
 

@@ -8,7 +8,7 @@ import sdk_install
 
 log = logging.getLogger(__name__)
 
-service_name = 'jenkins'
+test_job_name = 'test-job-{}'.format(uuid.uuid4())
 
 @pytest.fixture(scope='module', autouse=True)
 def configure_package():
@@ -18,29 +18,13 @@ def configure_package():
 
         yield # let the test session execute
     finally:
-        pass
-       # sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
+        sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
 
-
-@pytest.mark.sanity
-def test_get_builds():
-    log.info('Getting Jenkins jobs')
-    jobs = jenkins.get_jobs(service_name)
-    log.info('jobs: {}'.format(jobs))
-
-    for job in jobs:
-        name = job['name']
-        log.info('first build: {}'.format(jenkins.get_first_build(service_name, name)))
-        log.info('last build: {}'.format(jenkins.get_last_build(service_name, name)))
-
-
-@pytest.mark.sanity
-def test_copy_job():
-    for x in range(0, 100):
-        copy_name = str(uuid.uuid4())
-        jenkins.copy_job(service_name, 'test', copy_name)
 
 @pytest.mark.sanity
 def test_create_job():
-    jenkins.create_job(service_name, "testSampleJob")
+    jenkins.create_job(config.SERVICE_NAME, test_job_name)
+    job = jenkins.get_job(config.SERVICE_NAME, test_job_name)
+
+    assert test_job_name == job['name']
     

@@ -13,7 +13,14 @@ else
 	# docker publish to user docker repo (e.g. DOCKER_REPO envvar)
 	: ${DOCKER_REPO?"Need to set DOCKER_REPO env var as DOCKER_IMAGE is not specified"}
 
-	DOCKER_IMAGE="${DOCKER_REPO}/jenkins-dev:latest"
+	if [ -n "${DOCKER_TAG}" ]; then
+		echo "Using DOCKER_TAG : $DOCKER_TAG"
+		DOCKER_IMAGE="${DOCKER_REPO}/jenkins-dev:${DOCKER_TAG}"
+	else
+		TAG=`git rev-parse HEAD`
+		DOCKER_IMAGE="${DOCKER_REPO}/jenkins-dev:${TAG}"
+	fi
+
 	# docker build and publish
 	docker build -t "${DOCKER_IMAGE}" .
 	docker push "${DOCKER_IMAGE}"

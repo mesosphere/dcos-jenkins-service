@@ -30,6 +30,11 @@ def get_app_id(service_name):
     return '/' + service_name.lstrip('/')
 
 
+def get_task_count(app_name, task_status_name, timeout_secounts=TIMEOUT_SECONDS):
+    config = get_config(app_name, timeout=timeout_seconds)
+    return config[task_status]
+
+
 def wait_for_deployment_and_app_removal(app_id, timeout=TIMEOUT_SECONDS):
     """
     Waits for application to be gone, according to Marathon.

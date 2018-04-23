@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -e
+set -e -x
 
 user_usage() {
     # This script is generally called by an upstream 'build.sh' which would be invoked directly by users.
@@ -109,7 +109,15 @@ case "$publish_method" in
         ;;
 esac
 
+<<<<<<< HEAD
 if [ -n "$PUBLISH_SCRIPT" ]; then
     # Both scripts use the same argument format:
     $PUBLISH_SCRIPT ${FRAMEWORK_NAME} ${UNIVERSE_DIR} ${custom_artifacts}
+=======
+PACKAGE_VERSION=${1:-"stub-universe"}
+
+if [ -n "$PUBLISH_SCRIPT" ]; then
+    # All the scripts use the same argument format:
+    $PUBLISH_SCRIPT "${FRAMEWORK_NAME}" "${PACKAGE_VERSION}" "${UNIVERSE_DIR}" ${custom_artifacts}
+>>>>>>> Add scale test utility tests
 fi

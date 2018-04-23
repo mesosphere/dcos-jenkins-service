@@ -1,5 +1,17 @@
 *.hpi
 __pycache__/
+.pytest_cache/*
 .cache/
 target/
 tmp/
+
+# leftovers from running tests/tools directly
+tools/env/
+tools/cluster-*.properties
+tools/*.pem
+tools/dcostests_env/
+tools/shakedown_env/
+tools/*/shakedown_env/
+
+# vscode
+.vscode

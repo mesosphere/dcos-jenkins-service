@@ -1,19 +1,23 @@
 #!/bin/bash
 
+set -e
+
 # If DOCKER_IMAGE envvar set then use that
 # Else build DOCKER_IMAGE
 
-# docker build
-docker build .
+if [ -n "${DOCKER_IMAGE}" ]; then
+	# DOCKER_IMAGE envvar is user supplied
+    echo "Using DOCKER_IMAGE : $DOCKER_IMAGE"
+else
+	echo "Building docker image..."
+	# docker publish to user docker repo (e.g. DOCKER_REPO envvar)
+	: ${DOCKER_REPO?"Need to set DOCKER_REPO env var as DOCKER_IMAGE is not specified"}
 
-# docker publish to user docker repo (e.g. DOCKER_REPO envvar)
-# TODO Colin or Tarun
+	DOCKER_IMAGE="${DOCKER_REPO}/jenkins-dev:latest"
+	# docker build and publish
+	docker build -t "${DOCKER_IMAGE}" .
+	docker push "${DOCKER_IMAGE}"
+fi
 
-# Set DOCKER_IMAGE envvar to value user supplied
-# TODO Colin or Tarun
-
-# Update universe/ or using tooling to reference the correct image (via templating)
-# TODO Tarun
-
-# Publish stub
-tools/publish_aws.py jenkins universe/
+# Use tooling to reference the correct image (via templating) and publish stub
+env TEMPLATE_DOCKER-IMAGE="${DOCKER_IMAGE}" tools/publish_aws.py jenkins universe/

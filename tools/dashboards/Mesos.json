@@ -1,0 +1,495 @@
+{
+  "id": 3,
+  "title": "Mesos",
+  "originalTitle": "Mesos",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "500px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 1,
+          "leftYAxisLabel": "ms",
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "",
+          "seriesOverrides": [],
+          "span": 9,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p9999",
+              "intervalFactor": 2,
+              "legendFormat": "p9999",
+              "refId": "A"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p999",
+              "intervalFactor": 2,
+              "legendFormat": "p999",
+              "refId": "B"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p99",
+              "intervalFactor": 2,
+              "legendFormat": "p99",
+              "refId": "C"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p95",
+              "intervalFactor": 2,
+              "legendFormat": "p95",
+              "refId": "D"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p90",
+              "intervalFactor": 2,
+              "legendFormat": "p90",
+              "refId": "E"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms_p50",
+              "intervalFactor": 2,
+              "legendFormat": "p50",
+              "refId": "F"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_run_ms",
+              "intervalFactor": 2,
+              "legendFormat": "instant",
+              "refId": "G"
+            },
+            {
+              "expr": "stddev_over_time(mesos_master_allocator_allocation_run_ms[1m])",
+              "intervalFactor": 2,
+              "legendFormat": "stddev [1m]",
+              "refId": "H"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Allocator Duration",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 9,
+          "leftYAxisLabel": "runs/s",
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "rightYAxisLabel": "",
+          "seriesOverrides": [],
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(mesos_master_allocator_allocation_runs{event=\"allocations\"}[1m])",
+              "intervalFactor": 2,
+              "legendFormat": "runs/s [1m]",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Allocation Rate",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "Allocator"
+    },
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 3,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "mesos_master_frameworks_state{state=\"active\"}",
+              "intervalFactor": 2,
+              "legendFormat": "active",
+              "refId": "B"
+            },
+            {
+              "expr": "mesos_master_frameworks_state{state=\"inactive\"}",
+              "intervalFactor": 2,
+              "legendFormat": "inactive",
+              "refId": "E"
+            },
+            {
+              "expr": "mesos_master_frameworks_state{state=\"connected\"}",
+              "intervalFactor": 2,
+              "legendFormat": "connected",
+              "refId": "C"
+            },
+            {
+              "expr": "mesos_master_frameworks_state{state=\"disconnected\"}",
+              "intervalFactor": 2,
+              "legendFormat": "disconnected",
+              "refId": "D"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Frameworks",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "mesos_master_offers_pending",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "outstanding offers",
+              "refId": "A"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Outstanding Offers",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "datasource": null,
+          "editable": true,
+          "error": false,
+          "fill": 0,
+          "grid": {
+            "leftLogBase": 1,
+            "leftMax": null,
+            "leftMin": null,
+            "rightLogBase": 1,
+            "rightMax": null,
+            "rightMin": null,
+            "threshold1": null,
+            "threshold1Color": "rgba(216, 200, 27, 0.27)",
+            "threshold2": null,
+            "threshold2Color": "rgba(234, 112, 112, 0.22)"
+          },
+          "id": 12,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p9999",
+              "intervalFactor": 2,
+              "legendFormat": "p9999",
+              "refId": "A"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p999",
+              "intervalFactor": 2,
+              "legendFormat": "p999",
+              "refId": "B"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p99",
+              "intervalFactor": 2,
+              "legendFormat": "p99",
+              "refId": "C"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p95",
+              "intervalFactor": 2,
+              "legendFormat": "p95",
+              "refId": "D"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p90",
+              "intervalFactor": 2,
+              "legendFormat": "p90",
+              "refId": "E"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms_p50",
+              "intervalFactor": 2,
+              "legendFormat": "p50",
+              "refId": "F"
+            },
+            {
+              "expr": "mesos_master_allocator_allocation_runs_latency_ms",
+              "intervalFactor": 2,
+              "legendFormat": "instant",
+              "refId": "G"
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Allocator (latency)",
+          "tooltip": {
+            "shared": true,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "x-axis": true,
+          "y-axis": true,
+          "y_formats": [
+            "short",
+            "short"
+          ]
+        }
+      ],
+      "title": "New row"
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "now": true,
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "refresh": "5s",
+  "schemaVersion": 7,
+  "version": 3,
+  "links": []
+}

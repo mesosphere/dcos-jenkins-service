@@ -113,6 +113,8 @@ class AWSPublisher(object):
         logger.info('---')
         logger.info('STUB UNIVERSE: {}'.format(universe_url))
         logger.info('---')
+        with open("stub-universe", "a") as stub_file:
+                stub_file.write(universe_url)
         logger.info('Uploading {} artifacts:'.format(len(self._artifact_paths)))
 
         for path in self._artifact_paths:

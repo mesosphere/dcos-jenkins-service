@@ -22,9 +22,11 @@ else
 	fi
 
 	# docker build and publish
+    echo Building $DOCKER_IMAGE
 	docker build -t "${DOCKER_IMAGE}" .
+    echo Pushing $DOCKER_IMAGE
 	docker push "${DOCKER_IMAGE}"
 fi
 
 # Use tooling to reference the correct image (via templating) and publish stub
-env TEMPLATE_DOCKER-IMAGE="${DOCKER_IMAGE}" tools/publish_aws.py jenkins universe/
+env TEMPLATE_DOCKER-IMAGE="${DOCKER_IMAGE}" tools/publish_aws.py jenkins stub-universe universe/

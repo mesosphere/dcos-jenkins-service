@@ -17,5 +17,8 @@ tools/*/shakedown_env/
 # vscode
 .vscode
 
+# vim
+*.swp
+
 # mac
 .DS_Store

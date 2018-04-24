@@ -15,7 +15,7 @@ ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 ARG MESOS_PLUG_HASH=0d0f10eb6a16d336bb4ca55ff12aa2f8b72a7024
-ARG PROMETHEUS_PLUG_HASH=59f52a47335f5c324f95f5c6d9f20bccef88bf7a
+ARG PROMETHEUS_PLUG_HASH=a347bf2c63efe59134c15b8ef83a4a1f627e3b5d
 
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"

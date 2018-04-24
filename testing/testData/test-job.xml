@@ -1,33 +1,32 @@
 <project>
-    <actions/>
-    <description>
-        This is an acceptance test job for Jenkins. The test that creates
-        and triggers this job will assert that it completes successfully
-        within a given amount of time. This job runs a shell script that
-        sleeps for 30 seconds before exiting with a status code of 0
-        (success).
-    </description>
-    <keepDependencies>false</keepDependencies>
-    <properties>
-        <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild">
-            <autoRebuild>false</autoRebuild>
-            <rebuildDisabled>false</rebuildDisabled>
-        </com.sonyericsson.rebuild.RebuildSettings>
-    </properties>
-    <scm class="hudson.scm.NullSCM"/>
-    <canRoam>true</canRoam>
-    <disabled>false</disabled>
-    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-    <triggers/>
-    <concurrentBuild>false</concurrentBuild>
-    <builders>
-        <hudson.tasks.Shell>
-            <command>sleep 30; exit 0</command>
-        </hudson.tasks.Shell>
-    </builders>
-    <publishers/>
-    <buildWrappers>
-        <org.jenkinsci.plugins.mesos.MesosSingleUseSlave plugin="mesos"/>
-    </buildWrappers>
+   <actions />
+   <description>created from tests</description>
+   <keepDependencies>false</keepDependencies>
+   <properties>
+      <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.5.5">
+         <gitLabConnection />
+      </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+      <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.28">
+         <autoRebuild>false</autoRebuild>
+         <rebuildDisabled>false</rebuildDisabled>
+      </com.sonyericsson.rebuild.RebuildSettings>
+   </properties>
+   <scm class="hudson.scm.NullSCM" />
+   <canRoam>true</canRoam>
+   <disabled>false</disabled>
+   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+   <triggers>
+      <hudson.triggers.TimerTrigger>
+         <spec>* * * * *</spec>
+      </hudson.triggers.TimerTrigger>
+   </triggers>
+   <concurrentBuild>false</concurrentBuild>
+   <builders>
+      <hudson.tasks.Shell>
+         <command>echo "Hello World"; sleep 30</command>
+      </hudson.tasks.Shell>
+   </builders>
+   <publishers />
+   <buildWrappers />
 </project>

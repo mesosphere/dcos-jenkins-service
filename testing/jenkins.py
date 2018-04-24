@@ -6,6 +6,7 @@ import sdk_cmd
 import sdk_marathon
 
 from shakedown import *
+from xml.etree import ElementTree
 
 
 TIMEOUT_SECONDS = 15 * 60
@@ -16,18 +17,29 @@ log = logging.getLogger(__name__)
 DCOS_SERVICE_URL = dcos_service_url('jenkins')
 
 
-def create_job(service_name, job_name, timeout_seconds=TIMEOUT_SECONDS):   
+def create_job(service_name, job_name, schedule_frequency_in_min=1):   
     here = os.path.dirname(__file__)
     headers = {'Content-Type': 'application/xml'}  
     job_config = ''
-    url = '{}createItem?name={}'.format(DCOS_SERVICE_URL, job_name)
-    #alter config at /testData/test-job.xml to alter created job
-    with open(os.path.join(here, 'testData', 'test-job.xml')) as test_job:
-        job_config = test_job.read()
-
-    logger.info('creating job with config {}'.format(job_config))
+    url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)  
+    job_config = construct_job_config(schedule_frequency_in_min)
+    
     r = http.post(url, headers=headers, data=job_config)
-    logger.info('Create job return code {}'.format(str(r.status_code)))
+
+    return r
+
+
+def construct_job_config(schedule_frequency_in_min):
+    here = os.path.dirname(__file__)
+    updated_job_config = ElementTree.parse(os.path.join(here, 'testData', 'test-job.xml'))
+
+    cron = '*/{} * * * *'.format(schedule_frequency_in_min)
+    updated_job_config.find('.//spec').text = cron
+    root = updated_job_config.getroot()
+    xmlstr = ElementTree.tostring(root, encoding='utf8', method='xml')
+
+    return xmlstr
+
 
 
 def copy_job(service_name, src_name, dst_name, timeout_seconds=SHORT_TIMEOUT_SECONDS):

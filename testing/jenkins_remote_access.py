@@ -92,6 +92,7 @@ matchedJobs.each { job ->
 """
 
 
+
 def add_slave_info(
         labelString,
         slaveCpus="0.5",
@@ -179,4 +180,5 @@ def make_post(
     )
 
 if __name__ == '__main__':
+    # (.*) to delete all the jobs.
     remove_all_jobs("(.*)")

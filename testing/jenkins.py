@@ -1,12 +1,10 @@
 import logging
 import os
-import retrying
+from xml.etree import ElementTree
 
 import sdk_cmd
-import sdk_marathon
-
+import jenkins_remote_access
 from shakedown import *
-from xml.etree import ElementTree
 
 
 TIMEOUT_SECONDS = 15 * 60
@@ -17,25 +15,42 @@ log = logging.getLogger(__name__)
 DCOS_SERVICE_URL = dcos_service_url('jenkins')
 
 
-def create_job(service_name, job_name, cmd="echo \"Hello World\"; sleep 30",  schedule_frequency_in_min=1):   
-    here = os.path.dirname(__file__)
-    headers = {'Content-Type': 'application/xml'}  
-    job_config = ''
-    url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)  
-    job_config = construct_job_config(cmd, schedule_frequency_in_min)
+def create_mesos_slave_node(
+        labelString,
+        **kwargs
+):
+    # TODO check if the label exists and then create or else a NOOP.
+    # create the mesos slave node with given label. LABEL SHOULD NOT PRE-EXIST.
+    jenkins_remote_access.add_slave_info(
+        labelString,
+        **kwargs
+    )
+
+
+def create_job(
+        job_name,
+        cmd="echo \"Hello World\"; sleep 30",
+        schedule_frequency_in_min=1,
+        labelString=None
+):
+    headers = {'Content-Type': 'application/xml'}
+    url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)
+    job_config = construct_job_config(cmd, schedule_frequency_in_min, labelString)
     
     r = http.post(url, headers=headers, data=job_config)
 
     return r
 
 
-def construct_job_config(cmd, schedule_frequency_in_min):
+def construct_job_config(cmd, schedule_frequency_in_min, labelString):
     here = os.path.dirname(__file__)
     updated_job_config = ElementTree.parse(os.path.join(here, 'testData', 'test-job.xml'))
 
     cron = '*/{} * * * *'.format(schedule_frequency_in_min)
     updated_job_config.find('.//spec').text = cron
     updated_job_config.find('.//command').text = cmd
+    if labelString:
+        updated_job_config.find('.//assignedNode').text = labelString
     root = updated_job_config.getroot()
     xmlstr = ElementTree.tostring(root, encoding='utf8', method='xml')
 

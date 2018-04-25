@@ -29,5 +29,7 @@
       </hudson.tasks.Shell>
    </builders>
    <publishers />
-   <buildWrappers />
+   <buildWrappers>
+     <org.jenkinsci.plugins.mesos.MesosSingleUseSlave plugin="mesos@0.16"/>
+   </buildWrappers>
 </project>

@@ -4,6 +4,7 @@ __pycache__/
 .cache/
 target/
 tmp/
+.idea/
 
 # leftovers from running tests/tools directly
 tools/env/

@@ -5,6 +5,7 @@ __pycache__/
 target/
 tmp/
 .idea/
+tests/scale/*.pyc
 
 # leftovers from running tests/tools directly
 tools/env/
@@ -14,6 +15,7 @@ tools/*.pyc
 tools/dcostests_env/
 tools/shakedown_env/
 tools/*/shakedown_env/
+stub-universe
 
 # vscode
 .vscode

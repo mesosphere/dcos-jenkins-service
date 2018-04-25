@@ -80,19 +80,6 @@ cloud.getSlaveInfos().each {
 """
 
 
-DELETE_JOBS = """
-def matchedJobs = Jenkins.instance.items.findAll { job ->
-    job.name =~ /$JOBS_REGEX/
-}
-    
-matchedJobs.each { job ->
-    println job.name
-    job.delete()
-}
-"""
-
-
-
 def add_slave_info(
         labelString,
         slaveCpus="0.5",
@@ -140,16 +127,6 @@ def remove_slave_info(labelString):
         Template(MESOS_SLAVE_INFO_REMOVE).substitute(
             {
                 "labelString": labelString
-            }
-        )
-    )
-
-
-def remove_all_jobs(regex):
-    return make_post(
-        Template(DELETE_JOBS).substitute(
-            {
-                'JOBS_REGEX': regex
             }
         )
     )

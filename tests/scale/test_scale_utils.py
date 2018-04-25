@@ -23,7 +23,7 @@ def configure_package():
 
 @pytest.mark.sanity
 def test_create_job():
-    jenkins.create_job(config.SERVICE_NAME, test_job_name, 5)
+    jenkins.create_job(config.SERVICE_NAME, test_job_name, "echo \"test command\";", 5)
     job = jenkins.get_job(config.SERVICE_NAME, test_job_name)
 
     assert test_job_name == job['name']

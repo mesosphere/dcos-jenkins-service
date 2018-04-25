@@ -14,6 +14,7 @@
    <scm class="hudson.scm.NullSCM" />
    <canRoam>true</canRoam>
    <disabled>false</disabled>
+   <assignedNode>null</assignedNode>
    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
    <triggers>

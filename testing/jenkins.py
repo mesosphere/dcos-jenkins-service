@@ -17,24 +17,25 @@ log = logging.getLogger(__name__)
 DCOS_SERVICE_URL = dcos_service_url('jenkins')
 
 
-def create_job(service_name, job_name, schedule_frequency_in_min=1):   
+def create_job(service_name, job_name, cmd="echo \"Hello World\"; sleep 30",  schedule_frequency_in_min=1):   
     here = os.path.dirname(__file__)
     headers = {'Content-Type': 'application/xml'}  
     job_config = ''
     url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)  
-    job_config = construct_job_config(schedule_frequency_in_min)
+    job_config = construct_job_config(cmd, schedule_frequency_in_min)
     
     r = http.post(url, headers=headers, data=job_config)
 
     return r
 
 
-def construct_job_config(schedule_frequency_in_min):
+def construct_job_config(cmd, schedule_frequency_in_min):
     here = os.path.dirname(__file__)
     updated_job_config = ElementTree.parse(os.path.join(here, 'testData', 'test-job.xml'))
 
     cron = '*/{} * * * *'.format(schedule_frequency_in_min)
     updated_job_config.find('.//spec').text = cron
+    updated_job_config.find('.//command').text = cmd
     root = updated_job_config.getroot()
     xmlstr = ElementTree.tostring(root, encoding='utf8', method='xml')
 

@@ -3,7 +3,9 @@ import os
 from xml.etree import ElementTree
 
 import sdk_cmd
+import sdk_install
 import jenkins_remote_access
+
 from shakedown import *
 
 
@@ -12,7 +14,21 @@ SHORT_TIMEOUT_SECONDS = 30
 
 log = logging.getLogger(__name__)
 
-DCOS_SERVICE_URL = dcos_service_url('jenkins')
+
+def install(service_name, port):
+    sdk_install.install(
+        'jenkins',
+        service_name,
+        0,
+        additional_options={
+            "service": {
+                "name": service_name
+            },
+            "networking": {
+                "agent-port": port
+            }
+        },
+        wait_for_deployment=False)
 
 
 def create_mesos_slave_node(
@@ -28,13 +44,15 @@ def create_mesos_slave_node(
 
 
 def create_job(
+        service_name,
         job_name,
         cmd="echo \"Hello World\"; sleep 30",
         schedule_frequency_in_min=1,
         labelString=None
 ):
     headers = {'Content-Type': 'application/xml'}
-    url = "{}createItem?name={}".format(DCOS_SERVICE_URL, job_name)
+    svc_url = dcos_service_url(service_name)
+    url = "{}createItem?name={}".format(svc_url, job_name)
     job_config = construct_job_config(cmd, schedule_frequency_in_min, labelString)
     
     r = http.post(url, headers=headers, data=job_config)

@@ -33,7 +33,7 @@ def create_slave() -> str:
 @pytest.mark.sanity
 def test_create_job():
     test_job_name = get_test_job_name()
-    jenkins.create_job(test_job_name, "echo \"test command\";", 5)
+    jenkins.create_job(config.SERVICE_NAME, test_job_name, "echo \"test command\";", 5)
     job = jenkins.get_job(config.SERVICE_NAME, test_job_name)
 
     assert test_job_name == job['name']
@@ -42,7 +42,7 @@ def test_create_job():
 @pytest.mark.sanity
 def test_label_create_job(create_slave):
     test_job_name = get_test_job_name()
-    jenkins.create_job(test_job_name, "echo \"test command\";", 5, create_slave)
+    jenkins.create_job(config.SERVICE_NAME, test_job_name, "echo \"test command\";", 5, create_slave)
     job = jenkins.get_job(config.SERVICE_NAME, test_job_name)
 
     assert test_job_name == job['name']
@@ -55,6 +55,24 @@ def test_jenkins_remote_access():
     assert r.status_code == 200, 'Got {} when trying to post MesosSlaveInfo'.format(r.status_code)
     r = jenkins_remote_access.remove_slave_info(rand_label)
     assert r.status_code == 200, 'Got {} when trying to remove label'.format(r.status_code)
+
+
+@pytest.mark.sanity
+def test_install_custom_name():
+    svc_name = 'jenkins-custom'
+    test_job_name = get_test_job_name()
+
+    sdk_install.uninstall(config.PACKAGE_NAME, svc_name)
+
+    try:
+        jenkins.install(svc_name, 50001)
+        jenkins.create_job(svc_name, test_job_name)
+        job = jenkins.get_job(svc_name, test_job_name)
+
+        assert test_job_name == job['name']
+    finally:
+        pass
+        sdk_install.uninstall(config.PACKAGE_NAME, svc_name)
 
 
 def get_test_job_name():

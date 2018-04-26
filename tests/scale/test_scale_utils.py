@@ -19,6 +19,7 @@ def configure_package():
 
         yield  # let the test session execute
     finally:
+        pass
         sdk_install.uninstall(config.PACKAGE_NAME, config.SERVICE_NAME)
 
 
@@ -51,10 +52,18 @@ def test_label_create_job(create_slave):
 @pytest.mark.sanity
 def test_jenkins_remote_access():
     rand_label = sdk_utils.random_string()
+
+    log.info("Adding %s", rand_label)
     r = jenkins_remote_access.add_slave_info(rand_label)
     assert r.status_code == 200, 'Got {} when trying to post MesosSlaveInfo'.format(r.status_code)
+    assert rand_label in r.text, 'Label {} missing from {}'.format(rand_label, r.text)
+    log.info("Set of labels is now: %s", r.text)
+
+    log.info("Removing %s", rand_label)
     r = jenkins_remote_access.remove_slave_info(rand_label)
     assert r.status_code == 200, 'Got {} when trying to remove label'.format(r.status_code)
+    assert rand_label not in r.text, 'Label {} still present in {}'.format(rand_label, r.text)
+    log.info("Set of labels is now: %s", r.text)
 
 
 @pytest.mark.sanity

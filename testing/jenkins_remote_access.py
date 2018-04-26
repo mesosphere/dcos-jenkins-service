@@ -153,9 +153,5 @@ def make_post(
         service_name,
         'scriptText',
         log_args=False,
-        data=body
+        data={"script":body},
     )
-
-if __name__ == '__main__':
-    # (.*) to delete all the jobs.
-    remove_all_jobs("(.*)")

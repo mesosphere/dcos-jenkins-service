@@ -14,7 +14,7 @@ ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmes
 ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
-ARG MESOS_PLUG_HASH=2d16799ec9e6af0d3c49ff2505a63b64ae625b4f
+ARG MESOS_PLUG_HASH=5216d7ecef0bc8923ff510aec6659e2c7e7611cb
 ARG PROMETHEUS_PLUG_HASH=a347bf2c63efe59134c15b8ef83a4a1f627e3b5d
 
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy

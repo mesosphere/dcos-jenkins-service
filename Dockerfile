@@ -167,6 +167,7 @@ ADD https://infinity-artifacts.s3.amazonaws.com/prometheus-jenkins/prometheus.hp
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
 CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_LIBRARY_PATH \
+  && export JENKINS_SLAVE_AGENT_PORT=$PORT_AGENT \
   && export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)   \
   && . /usr/local/jenkins/bin/export-libssl.sh       \
   && /usr/local/jenkins/bin/bootstrap.py && nginx    \

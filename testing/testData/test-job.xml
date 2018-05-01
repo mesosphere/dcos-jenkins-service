@@ -12,7 +12,7 @@
       </com.sonyericsson.rebuild.RebuildSettings>
    </properties>
    <scm class="hudson.scm.NullSCM" />
-   <canRoam>true</canRoam>
+   <canRoam>false</canRoam>
    <disabled>false</disabled>
    <assignedNode>null</assignedNode>
    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>

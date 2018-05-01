@@ -13,14 +13,15 @@ import org.jenkinsci.plugins.mesos.MesosSlaveInfo;
 import org.apache.mesos.Protos;
 import hudson.slaves.NodeProperty;
 import jenkins.model.*
+import org.jenkinsci.plugins.mesos.MesosSlaveInfo.URI
 """
 
 DOCKER_CONTAINER = """
 def containerInfo = new MesosSlaveInfo.ContainerInfo(
-                "",
-                "mesosphere/jenkins-dind:0.5.0-alpine",
+                "DOCKER",
+                "mesosphere/jenkins-dind:0.7.0-ubuntu",
                 true,
-                false,
+                true,
                 false,
                 true,
                 "wrapper.sh",
@@ -33,6 +34,9 @@ def containerInfo = new MesosSlaveInfo.ContainerInfo(
 """
 
 MESOS_SLAVE_INFO_OBJECT = """
+def additionalURIs = new LinkedList<URI>()
+additionalURIs.add(new URI("file:///etc/docker/docker.tar.gz", false, true))
+
 def mesosSlaveInfo = new MesosSlaveInfo(
         "$labelString",
         $mode,
@@ -82,20 +86,21 @@ cloud.getSlaveInfos().each {
 
 def add_slave_info(
         labelString,
-        slaveCpus="0.5",
-        slaveMem="512",
+        service_name,
+        slaveCpus="0.1",
+        slaveMem="256",
         minExecutors="1",
         maxExecutors="1",
-        executorCpus="0.1",
+        executorCpus="0.4",
         diskNeeded="0.0",
-        executorMem="128",
+        executorMem="4096",
         mode="Node.Mode.NORMAL",
-        remoteFSRoot="/mnt/mesos/sandbox",
-        idleTerminationMinutes="3",
+        remoteFSRoot="jenkins",
+        idleTerminationMinutes="5",
         slaveAttributes="",
         jvmArgs="-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true",
         jnlpArgs="-noReconnect",
-        defaultSlave="false",
+        defaultSlave="false"
 ):
     slaveInfo = Template(MESOS_SLAVE_INFO_OBJECT).substitute({
          "labelString": labelString,
@@ -118,23 +123,25 @@ def add_slave_info(
     return make_post(
         DOCKER_CONTAINER +
         slaveInfo +
-        MESOS_SLAVE_INFO_ADD
+        MESOS_SLAVE_INFO_ADD,
+        service_name
     )
 
 
-def remove_slave_info(labelString):
+def remove_slave_info(labelString, service_name):
     return make_post(
         Template(MESOS_SLAVE_INFO_REMOVE).substitute(
             {
-                "labelString": labelString
+                'labelString': labelString
             }
-        )
+        ),
+        service_name
     )
 
 
 def make_post(
         post_body,
-        service_name='jenkins'
+        service_name
 ):
     """
     :rtype: requests.Response
@@ -153,5 +160,5 @@ def make_post(
         service_name,
         'scriptText',
         log_args=False,
-        data={"script":body},
+        data={'script': body},
     )

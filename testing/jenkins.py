@@ -33,12 +33,14 @@ def install(service_name, port):
 
 def create_mesos_slave_node(
         labelString,
+        service_name='jenkins',
         **kwargs
 ):
     # TODO check if the label exists and then create or else a NOOP.
     # create the mesos slave node with given label. LABEL SHOULD NOT PRE-EXIST.
-    jenkins_remote_access.add_slave_info(
+    return jenkins_remote_access.add_slave_info(
         labelString,
+        service_name,
         **kwargs
     )
 
@@ -144,7 +146,7 @@ def get_last_build(service_name, job_name, timeout_seconds=SHORT_TIMEOUT_SECONDS
 def _get_named_build(service_name, job_name, build_name, timeout_seconds=SHORT_TIMEOUT_SECONDS):
     last_build = get_job(service_name, job_name)[build_name]
     if last_build is None:
-        return None;
+        return None
 
     return get_build(service_name, job_name, last_build['number'])
 

@@ -83,6 +83,10 @@ cloud.getSlaveInfos().each {
 }
 """
 
+DELETE_ALL_JOBS = """
+Jenkins.instance.items.each { job -> job.delete() }
+"""
+
 
 def add_slave_info(
         labelString,
@@ -100,7 +104,8 @@ def add_slave_info(
         slaveAttributes="",
         jvmArgs="-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true",
         jnlpArgs="-noReconnect",
-        defaultSlave="false"
+        defaultSlave="false",
+        **kwargs
 ):
     slaveInfo = Template(MESOS_SLAVE_INFO_OBJECT).substitute({
          "labelString": labelString,
@@ -124,7 +129,8 @@ def add_slave_info(
         DOCKER_CONTAINER +
         slaveInfo +
         MESOS_SLAVE_INFO_ADD,
-        service_name
+        service_name,
+        **kwargs,
     )
 
 
@@ -139,9 +145,14 @@ def remove_slave_info(labelString, service_name):
     )
 
 
+def delete_all_jobs(**kwargs):
+    return make_post(DELETE_ALL_JOBS, **kwargs)
+
+
 def make_post(
         post_body,
-        service_name
+        service_name,
+        **kwargs
 ):
     """
     :rtype: requests.Response
@@ -161,4 +172,5 @@ def make_post(
         'scriptText',
         log_args=False,
         data={'script': body},
+        **kwargs,
     )

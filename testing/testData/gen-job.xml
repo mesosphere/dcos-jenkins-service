@@ -1,0 +1,94 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<project>
+    <actions/>
+    <description></description>
+    <keepDependencies>false</keepDependencies>
+    <properties>
+        <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+                <hudson.model.StringParameterDefinition>
+                    <name>SINGLE_USE</name>
+                    <description>Percentage of jobs that should be Single Use mesos agent.</description>
+                    <defaultValue>100</defaultValue>
+                    <trim>true</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>AGENT_LABEL</name>
+                    <description>Job runs restricted to this label.</description>
+                    <defaultValue/>
+                    <trim>true</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>JOBCOUNT</name>
+                    <description>The number of jobs to create and manage.</description>
+                    <defaultValue>5</defaultValue>
+                    <trim>true</trim>
+                </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>EVERY_XMIN</name>
+                    <description>Every X minutes run this job.</description>
+                    <defaultValue>5</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+        </hudson.model.ParametersDefinitionProperty>
+    </properties>
+    <scm class="hudson.scm.NullSCM"/>
+    <canRoam>true</canRoam>
+    <disabled>false</disabled>
+    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+    <triggers/>
+    <concurrentBuild>false</concurrentBuild>
+    <builders>
+        <javaposse.jobdsl.plugin.ExecuteDslScripts plugin="job-dsl@1.69">
+            <scriptText>def singleP = &quot;${SINGLE_USE}&quot; as Integer
+                def jobCount = &quot;${JOBCOUNT}&quot; as Integer
+                def agentLabel = "${AGENT_LABEL}" as String
+                def everyMin = &quot;${EVERY_XMIN}&quot; as Integer
+
+                Random random = new Random()
+
+                (1..jobCount).each { c -&gt;
+                def jobName = &quot;test-job-${c}&quot;
+
+                def j = job(jobName) {
+                if (agentLabel) {
+                label(agentLabel)
+                }
+
+                triggers {
+                cron(&quot;*/${EVERY_XMIN} * * * *&quot;)
+                }
+
+                wrappers {
+                if (Math.abs(random.nextInt() % 100) + 1 &lt;= singleP) {
+                configure { node -&gt;
+                node / &apos;buildWrappers&apos; / &apos;org.jenkinsci.plugins.mesos.MesosSingleUseSlave&apos;()
+                }
+                }
+                }
+
+                steps {
+                shell(&quot;echo &apos;hello, world&apos;; sleep 30&quot;)
+                }
+                }
+
+                queue(j)
+                }
+            </scriptText>
+            <usingScriptText>true</usingScriptText>
+            <sandbox>false</sandbox>
+            <ignoreExisting>false</ignoreExisting>
+            <ignoreMissingFiles>false</ignoreMissingFiles>
+            <failOnMissingPlugin>false</failOnMissingPlugin>
+            <unstableOnDeprecation>false</unstableOnDeprecation>
+            <removedJobAction>DELETE</removedJobAction>
+            <removedViewAction>DELETE</removedViewAction>
+            <removedConfigFilesAction>DELETE</removedConfigFilesAction>
+            <lookupStrategy>JENKINS_ROOT</lookupStrategy>
+        </javaposse.jobdsl.plugin.ExecuteDslScripts>
+    </builders>
+    <publishers/>
+    <buildWrappers/>
+</project>

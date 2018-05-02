@@ -15,7 +15,13 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name, port):
+def install(service_name):
+    """Install a Jenkins instance and set the service name to
+    `service_name`. This does not wait for deployment to finish.
+
+    Args:
+        service_name: Unique service name
+    """
     sdk_install.install(
         'jenkins',
         service_name,
@@ -23,9 +29,6 @@ def install(service_name, port):
         additional_options={
             "service": {
                 "name": service_name
-            },
-            "networking": {
-                "agent-port": port
             }
         },
         wait_for_deployment=False)
@@ -40,7 +43,7 @@ def create_mesos_slave_node(
     # create the mesos slave node with given label. LABEL SHOULD NOT PRE-EXIST.
     return jenkins_remote_access.add_slave_info(
         labelString,
-        service_name,
+        service_name=service_name,
         **kwargs
     )
 
@@ -62,9 +65,36 @@ def create_job(
     return r
 
 
+def create_seed_job(
+        service_name,
+        job_name,
+        content
+):
+    headers = {'Content-Type': 'application/xml'}
+    svc_url = dcos_service_url(service_name)
+    url = "{}createItem?name={}".format(svc_url, job_name)
+    r = http.post(url, headers=headers, data=content)
+
+    return r
+
+
+def delete_all_jobs(service_name, retry=True):
+    """Delete all jobs on a Jenkins instance.
+
+    Args:
+        service_name: Jenkins instance
+        retry: Retry this request
+
+    Returns: HTTP Response
+
+    """
+    return jenkins_remote_access.delete_all_jobs(
+            service_name=service_name,
+            retry=retry)
+
+
 def construct_job_config(cmd, schedule_frequency_in_min, labelString):
-    here = os.path.dirname(__file__)
-    updated_job_config = ElementTree.parse(os.path.join(here, 'testData', 'test-job.xml'))
+    updated_job_config = _get_job_fixture('test-job.xml')
 
     cron = '*/{} * * * *'.format(schedule_frequency_in_min)
     updated_job_config.find('.//spec').text = cron
@@ -87,22 +117,18 @@ def copy_job(service_name, src_name, dst_name, timeout_seconds=SHORT_TIMEOUT_SEC
     enable_job(service_name, dst_name)
 
 
+def run_job(service_name, job_name, timeout_seconds=SHORT_TIMEOUT_SECONDS, **kwargs):
+    params = '&'.join(["{}={}".format(i[0], i[1]) for i in kwargs.items()])
+    path = 'job/{}/buildWithParameters?{}'.format(job_name, params)
+    return sdk_cmd.service_request('POST', service_name, path, timeout_seconds=timeout_seconds)
+
+
 def enable_job(service_name, job_name, timeout_seconds=SHORT_TIMEOUT_SECONDS):
     return _set_buildable(service_name, job_name, True, timeout_seconds)
 
 
 def disable_job(service_name, job_name, timeout_seconds=SHORT_TIMEOUT_SECONDS):
     return _set_buildable(service_name, job_name, False, timeout_seconds)
-
-
-def delete_all_jobs(service_name, timeout_seconds=TIMEOUT_SECONDS):
-    for job in get_jobs(service_name, timeout_seconds=timeout_seconds):
-        delete_job(service_name, job['name'], timeout_seconds=timeout_seconds)
-
-
-def delete_job(service_name, job_name, timeout_seconds=TIMEOUT_SECONDS):
-    path = 'job/{}/doDelete'.format(job_name)
-    return sdk_cmd.service_request('POST', service_name, path, timeout_seconds=timeout_seconds)
 
 
 def _set_buildable(service_name, job_name, buildable, timeout_seconds=SHORT_TIMEOUT_SECONDS):
@@ -162,3 +188,10 @@ def _get_jenkins_json(service_name, path, timeout_seconds=SHORT_TIMEOUT_SECONDS)
 def _get_jenkins_json_path(service_name, path):
     return '{}/api/json'.format(path)
 
+
+def _get_job_fixture(job_name):
+    """Get the XML of the job fixture `job_name`. This should include
+    the file suffix.
+    """
+    here = os.path.dirname(__file__)
+    return ElementTree.parse(os.path.join(here, 'testData', job_name))

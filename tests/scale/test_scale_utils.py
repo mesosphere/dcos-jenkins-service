@@ -75,7 +75,7 @@ def test_install_custom_name():
     sdk_install.uninstall(config.PACKAGE_NAME, svc_name)
 
     try:
-        jenkins.install(svc_name, 50001)
+        jenkins.install(svc_name)
         jenkins.create_job(svc_name, test_job_name)
         job = jenkins.get_job(svc_name, test_job_name)
         assert test_job_name == job['name']

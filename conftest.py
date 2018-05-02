@@ -26,6 +26,8 @@ def pytest_addoption(parser):
                      help='Use Mesos Single-Use agents')
     parser.addoption('--run-delay', action='store', default=1,
                      help='Run job every X minutes.')
+    parser.addoption('--cpu-quota', action='store', default=0.0,
+                     help='CPU quota to set. 0.0 to set no quota.')
 
 
 @pytest.fixture
@@ -46,3 +48,8 @@ def single_use(request) -> int:
 @pytest.fixture
 def run_delay(request) -> int:
     return int(request.config.getoption('--run-delay'))
+
+
+@pytest.fixture
+def cpu_quota(request) -> float:
+    return float(request.config.getoption('--cpu-quota'))

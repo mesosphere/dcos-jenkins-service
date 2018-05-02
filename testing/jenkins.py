@@ -15,22 +15,30 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name):
+def install(service_name, role=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
     Args:
         service_name: Unique service name
+        role: The role for the service to use (default is no role)
     """
+    options = {
+        "service": {
+                "name": service_name
+            }
+    }
+
+    if role:
+        options["roles"] = {
+            "jenkins-agent-role": role
+        }
+
     sdk_install.install(
         'jenkins',
         service_name,
         0,
-        additional_options={
-            "service": {
-                "name": service_name
-            }
-        },
+        additional_options=options,
         wait_for_deployment=False)
 
 
@@ -59,7 +67,7 @@ def create_job(
     svc_url = dcos_service_url(service_name)
     url = "{}createItem?name={}".format(svc_url, job_name)
     job_config = construct_job_config(cmd, schedule_frequency_in_min, labelString)
-    
+
     r = http.post(url, headers=headers, data=job_config)
 
     return r

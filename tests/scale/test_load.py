@@ -3,6 +3,8 @@ A way to launch numerous Jenkins masters and jobs with pytest.
 
 From the CLI, this can be run as follows:
     $ PYTEST_ARGS="--masters=3 --jobs=10" ./test.sh -m scale jenkins
+To specify a CPU quota (what JPMC does) then run:
+    $ PYTEST_ARGS="--masters=3 --jobs=10 --cpu-quota=10.0" ./test.sh -m scale jenkins
 And to clean-up a test run of Jenkins instances:
     $ ./test.sh -m scalecleanup jenkins
 
@@ -27,15 +29,20 @@ import pytest
 import sdk_install
 import sdk_marathon
 import sdk_utils
+import sdk_quota
 
 log = logging.getLogger(__name__)
+
+
+SHARED_ROLE = "jenkins-role"
 
 
 @pytest.mark.scale
 def test_scaling_load(master_count,
                       job_count,
                       single_use,
-                      run_delay):
+                      run_delay,
+                      cpu_quota):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -49,6 +56,9 @@ def test_scaling_load(master_count,
         single_use: Mesos Single-Use Agent on (true) or off (false)
         run_delay: Jobs should run every X minute(s)
     """
+    if cpu_quota is not 0.0:
+        _setup_quota(SHARED_ROLE, cpu_quota)
+
     masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
                range(0, int(master_count))]
     # launch Jenkins services
@@ -63,7 +73,7 @@ def test_scaling_load(master_count,
         thread.join()
     # now try to launch jobs
     for service_name in masters:
-        m_label = _create_random_label(service_name)
+        m_label = _create_executor_configuration(service_name)
         _launch_jobs(service_name, job_count, single_use, run_delay, m_label)
 
 
@@ -95,6 +105,27 @@ def test_cleanup_scale():
         thread.join()
 
 
+def _setup_quota(role, cpus):
+    current_quotas = sdk_quota.list_quotas()
+    if "infos" not in current_quotas:
+        _set_quota(role, cpus)
+        return
+
+    match = False
+    for quota in current_quotas["infos"]:
+        if quota["role"] == role:
+            match = True
+            break
+
+    if match:
+        sdk_quota.remove_quota(role)
+    _set_quota(role, cpus)
+
+
+def _set_quota(role, cpus):
+    sdk_quota.create_quota(role, cpus=cpus)
+
+
 def _install_jenkins(service_name):
     """Install Jenkins service.
 
@@ -102,7 +133,7 @@ def _install_jenkins(service_name):
         service_name: Service Name or Marathon ID (same thing)
     """
     log.info("Installing jenkins '{}'".format(service_name))
-    jenkins.install(service_name)
+    jenkins.install(service_name, role=SHARED_ROLE)
 
 
 def _cleanup_jenkins_install(service_name):
@@ -119,7 +150,7 @@ def _cleanup_jenkins_install(service_name):
     sdk_install.uninstall(config.PACKAGE_NAME, service_name)
 
 
-def _create_random_label(service_name):
+def _create_executor_configuration(service_name):
     """Create a new Mesos Slave Info configuration with a random name.
 
     Args:
@@ -128,7 +159,7 @@ def _create_random_label(service_name):
     Returns: Random name of the new config created.
 
     """
-    mesos_label = "mesos{}".format(sdk_utils.random_string())
+    mesos_label = "mesos"
     jenkins.create_mesos_slave_node(mesos_label,
                                     service_name=service_name,
                                     executorCpus=0.1,

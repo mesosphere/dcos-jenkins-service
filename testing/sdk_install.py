@@ -76,7 +76,11 @@ def _retried_install_impl(
 
     # Wait for completed marathon deployment
     app_id = pkg.marathon_json(options).get('id')
-    shakedown.deployment_wait(timeout_seconds, app_id)
+    # TODO: initial wait time here? jenkins install is usually 90-120s
+    # TODO: randomize the sleep_seconds
+    shakedown.time_wait(lambda: shakedown.deployment_predicate(app_id),
+                        timeout_seconds,
+                        sleep_seconds=20)
 
 
 def install(

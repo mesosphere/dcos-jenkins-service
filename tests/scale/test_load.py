@@ -130,7 +130,10 @@ def _create_random_label(service_name):
     """
     mesos_label = "mesos{}".format(sdk_utils.random_string())
     jenkins.create_mesos_slave_node(mesos_label,
-                                    service_name=service_name)
+                                    service_name=service_name,
+                                    executorCpus=0.1,
+                                    executorMem=1024,
+                                    idleTerminationMinutes=1)
     return mesos_label
 
 

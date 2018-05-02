@@ -13,7 +13,9 @@ import org.jenkinsci.plugins.mesos.MesosSlaveInfo;
 import org.apache.mesos.Protos;
 import hudson.slaves.NodeProperty;
 import jenkins.model.*
-import org.jenkinsci.plugins.mesos.MesosSlaveInfo.URI
+import org.jenkinsci.plugins.mesos.MesosSlaveInfo.URI;
+import hudson.tasks.*;
+import com.cloudbees.hudson.plugins.folder.Folder;
 """
 
 DOCKER_CONTAINER = """
@@ -87,6 +89,22 @@ DELETE_ALL_JOBS = """
 Jenkins.instance.items.each { job -> job.delete() }
 """
 
+JENKINS_JOB_FAILURES = """
+def activeJobs = hudson.model.Hudson.instance.items.findAll{job -> !(job instanceof Folder) && job.isBuildable()}
+println("successjobs = " +activeJobs.size())
+def failedRuns = activeJobs.findAll{job -> job.lastBuild != null && !(job.lastBuild.isBuilding()) && job.lastBuild.result == hudson.model.Result.FAILURE}
+println("failedjobs = " +failedRuns.size())
+BUILD_STRING = "Build step 'Execute shell' marked build as failure"
+
+failedRuns.each{ item -> 
+    println "Failed Job Name: ${item.name}"
+    item.lastBuild.getLog().eachLine { line ->
+        if (line =~ /$BUILD_STRING/) {
+            println "error: $line"
+        }
+    }
+}
+"""
 
 def add_slave_info(
         labelString,
@@ -147,6 +165,10 @@ def remove_slave_info(labelString, service_name):
 
 def delete_all_jobs(**kwargs):
     return make_post(DELETE_ALL_JOBS, **kwargs)
+
+
+def get_job_failures(service_name):
+    return make_post(JENKINS_JOB_FAILURES, service_name)
 
 
 def make_post(

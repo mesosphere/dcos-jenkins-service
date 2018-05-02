@@ -82,6 +82,11 @@ def test_install_custom_name():
     finally:
         sdk_install.uninstall(config.PACKAGE_NAME, svc_name)
 
+@pytest.mark.sanity
+def test_get_job_failures():
+    r = jenkins_remote_access.get_job_failures(config.SERVICE_NAME)
+    assert r.status_code == 200
+
 
 def get_test_job_name():
     return 'test-job-{}'.format(uuid.uuid4())

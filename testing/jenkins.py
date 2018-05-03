@@ -25,8 +25,11 @@ def install(service_name, role=None):
     """
     options = {
         "service": {
-                "name": service_name
-            }
+            "name": service_name
+        },
+        "storage": {
+            "persistent-volume-size": 1024
+        }
     }
 
     if role:

@@ -17,6 +17,9 @@ This supports the following configuration params:
         to create a cron schedule: "*/run-delay * * * *"
     * To enable or disable "Mesos Single-Use Agent"; this is a toggle
         and applies to all jobs equally.
+    * How long, in seconds, for a job to "work" (sleep)
+        (--work-duration)
+    * CPU quota (--cpu-quota); 0.0 to disable / no quota
 """
 
 import logging
@@ -28,11 +31,10 @@ import jenkins
 import pytest
 import sdk_install
 import sdk_marathon
-import sdk_utils
 import sdk_quota
+import sdk_utils
 
 log = logging.getLogger(__name__)
-
 
 SHARED_ROLE = "jenkins-role"
 
@@ -42,7 +44,8 @@ def test_scaling_load(master_count,
                       job_count,
                       single_use,
                       run_delay,
-                      cpu_quota):
+                      cpu_quota,
+                      work_duration):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -55,6 +58,8 @@ def test_scaling_load(master_count,
         job_count: Number of Jobs on each Jenkins master
         single_use: Mesos Single-Use Agent on (true) or off (false)
         run_delay: Jobs should run every X minute(s)
+        cpu_quota: CPU quota (0.0 to disable)
+        work_duration: Time, in seconds, for generated jobs to sleep
     """
     if cpu_quota is not 0.0:
         _setup_quota(SHARED_ROLE, cpu_quota)
@@ -74,7 +79,8 @@ def test_scaling_load(master_count,
     # now try to launch jobs
     for service_name in masters:
         m_label = _create_executor_configuration(service_name)
-        _launch_jobs(service_name, job_count, single_use, run_delay, m_label)
+        _launch_jobs(service_name, job_count, single_use, run_delay,
+                     work_duration, m_label)
 
 
 @pytest.mark.scalecleanup
@@ -168,7 +174,8 @@ def _create_executor_configuration(service_name):
     return mesos_label
 
 
-def _launch_jobs(service_name, job_count, single_use, run_delay, agent_label):
+def _launch_jobs(service_name, job_count, single_use, run_delay,
+                 work_duration, agent_label):
     """Create configured number of jobs with given config on Jenkins
     instance identified by `service_name`.
 
@@ -177,7 +184,8 @@ def _launch_jobs(service_name, job_count, single_use, run_delay, agent_label):
         job_count: Number of jobs to create and run
         single_use: Single Use Mesos agent on (true) or off
         run_delay: A job should run every X minute(s)
-
+        work_duration: Time, in seconds, for the job to sleep
+        agent_label: Label to assign to created jobs
     """
     job_name = 'generator-job'
 
@@ -195,10 +203,13 @@ def _launch_jobs(service_name, job_count, single_use, run_delay, agent_label):
     jenkins.create_seed_job(service_name, job_name, seed_config_str)
     log.info(
             "Launching {} jobs every {} minutes with single-use ({})."
-            .format(job_count, run_delay, single_use))
+                .format(job_count, run_delay, single_use))
     jenkins.run_job(service_name,
                     job_name,
-                    **{'JOBCOUNT':    str(job_count),
-                       'AGENT_LABEL': agent_label,
-                       'SINGLE_USE':  single_use_str,
-                       'EVERY_XMIN':  str(run_delay)})
+                    **{
+                        'JOBCOUNT':       str(job_count),
+                        'AGENT_LABEL':    agent_label,
+                        'SINGLE_USE':     single_use_str,
+                        'EVERY_XMIN':     str(run_delay),
+                        'SLEEP_DURATION': str(work_duration),
+                    })

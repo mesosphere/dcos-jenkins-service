@@ -28,6 +28,9 @@ def pytest_addoption(parser):
                      help='Run job every X minutes.')
     parser.addoption('--cpu-quota', action='store', default=0.0,
                      help='CPU quota to set. 0.0 to set no quota.')
+    parser.addoption('--work-duration', action='store', default=600,
+                     help='Duration, in seconds, for the workload to '
+                          'last (sleep).')
 
 
 @pytest.fixture
@@ -53,3 +56,8 @@ def run_delay(request) -> int:
 @pytest.fixture
 def cpu_quota(request) -> float:
     return float(request.config.getoption('--cpu-quota'))
+
+
+@pytest.fixture
+def work_duration(request) -> int:
+    return int(request.config.getoption('--work-duration'))

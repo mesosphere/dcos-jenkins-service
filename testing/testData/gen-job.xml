@@ -30,6 +30,12 @@
                     <defaultValue>5</defaultValue>
                     <trim>false</trim>
                 </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>SLEEP_DURATION</name>
+                    <description>Job sleeps for this many seconds.</description>
+                    <defaultValue>600</defaultValue>
+                    <trim>false</trim>
+                </hudson.model.StringParameterDefinition>
             </parameterDefinitions>
         </hudson.model.ParametersDefinitionProperty>
     </properties>
@@ -45,6 +51,7 @@
             <scriptText>def singleP = &quot;${SINGLE_USE}&quot; as Integer
                 def jobCount = &quot;${JOBCOUNT}&quot; as Integer
                 def agentLabel = "${AGENT_LABEL}" as String
+                def sleepDur = "${SLEEP_DURATION}" as Integer
                 def everyMin = &quot;${EVERY_XMIN}&quot; as Integer
 
                 Random random = new Random()
@@ -70,7 +77,7 @@
                 }
 
                 steps {
-                shell(&quot;echo &apos;hello, world&apos;; sleep 30&quot;)
+                shell(&quot;echo &apos;hello, world&apos;; sleep ${sleepDur}&quot;)
                 }
                 }
 

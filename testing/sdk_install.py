@@ -32,6 +32,24 @@ Used by post-test diagnostics to retrieve stuff from currently running services.
 _installed_service_names = set([])
 
 
+def get_package_json(package, version=None, options=None):
+    """Get the Marathon app JSON for a given package with the desired
+    options.
+
+    Args:
+        package: Package name
+        version: Package version
+        options: Options
+
+    Returns: JSON
+
+    """
+    pkg_version = dcos.packagemanager.CosmosPackageVersion(
+            package, version, dcos.cosmos.get_cosmos_url())
+    opts = options if options else dict()
+    return pkg_version.marathon_json(opts)
+
+
 def get_installed_service_names() -> set:
     '''Returns the a set of service names which had been installed via sdk_install in this session.'''
     return _installed_service_names

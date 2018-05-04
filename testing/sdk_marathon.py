@@ -21,8 +21,9 @@ TIMEOUT_SECONDS = 15 * 60
 log = logging.getLogger(__name__)
 
 
-def _get_config_once(app_name):
-    return sdk_cmd.cluster_request('GET', _api_url('apps/{}'.format(app_name)), retry=False)
+def _get_config_once(app_name, mom=None):
+    app_url = _api_url('apps/{}'.format(app_name), mom)
+    return sdk_cmd.cluster_request('GET', app_url, retry=False)
 
 
 def get_app_id(service_name):
@@ -58,9 +59,9 @@ def retried_wait_for_deployment_and_app_removal(*args, **kwargs):
     wait_for_deployment_and_app_removal(*args, **kwargs)
 
 
-def app_exists(app_name):
+def app_exists(app_name, mom=None):
     try:
-        _get_config_once(app_name)
+        _get_config_once(app_name, mom)
         return True
     except:
         return False
@@ -88,7 +89,7 @@ def get_config(app_name, timeout=TIMEOUT_SECONDS):
     return config
 
 
-def filter_apps_by_id(filter_id):
+def filter_apps_by_id(filter_id, mom=None):
     """Return all Marathon apps with an ID matching `filter_id`.
 
     "jenkins" will return all Marathon apps that begin with "jenkins".
@@ -99,9 +100,8 @@ def filter_apps_by_id(filter_id):
     Returns: Marathon response
 
     """
-    return sdk_cmd.cluster_request('GET',
-                                   _api_url('apps/?id={}'.format(filter_id)),
-                                   retry=False)
+    filter_url = _api_url('apps/?id={}'.format(filter_id), mom)
+    return sdk_cmd.cluster_request('GET', filter_url, retry=False)
 
 
 def install_app_from_file(app_name: str, app_def_path: str) -> (bool, str):
@@ -187,7 +187,9 @@ def restart_app(app_name):
     log.info("Restarted {}.".format(app_name))
 
 
-def _api_url(path):
+def _api_url(path, mom=None):
+    if mom:
+        return 'service/{}/v2/{}'.format(mom, path)
     return '/marathon/v2/{}'.format(path)
 
 

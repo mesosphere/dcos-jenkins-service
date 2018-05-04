@@ -2,12 +2,10 @@ import logging
 import os
 from xml.etree import ElementTree
 
+import jenkins_remote_access
 import sdk_cmd
 import sdk_install
-import jenkins_remote_access
-
 from shakedown import *
-
 
 TIMEOUT_SECONDS = 15 * 60
 SHORT_TIMEOUT_SECONDS = 30
@@ -15,13 +13,14 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name, role=None):
+def install(service_name, role=None, mom=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
     Args:
         service_name: Unique service name
         role: The role for the service to use (default is no role)
+        mom: Marathon on Marathon instance name
     """
     options = {
         "service": {
@@ -37,12 +36,43 @@ def install(service_name, role=None):
             "jenkins-agent-role": role
         }
 
-    sdk_install.install(
-        'jenkins',
-        service_name,
-        0,
-        additional_options=options,
-        wait_for_deployment=False)
+    if mom:
+        # get jenkins marathon app json with desired config.
+        # this will register at `/service/<service_name>`
+        pkg_json = sdk_install.get_package_json('jenkins', None, options)
+        with marathon_on_marathon(mom):
+            c = marathon.create_client()
+            c.add_app(pkg_json)
+            time_wait(lambda: deployment_predicate(service_name),
+                      TIMEOUT_SECONDS,
+                      sleep_seconds=20)
+    else:
+        sdk_install.install(
+            'jenkins',
+            service_name,
+            0,
+            additional_options=options,
+            wait_for_deployment=False)
+
+
+def uninstall(service_name, package_name='jenkins', role=None, mom=None):
+    """Uninstall a Jenkins instance. This does not wait for deployment
+     to finish.
+
+    Args:
+        service_name: Unique service name
+        package_name: Package name to uninstall
+        role: The role for the service to use (default is no role)
+        mom: Marathon on Marathon service name
+    """
+    if mom:
+        with marathon_on_marathon(mom):
+            delete_app(service_name)
+    else:
+        sdk_install.uninstall(
+            package_name,
+            service_name,
+            role=role)
 
 
 def create_mesos_slave_node(

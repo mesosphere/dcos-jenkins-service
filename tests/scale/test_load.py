@@ -29,10 +29,10 @@ from xml.etree import ElementTree
 import config
 import jenkins
 import pytest
-import sdk_install
 import sdk_marathon
 import sdk_quota
 import sdk_utils
+import shakedown
 
 log = logging.getLogger(__name__)
 
@@ -45,7 +45,8 @@ def test_scaling_load(master_count,
                       single_use,
                       run_delay,
                       cpu_quota,
-                      work_duration):
+                      work_duration,
+                      mom):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -60,9 +61,11 @@ def test_scaling_load(master_count,
         run_delay: Jobs should run every X minute(s)
         cpu_quota: CPU quota (0.0 to disable)
         work_duration: Time, in seconds, for generated jobs to sleep
+        mom: Marathon on Marathon instance name
     """
-    if cpu_quota is not 0.0:
-        _setup_quota(SHARED_ROLE, cpu_quota)
+    with shakedown.marathon_on_marathon(mom):
+        if cpu_quota is not 0.0:
+            _setup_quota(SHARED_ROLE, cpu_quota)
 
     masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
                range(0, int(master_count))]
@@ -70,7 +73,7 @@ def test_scaling_load(master_count,
     install_threads = list()
     for service_name in masters:
         t = threading.Thread(target=_install_jenkins,
-                             args=(service_name,))
+                             args=(service_name, mom))
         install_threads.append(t)
         t.start()
     # wait on installation threads
@@ -79,19 +82,23 @@ def test_scaling_load(master_count,
     # now try to launch jobs
     for service_name in masters:
         m_label = _create_executor_configuration(service_name)
-        _launch_jobs(service_name, job_count, single_use, run_delay,
-                     work_duration, m_label)
+        _launch_jobs(service_name,
+                     jobs=job_count,
+                     single=single_use,
+                     delay=run_delay,
+                     duration=work_duration,
+                     label=m_label)
 
 
 @pytest.mark.scalecleanup
-def test_cleanup_scale():
+def test_cleanup_scale(mom):
     """Blanket clean-up of jenkins instances on a DC/OS cluster.
 
     1. Queries Marathon for all apps matching "jenkins" prefix
     2. Delete all jobs on running Jenkins instances
     3. Uninstall all found Jenkins installs
     """
-    r = sdk_marathon.filter_apps_by_id('jenkins')
+    r = sdk_marathon.filter_apps_by_id('jenkins', mom)
     jenkins_apps = r.json()['apps']
     jenkins_ids = [x['id'] for x in jenkins_apps]
 
@@ -103,7 +110,7 @@ def test_cleanup_scale():
         if service_id == 'jenkins':
             continue
         t = threading.Thread(target=_cleanup_jenkins_install,
-                             args=(service_id,))
+                             args=(service_id, mom))
         cleanup_threads.append(t)
         t.start()
     # wait for cleanup to complete
@@ -132,17 +139,17 @@ def _set_quota(role, cpus):
     sdk_quota.create_quota(role, cpus=cpus)
 
 
-def _install_jenkins(service_name):
+def _install_jenkins(service_name, mom=None):
     """Install Jenkins service.
 
     Args:
         service_name: Service Name or Marathon ID (same thing)
     """
     log.info("Installing jenkins '{}'".format(service_name))
-    jenkins.install(service_name, role=SHARED_ROLE)
+    jenkins.install(service_name, role=SHARED_ROLE, mom=mom)
 
 
-def _cleanup_jenkins_install(service_name):
+def _cleanup_jenkins_install(service_name, mom=None):
     """Delete all jobs and uninstall Jenkins instance.
 
     Args:
@@ -153,7 +160,9 @@ def _cleanup_jenkins_install(service_name):
     log.info("Removing all jobs on {}.".format(service_name))
     jenkins.delete_all_jobs(service_name, retry=False)
     log.info("Uninstalling {}.".format(service_name))
-    sdk_install.uninstall(config.PACKAGE_NAME, service_name)
+    jenkins.uninstall(service_name,
+                      package_name=config.PACKAGE_NAME,
+                      mom=mom)
 
 
 def _create_executor_configuration(service_name):
@@ -174,24 +183,28 @@ def _create_executor_configuration(service_name):
     return mesos_label
 
 
-def _launch_jobs(service_name, job_count, single_use, run_delay,
-                 work_duration, agent_label):
+def _launch_jobs(service_name: str,
+                 jobs: int = 1,
+                 single: bool = False,
+                 delay: int = 3,
+                 duration: int = 600,
+                 label: str = None):
     """Create configured number of jobs with given config on Jenkins
     instance identified by `service_name`.
 
     Args:
         service_name: Jenkins service name
-        job_count: Number of jobs to create and run
-        single_use: Single Use Mesos agent on (true) or off
-        run_delay: A job should run every X minute(s)
-        work_duration: Time, in seconds, for the job to sleep
-        agent_label: Label to assign to created jobs
+        jobs: Number of jobs to create and run
+        single: Single Use Mesos agent on (true) or off
+        delay: A job should run every X minute(s)
+        duration: Time, in seconds, for the job to sleep
+        label: Mesos label for jobs to use
     """
     job_name = 'generator-job'
 
     single_use_str = '100'
-    if not single_use or (
-            type(single_use) == str and single_use.lower() == 'false'
+    if not single or (
+            type(single) == str and single.lower() == 'false'
     ):
         single_use_str = '0'
 
@@ -202,14 +215,13 @@ def _launch_jobs(service_name, job_count, single_use, run_delay,
             method='xml')
     jenkins.create_seed_job(service_name, job_name, seed_config_str)
     log.info(
-            "Launching {} jobs every {} minutes with single-use ({})."
-                .format(job_count, run_delay, single_use))
+            "Launching {} jobs every {} minutes with single-use "
+            "({}).".format(jobs, delay, single))
+
     jenkins.run_job(service_name,
                     job_name,
-                    **{
-                        'JOBCOUNT':       str(job_count),
-                        'AGENT_LABEL':    agent_label,
-                        'SINGLE_USE':     single_use_str,
-                        'EVERY_XMIN':     str(run_delay),
-                        'SLEEP_DURATION': str(work_duration),
-                    })
+                    **{'JOBCOUNT':       str(jobs),
+                       'AGENT_LABEL':    label,
+                       'SINGLE_USE':     single_use_str,
+                       'EVERY_XMIN':     str(delay),
+                       'SLEEP_DURATION': str(duration)})

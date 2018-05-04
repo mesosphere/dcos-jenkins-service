@@ -31,6 +31,8 @@ def pytest_addoption(parser):
     parser.addoption('--work-duration', action='store', default=600,
                      help='Duration, in seconds, for the workload to '
                           'last (sleep).')
+    parser.addoption('--mom', action='store', default='',
+                     help='Marathon on Marathon instance name.')
 
 
 @pytest.fixture
@@ -61,3 +63,7 @@ def cpu_quota(request) -> float:
 @pytest.fixture
 def work_duration(request) -> int:
     return int(request.config.getoption('--work-duration'))
+
+@pytest.fixture
+def mom(request) -> str:
+    return request.config.getoption('--mom')

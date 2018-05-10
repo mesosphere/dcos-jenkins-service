@@ -177,8 +177,8 @@ def _create_executor_configuration(service_name):
     mesos_label = "mesos"
     jenkins.create_mesos_slave_node(mesos_label,
                                     service_name=service_name,
-                                    executorCpus=0.1,
-                                    executorMem=1024,
+                                    executorCpus=0.3,
+                                    executorMem=1800,
                                     idleTerminationMinutes=1)
     return mesos_label
 

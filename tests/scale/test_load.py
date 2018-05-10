@@ -46,7 +46,8 @@ def test_scaling_load(master_count,
                       run_delay,
                       cpu_quota,
                       work_duration,
-                      mom):
+                      mom,
+                      external_volume):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -62,6 +63,7 @@ def test_scaling_load(master_count,
         cpu_quota: CPU quota (0.0 to disable)
         work_duration: Time, in seconds, for generated jobs to sleep
         mom: Marathon on Marathon instance name
+        external_volume: External volume on rexray (true) or local volume (false)
     """
     with shakedown.marathon_on_marathon(mom):
         if cpu_quota is not 0.0:
@@ -73,7 +75,7 @@ def test_scaling_load(master_count,
     install_threads = list()
     for service_name in masters:
         t = threading.Thread(target=_install_jenkins,
-                             args=(service_name, mom))
+                             args=(service_name, mom, external_volume))
         install_threads.append(t)
         t.start()
     # wait on installation threads
@@ -139,14 +141,14 @@ def _set_quota(role, cpus):
     sdk_quota.create_quota(role, cpus=cpus)
 
 
-def _install_jenkins(service_name, mom=None):
+def _install_jenkins(service_name, mom=None, external_volume=None):
     """Install Jenkins service.
 
     Args:
         service_name: Service Name or Marathon ID (same thing)
     """
     log.info("Installing jenkins '{}'".format(service_name))
-    jenkins.install(service_name, role=SHARED_ROLE, mom=mom)
+    jenkins.install(service_name, role=SHARED_ROLE, mom=mom, external_volume=None)
 
 
 def _cleanup_jenkins_install(service_name, mom=None):

@@ -13,7 +13,7 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name, role=None, mom=None):
+def install(service_name, role=None, mom=None, external_volume=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
@@ -25,15 +25,21 @@ def install(service_name, role=None, mom=None):
     options = {
         "service": {
             "name": service_name
-        },
-        "storage": {
-            "persistent-volume-size": 1024
         }
     }
 
     if role:
         options["roles"] = {
             "jenkins-agent-role": role
+        }
+
+    if external_volume:
+        options["storage"] = {
+            "external-persistent-volume-name": service_name
+        }
+    else:
+        options["storage"] = {
+            "local-persistent-volume-size": 1024
         }
 
     if mom:

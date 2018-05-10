@@ -2,6 +2,7 @@ import logging
 import os
 import pytest
 import sys
+import distutils.util
 
 log_level = os.getenv('TEST_LOG_LEVEL', 'INFO').upper()
 log_levels = ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL', 'EXCEPTION')
@@ -33,6 +34,8 @@ def pytest_addoption(parser):
                           'last (sleep).')
     parser.addoption('--mom', action='store', default='',
                      help='Marathon on Marathon instance name.')
+    parser.addoption('--external-volume', action='store', default=False,
+                     help='Use rexray external volumes.')
 
 
 @pytest.fixture
@@ -67,3 +70,7 @@ def work_duration(request) -> int:
 @pytest.fixture
 def mom(request) -> str:
     return request.config.getoption('--mom')
+
+@pytest.fixture
+def external_volume(request) -> bool:
+    return bool(distutils.util.strtobool(request.config.getoption('--external-volume')))

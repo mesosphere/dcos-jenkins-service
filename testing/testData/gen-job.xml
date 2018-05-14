@@ -68,7 +68,14 @@
                 cron(&quot;*/${EVERY_XMIN} * * * *&quot;)
                 }
 
-               scm {
+                wrappers {
+                    if (singleP == 100 || (singleP != 0 &amp;&amp; Math.abs(random.nextInt() % 100) + 1 &lt;= singleP)) {
+                        configure { node -&gt;
+                        node / &apos;buildWrappers&apos; / &apos;org.jenkinsci.plugins.mesos.MesosSingleUseSlave&apos;()
+                    }
+                }
+
+                scm {
                     git {
                         remote {
                         name(&apos;origin&apos;)

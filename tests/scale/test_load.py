@@ -20,6 +20,11 @@ This supports the following configuration params:
     * How long, in seconds, for a job to "work" (sleep)
         (--work-duration)
     * CPU quota (--cpu-quota); 0.0 to disable / no quota
+    * To enable or disable External Volumes (--external-volume);
+        this uses rexray
+    * What test scenario to run (--scenario); supported values:
+        - sleep (sleep for --work-duration)
+        - buildmarathon (build the open source marathon project)
 """
 
 import logging
@@ -47,7 +52,8 @@ def test_scaling_load(master_count,
                       cpu_quota,
                       work_duration,
                       mom,
-                      external_volume):
+                      external_volume,
+                      scenario):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -89,7 +95,8 @@ def test_scaling_load(master_count,
                      single=single_use,
                      delay=run_delay,
                      duration=work_duration,
-                     label=m_label)
+                     label=m_label,
+                     scenario=scenario)
 
 
 @pytest.mark.scalecleanup
@@ -190,7 +197,8 @@ def _launch_jobs(service_name: str,
                  single: bool = False,
                  delay: int = 3,
                  duration: int = 600,
-                 label: str = None):
+                 label: str = None,
+                 scenario: str = None):
     """Create configured number of jobs with given config on Jenkins
     instance identified by `service_name`.
 
@@ -226,4 +234,5 @@ def _launch_jobs(service_name: str,
                        'AGENT_LABEL':    label,
                        'SINGLE_USE':     single_use_str,
                        'EVERY_XMIN':     str(delay),
-                       'SLEEP_DURATION': str(duration)})
+                       'SLEEP_DURATION': str(duration),
+                       'SCENARIO':       scenario})

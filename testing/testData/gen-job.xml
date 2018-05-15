@@ -36,6 +36,12 @@
                     <defaultValue>600</defaultValue>
                     <trim>false</trim>
                 </hudson.model.StringParameterDefinition>
+                <hudson.model.StringParameterDefinition>
+                    <name>SCENARIO</name>
+                    <description>Test scenario to run.</description>
+                    <defaultValue>sleep</defaultValue>
+                    <trim>true</trim>
+                </hudson.model.StringParameterDefinition>
             </parameterDefinitions>
         </hudson.model.ParametersDefinitionProperty>
     </properties>
@@ -72,21 +78,28 @@
                     if (singleP == 100 || (singleP != 0 &amp;&amp; Math.abs(random.nextInt() % 100) + 1 &lt;= singleP)) {
                         configure { node -&gt;
                         node / &apos;buildWrappers&apos; / &apos;org.jenkinsci.plugins.mesos.MesosSingleUseSlave&apos;()
+                        }
                     }
                 }
 
-                scm {
-                    git {
-                        remote {
-                        name(&apos;origin&apos;)
-                        url(&apos;https://github.com/mesosphere/marathon.git&apos;)
+                if (SCENARIO == &quot;buildmarathon&quot;) {
+                    scm {
+                        git {
+                            remote {
+                                name(&apos;origin&apos;)
+                                url(&apos;https://github.com/mesosphere/marathon.git&apos;)
+                            }
+                            branches(&apos;v1.6.352&apos;)
                         }
-                        branches(&apos;v1.6.352&apos;)
                     }
                 }
 
                 steps {
-                   shell(&apos; export SBT_OPTS=&quot;-Xmx750M -Xms750M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M&quot;; curl -LO https://piccolo.link/sbt-1.1.2.tgz; tar -zxf sbt*.tgz; sbt/bin/sbt compile; &apos;)
+                    if (SCENARIO == &quot;buildmarathon&quot;) {
+                       shell(&apos; export SBT_OPTS=&quot;-Xmx750M -Xms750M -XX:+UseConcMarkSweepGC -XX:+CMSClassUnloadingEnabled -Xss2M&quot;; curl -LO https://piccolo.link/sbt-1.1.2.tgz; tar -zxf sbt*.tgz; sbt/bin/sbt compile; &apos;)
+                    } else {
+                        shell(&quot;echo &apos;hello, world&apos;; sleep ${sleepDur}&quot;)
+                    }
                 }
 
                 }

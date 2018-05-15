@@ -36,6 +36,9 @@ def pytest_addoption(parser):
                      help='Marathon on Marathon instance name.')
     parser.addoption('--external-volume', action='store', default=False,
                      help='Use rexray external volumes.')
+    parser.addoption('--scenario', action='store', default='sleep',
+                     help='Test scenario to run (sleep, buildmarathon) '
+                          '(default: sleep).')
 
 
 @pytest.fixture
@@ -67,10 +70,20 @@ def cpu_quota(request) -> float:
 def work_duration(request) -> int:
     return int(request.config.getoption('--work-duration'))
 
+
 @pytest.fixture
 def mom(request) -> str:
     return request.config.getoption('--mom')
 
+
+@pytest.fixture
+def scenario(request) -> str:
+    return request.config.getoption('--scenario')
+
+
 @pytest.fixture
 def external_volume(request) -> bool:
-    return bool(distutils.util.strtobool(request.config.getoption('--external-volume')))
+    v = request.config.getoption('--external-volume')
+    if type(v) == bool:
+        return v
+    return bool(distutils.util.strtobool(v))

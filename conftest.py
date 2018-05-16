@@ -23,7 +23,7 @@ def pytest_addoption(parser):
                      help='Number of Jenkins masters to launch.')
     parser.addoption('--jobs', action='store', default=1,
                      help='Number of test jobs to launch.')
-    parser.addoption('--single-use', action='store', default=True,
+    parser.addoption('--single-use', action='store', default=False,
                      help='Use Mesos Single-Use agents')
     parser.addoption('--run-delay', action='store', default=1,
                      help='Run job every X minutes.')

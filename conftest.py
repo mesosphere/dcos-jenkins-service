@@ -2,7 +2,6 @@ import logging
 import os
 import pytest
 import sys
-import distutils.util
 
 log_level = os.getenv('TEST_LOG_LEVEL', 'INFO').upper()
 log_levels = ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL', 'EXCEPTION')
@@ -19,23 +18,25 @@ logging.basicConfig(
 
 
 def pytest_addoption(parser):
-    parser.addoption('--masters', action='store', default=1,
+    parser.addoption('--masters', action='store', default=1, type=int,
                      help='Number of Jenkins masters to launch.')
-    parser.addoption('--jobs', action='store', default=1,
+    parser.addoption('--jobs', action='store', default=1, type=int,
                      help='Number of test jobs to launch.')
     parser.addoption('--single-use', action='store', default=False,
-                     help='Use Mesos Single-Use agents')
+                     type=bool, help='Use Mesos Single-Use agents')
     parser.addoption('--run-delay', action='store', default=1,
-                     help='Run job every X minutes.')
+                     type=int, help='Run job every X minutes.')
     parser.addoption('--cpu-quota', action='store', default=0.0,
+                     type=float,
                      help='CPU quota to set. 0.0 to set no quota.')
     parser.addoption('--work-duration', action='store', default=600,
+                     type=int,
                      help='Duration, in seconds, for the workload to '
                           'last (sleep).')
     parser.addoption('--mom', action='store', default='',
                      help='Marathon on Marathon instance name.')
     parser.addoption('--external-volume', action='store', default=False,
-                     help='Use rexray external volumes.')
+                     type=bool, help='Use rexray external volumes.')
     parser.addoption('--scenario', action='store', default='sleep',
                      help='Test scenario to run (sleep, buildmarathon) '
                           '(default: sleep).')
@@ -52,7 +53,7 @@ def job_count(request) -> int:
 
 
 @pytest.fixture
-def single_use(request) -> int:
+def single_use(request) -> bool:
     return request.config.getoption('--single-use')
 
 
@@ -83,7 +84,4 @@ def scenario(request) -> str:
 
 @pytest.fixture
 def external_volume(request) -> bool:
-    v = request.config.getoption('--external-volume')
-    if type(v) == bool:
-        return v
-    return bool(distutils.util.strtobool(v))
+    return request.config.getoption('--external-volume')

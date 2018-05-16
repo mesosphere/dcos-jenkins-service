@@ -5,6 +5,8 @@ From the CLI, this can be run as follows:
     $ PYTEST_ARGS="--masters=3 --jobs=10" ./test.sh -m scale jenkins
 To specify a CPU quota (what JPMC does) then run:
     $ PYTEST_ARGS="--masters=3 --jobs=10 --cpu-quota=10.0" ./test.sh -m scale jenkins
+To enable single use:
+    $ PYTEST_ARGS="--masters=3 --jobs=10 --single-use" ./test.sh -m scale jenkins
 And to clean-up a test run of Jenkins instances:
     $ ./test.sh -m scalecleanup jenkins
 
@@ -16,12 +18,12 @@ This supports the following configuration params:
     * How often, in minutes, to run a job (--run-delay); this is used
         to create a cron schedule: "*/run-delay * * * *"
     * To enable or disable "Mesos Single-Use Agent"; this is a toggle
-        and applies to all jobs equally.
+        and applies to all jobs equally. (default: False)
     * How long, in seconds, for a job to "work" (sleep)
         (--work-duration)
     * CPU quota (--cpu-quota); 0.0 to disable / no quota
     * To enable or disable External Volumes (--external-volume);
-        this uses rexray
+        this uses rexray (default: False)
     * What test scenario to run (--scenario); supported values:
         - sleep (sleep for --work-duration)
         - buildmarathon (build the open source marathon project)
@@ -47,12 +49,12 @@ SHARED_ROLE = "jenkins-role"
 @pytest.mark.scale
 def test_scaling_load(master_count,
                       job_count,
-                      single_use,
+                      single_use: bool,
                       run_delay,
                       cpu_quota,
                       work_duration,
                       mom,
-                      external_volume,
+                      external_volume: bool,
                       scenario):
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
@@ -211,12 +213,7 @@ def _launch_jobs(service_name: str,
         label: Mesos label for jobs to use
     """
     job_name = 'generator-job'
-
-    single_use_str = '100'
-    if not single or (
-            type(single) == str and single.lower() == 'false'
-    ):
-        single_use_str = '0'
+    single_use_str = '100' if single else '0'
 
     seed_config_xml = jenkins._get_job_fixture('gen-job.xml')
     seed_config_str = ElementTree.tostring(

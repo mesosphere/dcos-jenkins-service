@@ -54,111 +54,26 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
+      "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 12,
+        "h": 11,
+        "w": 8,
         "x": 0,
         "y": 0
       },
-      "id": 5,
+      "id": 6,
       "legend": {
         "avg": false,
-        "current": true,
+        "current": false,
         "max": false,
         "min": false,
+        "rightSide": false,
         "show": false,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "null as zero",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "rate(jenkinsstatsd_mesos_scheduler_operation_launch[1m])",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Launch Rate [1m]",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "launches/s",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 0
-      },
-      "id": 20,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
       "nullPointMode": "null as zero",
       "percentage": false,
@@ -171,21 +86,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "rate(jenkinsstatsd_mesos_scheduler_operation_launch[1m])",
+          "expr": "sum(jenkinsstatsd_jenkins_queue_size_value)",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Launch Rate [1m] (stacked)",
+      "title": "Queue Size (total)",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -198,7 +113,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "launches/s",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -206,7 +121,7 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -220,15 +135,92 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
+      "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 7
+        "h": 11,
+        "w": 8,
+        "x": 8,
+        "y": 0
+      },
+      "id": 2,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "jenkinsstatsd_jenkins_runs_success_m1_rate",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{dcos_service_name}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Success Rate [1m]",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fill": 1,
+      "gridPos": {
+        "h": 11,
+        "w": 8,
+        "x": 16,
+        "y": 0
       },
       "id": 12,
       "legend": {
@@ -241,9 +233,9 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null as zero",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -254,21 +246,20 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "jenkinsstatsd_mesos_scheduler_offer_processing_time_m1_rate",
+          "expr": "sum(jenkinsstatsd_jenkins_runs_success_m1_rate)",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
+          "intervalFactor": 1,
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Processed Offers Rate [1m]",
+      "title": "Success Rate [1m] (total)",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -281,7 +272,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "",
+          "label": "runs/second",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -289,7 +280,7 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -303,17 +294,14 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
+      "fill": 1,
       "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 7
+        "h": 11,
+        "w": 8,
+        "x": 0,
+        "y": 11
       },
-      "id": 21,
+      "id": 4,
       "legend": {
         "avg": false,
         "current": false,
@@ -324,200 +312,33 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null as zero",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "sum(jenkinsstatsd_mesos_scheduler_offer_processing_time_m1_rate)",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Processed Offers (total)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 0,
-        "y": 14
-      },
-      "id": 3,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jenkinsstatsd_mesos_scheduler_offers_received_m1_rate",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Received Offers [1m]",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 7,
-        "w": 12,
-        "x": 12,
-        "y": 14
-      },
-      "id": 10,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "png",
       "seriesOverrides": [],
       "spaceLength": 10,
       "stack": true,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(jenkinsstatsd_mesos_scheduler_offers_received_m1_rate)",
+          "expr": "sum(jenkinsstatsd_jenkins_executor_free_value)",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
+          "intervalFactor": 1,
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Received Offers [1m] (total)",
+      "title": "Executors Free (total)",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -530,7 +351,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "",
+          "label": "Executors",
           "logBase": 1,
           "max": null,
           "min": null,
@@ -538,7 +359,7 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -552,99 +373,14 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 21
-      },
-      "id": 2,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jenkinsstatsd_mesos_scheduler_revives_m1_rate",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Revives [1m]",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
       "fill": 1,
-      "grid": {},
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 8,
         "x": 8,
-        "y": 21
+        "y": 11
       },
-      "id": 7,
+      "id": 11,
       "legend": {
         "avg": false,
         "current": false,
@@ -655,9 +391,9 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -668,22 +404,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "jenkinsstatsd_mesos_scheduler_decline_short_m1_rate",
+          "expr": "jenkinsstatsd_jenkins_runs_failure_m1_rate",
           "format": "time_series",
-          "intervalFactor": 2,
+          "intervalFactor": 1,
           "legendFormat": "{{dcos_service_name}}",
-          "metric": "",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Short Declines [1m]",
+      "title": "Failure Rate [1m]",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -699,12 +434,12 @@
           "label": "",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -718,186 +453,15 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
+      "fill": 1,
       "gridPos": {
-        "h": 9,
+        "h": 11,
         "w": 8,
         "x": 16,
-        "y": 21
-      },
-      "id": 1,
-      "legend": {
-        "avg": false,
-        "current": true,
-        "max": false,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jenkinsstatsd_mesos_scheduler_decline_long_m1_rate",
-          "format": "time_series",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
-          "metric": "",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Long Declines [1m]",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 0,
-        "y": 30
+        "y": 11
       },
       "id": 13,
       "legend": {
-        "alignAsTable": true,
-        "avg": false,
-        "current": true,
-        "max": true,
-        "min": false,
-        "show": false,
-        "total": false,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 2,
-      "links": [],
-      "nullPointMode": "connected",
-      "percentage": false,
-      "pointradius": 5,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "expr": "jenkinsstatsd_mesos_scheduler_revives_samples",
-          "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
-          "refId": "A"
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeShift": null,
-      "title": "Revives (cumulative)",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "cumulative"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "short",
-          "label": "",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ]
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 1,
-      "grid": {},
-      "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 30
-      },
-      "id": 14,
-      "legend": {
         "avg": false,
         "current": false,
         "max": false,
@@ -907,9 +471,9 @@
         "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null as zero",
       "percentage": false,
       "pointradius": 5,
       "points": false,
@@ -920,22 +484,21 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(jenkinsstatsd_mesos_scheduler_decline_short_m1_rate)",
+          "expr": "sum(jenkinsstatsd_jenkins_runs_failure_m1_rate)",
           "format": "time_series",
-          "intervalFactor": 2,
-          "legendFormat": "{{instance}}",
-          "metric": "",
-          "refId": "A"
+          "intervalFactor": 1,
+          "legendFormat": "",
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Short Declines [1m] (total)",
+      "title": "Failure Rate [1m] (total)",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -948,15 +511,15 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "",
+          "label": "runs/second",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -970,57 +533,130 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
-      "editable": true,
-      "error": false,
-      "fill": 0,
-      "grid": {},
+      "fill": 1,
       "gridPos": {
         "h": 9,
         "w": 8,
-        "x": 16,
-        "y": 30
+        "x": 0,
+        "y": 22
+      },
+      "id": 9,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(jenkinsstatsd_jenkins_executor_count_value)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Executors Total (total)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": "Executors",
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 8,
+        "y": 22
       },
       "id": 15,
       "legend": {
         "avg": false,
-        "current": true,
+        "current": false,
         "max": false,
         "min": false,
         "show": false,
         "total": false,
-        "values": true
+        "values": false
       },
       "lines": true,
-      "linewidth": 2,
+      "linewidth": 1,
       "links": [],
-      "nullPointMode": "connected",
+      "nullPointMode": "null",
       "percentage": false,
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
       "seriesOverrides": [],
       "spaceLength": 10,
-      "stack": true,
+      "stack": false,
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(jenkinsstatsd_mesos_scheduler_decline_long_m1_rate)",
+          "expr": "jenkinsstatsd_jenkins_runs_total_m1_rate",
           "format": "time_series",
-          "hide": false,
-          "intervalFactor": 2,
-          "legendFormat": "{{dcos_service_name}}",
-          "metric": "",
-          "refId": "A"
+          "intervalFactor": 1,
+          "refId": "B"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Long Declines [1m] (total)",
+      "title": "Build Rate",
       "tooltip": {
         "shared": true,
         "sort": 0,
-        "value_type": "cumulative"
+        "value_type": "individual"
       },
       "type": "graph",
       "xaxis": {
@@ -1033,7 +669,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1041,7 +677,166 @@
         },
         {
           "format": "short",
-          "label": "",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 16,
+        "y": 22
+      },
+      "id": 16,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null as zero",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": true,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "sum(jenkinsstatsd_jenkins_runs_total_m1_rate)",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Build Rate (total)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ]
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "${DS_PROMETHEUS}",
+      "fill": 1,
+      "gridPos": {
+        "h": 9,
+        "w": 8,
+        "x": 0,
+        "y": 31
+      },
+      "id": 8,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": false,
+        "total": false,
+        "values": false
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "jenkinsstatsd_jenkins_job_waiting_duration_mean",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "legendFormat": "{{dcos_service_name}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Job Waiting Duration (median)",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
@@ -1058,11 +853,10 @@
     "list": []
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
-    "now": true,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -1087,8 +881,8 @@
       "30d"
     ]
   },
-  "timezone": "browser",
-  "title": "Jenkins: Mesos",
-  "uid": "o_tHAhMiz",
-  "version": 14
+  "timezone": "",
+  "title": "Jenkins: Jobs",
+  "uid": "kZIghMMmz",
+  "version": 20
 }

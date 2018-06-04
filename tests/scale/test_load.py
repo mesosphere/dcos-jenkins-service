@@ -31,17 +31,21 @@ This supports the following configuration params:
 
 import logging
 import time
-from threading import Thread
+from threading import Thread, Lock
 from typing import List, Set
 from xml.etree import ElementTree
 
 import config
 import jenkins
 import pytest
+import sdk_dcos
 import sdk_marathon
 import sdk_quota
+import sdk_security
 import sdk_utils
 import shakedown
+
+from sdk_dcos import DCOS_SECURITY
 
 log = logging.getLogger(__name__)
 
@@ -49,6 +53,8 @@ SHARED_ROLE = "jenkins-role"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 15 * 60  # 15 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins
+
+lock = Lock()
 
 
 class ResultThread(Thread):
@@ -102,6 +108,8 @@ def test_scaling_load(master_count,
         mom: Marathon on Marathon instance name
         external_volume: External volume on rexray (true) or local volume (false)
     """
+    security_mode = sdk_dcos.get_security_mode()
+
     with shakedown.marathon_on_marathon(mom):
         if cpu_quota is not 0.0:
             _setup_quota(SHARED_ROLE, cpu_quota)
@@ -113,6 +121,7 @@ def test_scaling_load(master_count,
                                      _install_jenkins,
                                      external_volume=external_volume,
                                      mom=mom,
+                                     security=security_mode,
                                      daemon=True)
     thread_failures = _wait_and_get_failures(install_threads,
                                              timeout=DEPLOY_TIMEOUT)
@@ -205,7 +214,7 @@ def _spawn_threads(names, target, daemon=False, **kwargs) -> List[ResultThread]:
     return thread_list
 
 
-def _install_jenkins(service_name, mom=None, external_volume=None):
+def _install_jenkins(service_name, security=None, **kwargs):
     """Install Jenkins service.
 
     Args:
@@ -213,10 +222,29 @@ def _install_jenkins(service_name, mom=None, external_volume=None):
         mom: Marathon on Marathon instance name
         external_volume: Enable external volumes
     """
-    log.info("Installing jenkins '{}'".format(service_name))
     try:
-        jenkins.install(service_name, role=SHARED_ROLE, mom=mom,
-                        external_volume=external_volume)
+        if security == DCOS_SECURITY.strict:
+            with lock:
+                log.info("Creating service accounts for '{}'"
+                         .format(service_name))
+                sa_name = "{}-principal".format(service_name)
+                sa_secret = "jenkins-{}-secret".format(service_name)
+                sdk_security.create_service_account(
+                        sa_name, sa_secret)
+
+                sdk_security.grant_permissions(
+                        'nobody', '*', sa_name)
+
+                sdk_security.grant_permissions(
+                        'nobody', SHARED_ROLE, sa_name)
+            kwargs['strict_settings'] = {
+                'secret_name': sa_secret,
+                'mesos_principal': sa_name,
+            }
+            kwargs['service_user'] = 'nobody'
+
+        log.info("Installing jenkins '{}'".format(service_name))
+        jenkins.install(service_name, role=SHARED_ROLE, **kwargs)
     except Exception as e:
         log.warning("Error encountered while installing Jenkins: {}".format(e))
         raise e

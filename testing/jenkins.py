@@ -13,7 +13,8 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name, role=None, mom=None, external_volume=None):
+def install(service_name, role=None, mom=None, external_volume=None,
+            strict_settings=None, service_user=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
@@ -21,6 +22,9 @@ def install(service_name, role=None, mom=None, external_volume=None):
         service_name: Unique service name
         role: The role for the service to use (default is no role)
         mom: Marathon on Marathon instance name
+        strict_settings: Dictionary that contains the secret name and
+            mesos principal to use in strict mode.
+        service_user: user
     """
     options = {
         "service": {
@@ -42,6 +46,15 @@ def install(service_name, role=None, mom=None, external_volume=None):
             "local-persistent-volume-size": 1024
         }
 
+    if strict_settings:
+        options["security"] = {
+            "secret-name": strict_settings['secret_name'],
+            "strict-mode": True
+        }
+
+    if service_user:
+        options['service']['user'] = service_user
+
     if mom:
         # get jenkins marathon app json with desired config.
         # this will register at `/service/<service_name>`
@@ -59,6 +72,10 @@ def install(service_name, role=None, mom=None, external_volume=None):
             0,
             additional_options=options,
             wait_for_deployment=False)
+
+    if strict_settings:
+        jenkins_remote_access.change_mesos_creds(
+            strict_settings['mesos_principal'], service_name)
 
 
 def uninstall(service_name, package_name='jenkins', role=None, mom=None):

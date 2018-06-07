@@ -54,7 +54,7 @@ SHARED_ROLE = "jenkins-role"
 DEPLOY_TIMEOUT = 15 * 60  # 15 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins
 
-lock = Lock()
+LOCK = Lock()
 
 
 class ResultThread(Thread):
@@ -109,18 +109,24 @@ def test_scaling_load(master_count,
         external_volume: External volume on rexray (true) or local volume (false)
     """
     security_mode = sdk_dcos.get_security_mode()
-
-    with shakedown.marathon_on_marathon(mom):
-        if cpu_quota is not 0.0:
+    if mom and cpu_quota != 0.0:
+        with shakedown.marathon_on_marathon(mom):
             _setup_quota(SHARED_ROLE, cpu_quota)
+
+    # create marathon client
+    if mom:
+        with shakedown.marathon_on_marathon(mom):
+            marathon_client = shakedown.marathon.create_client()
+    else:
+        marathon_client = shakedown.marathon.create_client()
 
     masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
                range(0, int(master_count))]
     # launch Jenkins services
     install_threads = _spawn_threads(masters,
                                      _install_jenkins,
+                                     client=marathon_client,
                                      external_volume=external_volume,
-                                     mom=mom,
                                      security=security_mode,
                                      daemon=True)
     thread_failures = _wait_and_get_failures(install_threads,
@@ -214,17 +220,25 @@ def _spawn_threads(names, target, daemon=False, **kwargs) -> List[ResultThread]:
     return thread_list
 
 
-def _install_jenkins(service_name, security=None, **kwargs):
+def _install_jenkins(service_name,
+                     client=None,
+                     security=None,
+                     **kwargs):
     """Install Jenkins service.
 
     Args:
         service_name: Service Name or Marathon ID (same thing)
-        mom: Marathon on Marathon instance name
+        client: Marathon client connection
         external_volume: Enable external volumes
     """
+    def _wait_for_deployment(app_id, client):
+        with LOCK:
+            res = len(client.get_deployments(app_id)) == 0
+        return res
+
     try:
         if security == DCOS_SECURITY.strict:
-            with lock:
+            with LOCK:
                 log.info("Creating service accounts for '{}'"
                          .format(service_name))
                 sa_name = "{}-principal".format(service_name)
@@ -244,7 +258,11 @@ def _install_jenkins(service_name, security=None, **kwargs):
             kwargs['service_user'] = 'nobody'
 
         log.info("Installing jenkins '{}'".format(service_name))
-        jenkins.install(service_name, role=SHARED_ROLE, **kwargs)
+        jenkins.install(service_name,
+                        client,
+                        role=SHARED_ROLE,
+                        fn=_wait_for_deployment,
+                        **kwargs)
     except Exception as e:
         log.warning("Error encountered while installing Jenkins: {}".format(e))
         raise e

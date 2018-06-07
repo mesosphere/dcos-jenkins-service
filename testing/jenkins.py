@@ -13,19 +13,32 @@ SHORT_TIMEOUT_SECONDS = 30
 log = logging.getLogger(__name__)
 
 
-def install(service_name, role=None, mom=None, external_volume=None,
-            strict_settings=None, service_user=None):
+def install(service_name, client,
+            role=None,
+            external_volume=None,
+            strict_settings=None,
+            service_user=None,
+            fn=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
     Args:
         service_name: Unique service name
+        client: Marathon client connection
         role: The role for the service to use (default is no role)
-        mom: Marathon on Marathon instance name
+        external_volume: Enable external volumes
         strict_settings: Dictionary that contains the secret name and
             mesos principal to use in strict mode.
         service_user: user
+        fn: Function to determine if install is complete
     """
+    def _wait_for_deployment(app_id, client):
+        return len(client.get_deployments(app_id)) == 0
+
+    # use _wait_for_deployment if no function provided
+    if not fn:
+        fn = _wait_for_deployment
+
     options = {
         "service": {
             "name": service_name
@@ -55,27 +68,12 @@ def install(service_name, role=None, mom=None, external_volume=None,
     if service_user:
         options['service']['user'] = service_user
 
-    if mom:
-        # get jenkins marathon app json with desired config.
-        # this will register at `/service/<service_name>`
-        pkg_json = sdk_install.get_package_json('jenkins', None, options)
-        with marathon_on_marathon(mom):
-            c = marathon.create_client()
-            c.add_app(pkg_json)
-            time_wait(lambda: deployment_predicate(service_name),
-                      TIMEOUT_SECONDS,
-                      sleep_seconds=20)
-    else:
-        sdk_install.install(
-            'jenkins',
-            service_name,
-            0,
-            additional_options=options,
-            wait_for_deployment=False)
-
-    if strict_settings:
-        jenkins_remote_access.change_mesos_creds(
-            strict_settings['mesos_principal'], service_name)
+    # get the package json for given options
+    pkg_json = sdk_install.get_package_json('jenkins', None, options)
+    client.add_app(pkg_json)
+    time_wait(lambda: fn(service_name, client),
+              TIMEOUT_SECONDS,
+              sleep_seconds=20)
 
 
 def uninstall(service_name, package_name='jenkins', role=None, mom=None):

@@ -8,6 +8,7 @@ import pytest
 import retrying
 import sdk_install
 import sdk_utils
+import shakedown
 
 log = logging.getLogger(__name__)
 
@@ -75,7 +76,8 @@ def test_install_custom_name():
     sdk_install.uninstall(config.PACKAGE_NAME, svc_name)
 
     try:
-        jenkins.install(svc_name)
+        client = shakedown.marathon.create_client()
+        jenkins.install(svc_name, client)
         jenkins.create_job(svc_name, test_job_name)
         job = jenkins.get_job(svc_name, test_job_name)
         assert test_job_name == job['name']

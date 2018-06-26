@@ -33,7 +33,7 @@ def populate_jenkins_config_xml(config_xml, master, name, port, role, user):
     _find_and_set(mesos, './master', master)
     _find_and_set(mesos, './frameworkName', name)
     # This used to be host and port. Switching over to DNS Name to address COPS-3395.
-    _find_and_set(mesos, './jenkinsURL', marathon_autoip_dns_url.format(name, port), True)
+    _find_and_set(mesos, './jenkinsURL', marathon_autoip_dns_url.format(name, port))
     _find_and_set(mesos, './role', role)
     _find_and_set(mesos, './slavesUser', user)
         
@@ -51,7 +51,7 @@ def populate_jenkins_location_config(location_xml, url):
     :type url: str
     """
     tree, root = _get_xml_root(location_xml)
-    _find_and_set(root, 'jenkinsUrl', url, True)
+    _find_and_set(root, 'jenkinsUrl', url)
     tree.write(location_xml)
 
 

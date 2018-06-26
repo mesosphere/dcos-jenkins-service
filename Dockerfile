@@ -14,7 +14,7 @@ ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmes
 ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
-ARG MESOS_PLUG_HASH=baac7616c4fc892f4e93815fc1e3f3afb110861e
+ARG MESOS_PLUG_HASH=5216d7ecef0bc8923ff510aec6659e2c7e7611cb
 
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
@@ -104,7 +104,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   greenballs:1.15                \
   handlebars:1.1.1               \
   ivy:1.28                       \
-  jackson2-api:2.8.11.1          \
+  jackson2-api:2.8.11.3          \
   job-dsl:1.68                   \
   jobConfigHistory:2.18          \
   jquery:1.12.4-0                \

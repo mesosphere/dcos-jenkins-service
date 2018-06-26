@@ -12,7 +12,10 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-def populate_jenkins_config_xml(config_xml, master, name, host, port, role, user):
+marathon_autoip_dns_url = 'http://{}.marathon.autoip.dcos.thisdcos.directory:{}'
+
+
+def populate_jenkins_config_xml(config_xml, master, name, port, role, user):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
     framework name and the Jenkins URL that agents use to connect back to the
@@ -20,7 +23,6 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port, role, user
 
     :param config_xml: the path to Jenkins' 'config.xml' file
     :param name: the name of the framework, e.g. 'jenkins'
-    :param host: the Mesos agent the task is running on
     :param port: the Mesos port the task is running on
     :param role: The role passed to the internal Jenkins configuration that denotes which resources can be launched
     :param user: the user the task is running on
@@ -30,7 +32,8 @@ def populate_jenkins_config_xml(config_xml, master, name, host, port, role, user
 
     _find_and_set(mesos, './master', master)
     _find_and_set(mesos, './frameworkName', name)
-    _find_and_set(mesos, './jenkinsURL', "http://{}:{}".format(host, port))
+    # This used to be host and port. Switching over to DNS Name to address COPS-3395.
+    _find_and_set(mesos, './jenkinsURL', marathon_autoip_dns_url.format(name, port))
     _find_and_set(mesos, './role', role)
     _find_and_set(mesos, './slavesUser', user)
         
@@ -116,15 +119,13 @@ def main():
 
     # optional environment variables
     jenkins_root_url = os.getenv(
-            'JENKINS_ROOT_URL',
-            "http://{}:{}".format(marathon_host, marathon_nginx_port))
-
+        'JENKINS_ROOT_URL',
+        marathon_autoip_dns_url.format(jenkins_framework_name, marathon_nginx_port))
 
     populate_jenkins_config_xml(
         os.path.join(jenkins_home_dir, 'config.xml'),
         mesos_master,
         jenkins_framework_name,
-        marathon_host,
         marathon_nginx_port,
         jenkins_agent_role,
         jenkins_agent_user)
@@ -158,7 +159,7 @@ def _get_xml_root(config_xml):
     return tuple([tree, root])
 
 
-def _find_and_set(element, term, new_text):
+def _find_and_set(element, term, new_text, write_if_empty=False):
     """Find the desired term within the XML element and replace
     its text with text.
 
@@ -168,8 +169,12 @@ def _find_and_set(element, term, new_text):
     :type term: str
     :param new_text: New element text
     :type new_text: str
+    :param write_if_empty : If set to True, the value is updated only if empty.
+                            If set to False, the value is always updated.
+    :type write_if_empty: bool
     """
-    element.find(term).text = new_text
+    if not write_if_empty or write_if_empty and not element.find(term).text:
+        element.find(term).text = new_text
 
 
 if __name__ == '__main__':

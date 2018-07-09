@@ -21,7 +21,7 @@ import com.cloudbees.hudson.plugins.folder.Folder;
 DOCKER_CONTAINER = """
 def containerInfo = new MesosSlaveInfo.ContainerInfo(
                 "DOCKER",
-                "mesosphere/jenkins-dind:0.7.0-ubuntu",
+                "$dockerImage",
                 true,
                 false,
                 false,
@@ -96,7 +96,7 @@ def failedRuns = activeJobs.findAll{job -> job.lastBuild != null && !(job.lastBu
 println("failedjobs = " +failedRuns.size())
 BUILD_STRING = "Build step 'Execute shell' marked build as failure"
 
-failedRuns.each{ item -> 
+failedRuns.each{ item ->
     println "Failed Job Name: ${item.name}"
     item.lastBuild.getLog().eachLine { line ->
         if (line =~ /$BUILD_STRING/) {
@@ -141,9 +141,45 @@ cloud.restartMesos()
 """
 
 
+CREDENTIAL_CHANGE = """
+import com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl
+
+MesosCloud cloud = MesosCloud.get();
+
+def changePassword = { new_username, new_password ->
+    def c = cloud.credentials
+
+    if ( c ) {
+        def credentials_store = Jenkins.instance.getExtensionList(
+            'com.cloudbees.plugins.credentials.SystemCredentialsProvider'
+            )[0].getStore()
+
+        def result = credentials_store.updateCredentials(
+            com.cloudbees.plugins.credentials.domains.Domain.global(), 
+            c, 
+            new UsernamePasswordCredentialsImpl(c.scope, c.id, c.description, new_username, new_password)
+            )
+
+        if (result) {
+            println "changed jenkins creds" 
+        } else {
+            println "failed to change jenkins creds"
+        }
+    } else {
+      println "could not find credential for jenkins"
+    }
+}
+
+changePassword('$userName', 'abcdefg')
+
+cloud.restartMesos()
+"""
+
+
 def add_slave_info(
         labelString,
         service_name,
+        dockerImage="mesosphere/jenkins-dind:0.7.0-ubuntu",
         slaveCpus="0.1",
         slaveMem="256",
         minExecutors="1",
@@ -178,8 +214,13 @@ def add_slave_info(
          "defaultSlave": defaultSlave,
          "containerInfo": "containerInfo",
     })
+
+    containerInfo = Template(DOCKER_CONTAINER).substitute({
+        "dockerImage": dockerImage,
+    })
+
     return make_post(
-        DOCKER_CONTAINER +
+        containerInfo +
         slaveInfo +
         MESOS_SLAVE_INFO_ADD,
         service_name,
@@ -204,6 +245,16 @@ def delete_all_jobs(**kwargs):
 
 def get_job_failures(service_name):
     return make_post(JENKINS_JOB_FAILURES, service_name)
+
+
+def change_mesos_creds(mesos_username, service_name):
+    return make_post(
+        Template(CREDENTIAL_CHANGE).substitute(
+            {
+                'userName': mesos_username,
+            }
+        ),
+        service_name)
 
 
 def change_mesos_creds(mesos_username, service_name):

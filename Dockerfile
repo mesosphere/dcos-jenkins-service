@@ -14,10 +14,16 @@ ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmes
 ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
-ARG MESOS_PLUG_HASH=5216d7ecef0bc8923ff510aec6659e2c7e7611cb
+ARG MESOS_PLUG_HASH=347c1ac133dc0cb6282a0dde820acd5b4eb21133
 ARG PROMETHEUS_PLUG_HASH=a347bf2c63efe59134c15b8ef83a4a1f627e3b5d
 ARG STATSD_PLUG_HASH=929d4a6cb3d3ce5f1e03af73075b13687d4879c8
+ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
+ARG user=nobody
+ARG uid=99
+ARG gid=99
 
+ENV JENKINS_HOME $JENKINS_DCOS_HOME
+ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
 
@@ -34,6 +40,8 @@ RUN curl -fsSL "$LIBMESOS_DOWNLOAD_URL" -o libmesos-bundle.tar.gz  \
 RUN echo "deb http://ftp.debian.org/debian testing main" >> /etc/apt/sources.list \
   && apt-get update && apt-get -t testing install -y git
 
+RUN mkdir -p "${JENKINS_HOME}" "${JENKINS_FOLDER}/war"
+
 # Override the default property for DNS lookup caching
 RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security
 
@@ -41,16 +49,17 @@ RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.sec
 COPY scripts/bootstrap.py /usr/local/jenkins/bin/bootstrap.py
 COPY scripts/export-libssl.sh /usr/local/jenkins/bin/export-libssl.sh
 COPY scripts/dcos-account.sh /usr/local/jenkins/bin/dcos-account.sh
-RUN mkdir -p "$JENKINS_HOME" "${JENKINS_FOLDER}/war"
+COPY scripts/run.sh /usr/local/jenkins/bin/run.sh
 
 # nginx setup
-RUN mkdir -p /var/log/nginx/jenkins
-COPY conf/nginx/nginx.conf /etc/nginx/nginx.conf
+RUN mkdir -p /var/log/nginx/jenkins /var/nginx/
+COPY conf/nginx/nginx.conf /var/nginx/nginx.conf
 
 # jenkins setup
 COPY conf/jenkins/config.xml "${JENKINS_STAGING}/config.xml"
 COPY conf/jenkins/jenkins.model.JenkinsLocationConfiguration.xml "${JENKINS_STAGING}/jenkins.model.JenkinsLocationConfiguration.xml"
 COPY conf/jenkins/nodeMonitors.xml "${JENKINS_STAGING}/nodeMonitors.xml"
+COPY scripts/init.groovy.d/mesos-auth.groovy "${JENKINS_STAGING}/init.groovy.d/mesos-auth.groovy"
 
 # add plugins
 RUN /usr/local/bin/install-plugins.sh       \
@@ -106,7 +115,7 @@ RUN /usr/local/bin/install-plugins.sh       \
   greenballs:1.15                \
   handlebars:1.1.1               \
   ivy:1.28                       \
-  jackson2-api:2.8.11.1          \
+  jackson2-api:2.8.11.3          \
   job-dsl:1.68                   \
   jobConfigHistory:2.18          \
   jquery:1.12.4-0                \
@@ -165,27 +174,25 @@ ADD https://infinity-artifacts.s3.amazonaws.com/mesos-jenkins/mesos.hpi-${MESOS_
 ADD https://infinity-artifacts.s3.amazonaws.com/prometheus-jenkins/prometheus.hpi-${PROMETHEUS_PLUG_HASH} "${JENKINS_STAGING}/plugins/prometheus.hpi"
 ADD https://infinity-artifacts.s3.amazonaws.com/statsd-jenkins/metrics-graphite.hpi-${STATSD_PLUG_HASH} "${JENKINS_STAGING}/plugins/metrics-graphite.hpi"
 
+# change the config for $user
+# alias uid to $uid - should match nobody for host
+# set home directory to JENKINS_HOME
+# change gid to $gid
+RUN groupadd -g ${gid} nobody \
+    && usermod -u ${uid} -g ${gid} ${user} \
+    && usermod -a -G users nobody \
+    && echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
+
+RUN chmod -R ugo+rw "$JENKINS_HOME" "${JENKINS_FOLDER}" \
+    && chmod -R ugo+r "${JENKINS_STAGING}" \
+    && chmod -R ugo+rx /usr/local/jenkins/bin/ \
+    && chmod -R ugo+rw /var/jenkins_home/ \
+    && chmod -R ugo+rw /var/lib/nginx/ /var/nginx/ /var/log/nginx \
+    && chmod ugo+rx /usr/local/jenkins/bin/*
+
+USER ${user}
+
 # disable first-run wizard
 RUN echo 2.0 > /usr/share/jenkins/ref/jenkins.install.UpgradeWizard.state
 
-CMD export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_LIBRARY_PATH \
-  && export JENKINS_SLAVE_AGENT_PORT=$PORT_AGENT \
-  && export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)   \
-  && . /usr/local/jenkins/bin/export-libssl.sh       \
-  && /usr/local/jenkins/bin/bootstrap.py && nginx    \
-  && . /usr/local/jenkins/bin/dcos-account.sh        \
-  && java ${JVM_OPTS}                                \
-     -Dhudson.model.DirectoryBrowserSupport.CSP="${JENKINS_CSP_OPTS}" \
-     -Dhudson.udp=-1                                 \
-     -Djava.awt.headless=true                        \
-     -Dhudson.DNSMultiCast.disabled=true             \
-     -Djenkins.install.runSetupWizard=false          \
-     -Djavamelody.statsd-address="${STATSD_UDP_HOST}:${STATSD_UDP_PORT}"  \
-     -jar ${JENKINS_FOLDER}/jenkins.war              \
-     ${JENKINS_OPTS}                                 \
-     --httpPort=${PORT1}                             \
-     --webroot=${JENKINS_FOLDER}/war                 \
-     --ajp13Port=-1                                  \
-     --httpListenAddress=127.0.0.1                   \
-     --ajp13ListenAddress=127.0.0.1                  \
-     --prefix=${JENKINS_CONTEXT}
+CMD /usr/local/jenkins/bin/run.sh

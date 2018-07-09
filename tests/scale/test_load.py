@@ -44,17 +44,23 @@ import sdk_quota
 import sdk_security
 import sdk_utils
 import shakedown
+import json
 
 from sdk_dcos import DCOS_SECURITY
 
 log = logging.getLogger(__name__)
 
 SHARED_ROLE = "jenkins-role"
+DOCKER_IMAGE="benclarkwood/dind:3"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 15 * 60  # 15 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins
+SERVICE_ACCOUNT_TIMEOUT = 5 * 60 # 5 mins
 
 LOCK = Lock()
+
+TIMINGS = {"deployments": {}, "serviceaccounts": {}}
+ACCOUNTS = {}
 
 
 class ResultThread(Thread):
@@ -63,6 +69,7 @@ class ResultThread(Thread):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
         self._result = None
+        self._event = None
 
     @property
     def result(self) -> bool:
@@ -73,12 +80,25 @@ class ResultThread(Thread):
         """
         return bool(self._result)
 
+    @property
+    def event(self):
+        return self._event
+
+    @event.setter
+    def event(self, event):
+        self._event = event
+
     def run(self) -> None:
+        start = time.time()
         try:
             super().run()
             self._result = True
         except Exception as e:
             self._result = False
+        finally:
+            end = time.time()
+            if self.event:
+                TIMINGS[self.event][self.name] = end - start
 
 
 @pytest.mark.scale
@@ -122,9 +142,17 @@ def test_scaling_load(master_count,
 
     masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
                range(0, int(master_count))]
+    # create service accounts in parallel
+    service_account_threads = _spawn_threads(masters,
+                                            _create_service_accounts,
+                                            security=security_mode)
+
+    thread_failures = _wait_and_get_failures(service_account_threads,
+                                             timeout=SERVICE_ACCOUNT_TIMEOUT)
     # launch Jenkins services
     install_threads = _spawn_threads(masters,
                                      _install_jenkins,
+                                     event='deployments',
                                      client=marathon_client,
                                      external_volume=external_volume,
                                      security=security_mode,
@@ -143,6 +171,8 @@ def test_scaling_load(master_count,
                                  duration=work_duration,
                                  scenario=scenario)
     _wait_on_threads(job_threads, JOB_RUN_TIMEOUT)
+    r = json.dumps(TIMINGS)
+    print(r)
 
 
 @pytest.mark.scalecleanup
@@ -194,7 +224,7 @@ def _set_quota(role, cpus):
     sdk_quota.create_quota(role, cpus=cpus)
 
 
-def _spawn_threads(names, target, daemon=False, **kwargs) -> List[ResultThread]:
+def _spawn_threads(names, target, daemon=False, event=None, **kwargs) -> List[ResultThread]:
     """Create and start threads running target. This will pass
     the thread name to the target as the first argument.
 
@@ -215,9 +245,32 @@ def _spawn_threads(names, target, daemon=False, **kwargs) -> List[ResultThread]:
                          name=service_name,
                          args=(service_name,),
                          kwargs=kwargs)
+        t.event = event
         thread_list.append(t)
         t.start()
     return thread_list
+
+
+def _create_service_accounts(service_name, security=None):
+    if security == DCOS_SECURITY.strict:
+        start = time.time()
+        log.info("Creating service accounts for '{}'"
+                 .format(service_name))
+        sa_name = "{}-principal".format(service_name)
+        sa_secret = "jenkins-{}-secret".format(service_name)
+        sdk_security.create_service_account(
+                sa_name, sa_secret)
+
+        sdk_security.grant_permissions(
+                'root', '*', sa_name)
+
+        sdk_security.grant_permissions(
+                'root', SHARED_ROLE, sa_name)
+        end = time.time()
+        ACCOUNTS[service_name] = {}
+        ACCOUNTS[service_name]["sa_name"] = sa_name 
+        ACCOUNTS[service_name]["sa_secret"] = sa_secret
+        TIMINGS["serviceaccounts"][service_name] = end - start
 
 
 def _install_jenkins(service_name,
@@ -238,24 +291,11 @@ def _install_jenkins(service_name,
 
     try:
         if security == DCOS_SECURITY.strict:
-            with LOCK:
-                log.info("Creating service accounts for '{}'"
-                         .format(service_name))
-                sa_name = "{}-principal".format(service_name)
-                sa_secret = "jenkins-{}-secret".format(service_name)
-                sdk_security.create_service_account(
-                        sa_name, sa_secret)
-
-                sdk_security.grant_permissions(
-                        'nobody', '*', sa_name)
-
-                sdk_security.grant_permissions(
-                        'nobody', SHARED_ROLE, sa_name)
             kwargs['strict_settings'] = {
-                'secret_name': sa_secret,
-                'mesos_principal': sa_name,
+                'secret_name':  ACCOUNTS[service_name]["sa_secret"],
+                'mesos_principal': ACCOUNTS[service_name]["sa_name"],
             }
-            kwargs['service_user'] = 'nobody'
+            kwargs['service_user'] = 'root'
 
         log.info("Installing jenkins '{}'".format(service_name))
         jenkins.install(service_name,
@@ -310,9 +350,11 @@ def _create_executor_configuration(service_name: str) -> str:
     mesos_label = "mesos"
     jenkins.create_mesos_slave_node(mesos_label,
                                     service_name=service_name,
+                                    dockerImage=DOCKER_IMAGE,
                                     executorCpus=0.3,
                                     executorMem=1800,
-                                    idleTerminationMinutes=1)
+                                    idleTerminationMinutes=1,
+                                    timeout_seconds=600)
     return mesos_label
 
 
@@ -349,6 +391,7 @@ def _launch_jobs(service_name: str,
 
     jenkins.run_job(service_name,
                     job_name,
+                    timeout_seconds=600,
                     **{'JOBCOUNT':       str(jobs),
                        'AGENT_LABEL':    label,
                        'SINGLE_USE':     single_use_str,

@@ -29,4 +29,4 @@ else
 fi
 
 # Use tooling to reference the correct image (via templating) and publish stub
-env TEMPLATE_DOCKER-IMAGE="${DOCKER_IMAGE}" tools/publish_aws.py jenkins stub-universe universe/
+env TEMPLATE_DOCKER-IMAGE="${DOCKER_IMAGE}" tools/publish_aws.py jenkins stub-universe-all-ucr universe/

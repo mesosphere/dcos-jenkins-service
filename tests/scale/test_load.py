@@ -253,24 +253,29 @@ def _spawn_threads(names, target, daemon=False, event=None, **kwargs) -> List[Re
 
 def _create_service_accounts(service_name, security=None):
     if security == DCOS_SECURITY.strict:
-        start = time.time()
-        log.info("Creating service accounts for '{}'"
-                 .format(service_name))
-        sa_name = "{}-principal".format(service_name)
-        sa_secret = "jenkins-{}-secret".format(service_name)
-        sdk_security.create_service_account(
-                sa_name, sa_secret)
+        with LOCK:
+            try:
+                start = time.time()
+                log.info("Creating service accounts for '{}'"
+                         .format(service_name))
+                sa_name = "{}-principal".format(service_name)
+                sa_secret = "jenkins-{}-secret".format(service_name)
+                sdk_security.create_service_account(
+                        sa_name, sa_secret)
 
-        sdk_security.grant_permissions(
-                'root', '*', sa_name)
+                sdk_security.grant_permissions(
+                        'root', '*', sa_name)
 
-        sdk_security.grant_permissions(
-                'root', SHARED_ROLE, sa_name)
-        end = time.time()
-        ACCOUNTS[service_name] = {}
-        ACCOUNTS[service_name]["sa_name"] = sa_name 
-        ACCOUNTS[service_name]["sa_secret"] = sa_secret
-        TIMINGS["serviceaccounts"][service_name] = end - start
+                sdk_security.grant_permissions(
+                        'root', SHARED_ROLE, sa_name)
+                end = time.time()
+                ACCOUNTS[service_name] = {}
+                ACCOUNTS[service_name]["sa_name"] = sa_name 
+                ACCOUNTS[service_name]["sa_secret"] = sa_secret
+                TIMINGS["serviceaccounts"][service_name] = end - start
+            except Exception as e:
+                log.warning("Error encountered while creating service account: {}".format(e))
+                raise e
 
 
 def _install_jenkins(service_name,

@@ -156,7 +156,8 @@ def test_scaling_load(master_count,
                                      client=marathon_client,
                                      external_volume=external_volume,
                                      security=security_mode,
-                                     daemon=True)
+                                     daemon=True,
+                                     mom=mom)
     thread_failures = _wait_and_get_failures(install_threads,
                                              timeout=DEPLOY_TIMEOUT)
     thread_names = [x.name for x in thread_failures]

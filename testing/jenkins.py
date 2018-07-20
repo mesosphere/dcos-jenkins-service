@@ -18,7 +18,8 @@ def install(service_name, client,
             external_volume=None,
             strict_settings=None,
             service_user=None,
-            fn=None):
+            fn=None,
+            mom=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
@@ -70,6 +71,8 @@ def install(service_name, client,
 
     # get the package json for given options
     pkg_json = sdk_install.get_package_json('jenkins', None, options)
+    if mom:
+        pkg_json["env"]["MARATHON_NAME"] = mom
     client.add_app(pkg_json)
     time_wait(lambda: fn(service_name, client),
               TIMEOUT_SECONDS,

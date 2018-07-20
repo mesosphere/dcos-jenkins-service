@@ -12,10 +12,10 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-marathon_autoip_dns_url = 'http://{}.marathon.autoip.dcos.thisdcos.directory:{}'
+marathon_dns_url = 'http://{}.{}.mesos:{}'
 
 
-def populate_jenkins_config_xml(config_xml, master, name, port, role, user):
+def populate_jenkins_config_xml(config_xml, master, name, port, role, user, marathon_name):
     """Modifies a Jenkins master's 'config.xml' at runtime. Essentially, this
     replaces certain configuration options of the Mesos plugin, such as the
     framework name and the Jenkins URL that agents use to connect back to the
@@ -26,6 +26,7 @@ def populate_jenkins_config_xml(config_xml, master, name, port, role, user):
     :param port: the Mesos port the task is running on
     :param role: The role passed to the internal Jenkins configuration that denotes which resources can be launched
     :param user: the user the task is running on
+    :param marathon_name: the name of the Marathon framework the Jenkins master is deployed from. Change when using a MoM.
     """
     tree, root = _get_xml_root(config_xml)
     mesos = root.find('./clouds/org.jenkinsci.plugins.mesos.MesosCloud')
@@ -33,7 +34,7 @@ def populate_jenkins_config_xml(config_xml, master, name, port, role, user):
     _find_and_set(mesos, './master', master)
     _find_and_set(mesos, './frameworkName', name)
     # This used to be host and port. Switching over to DNS Name to address COPS-3395.
-    _find_and_set(mesos, './jenkinsURL', marathon_autoip_dns_url.format(name, port))
+    _find_and_set(mesos, './jenkinsURL', marathon_dns_url.format(name, marathon_name, port))
     _find_and_set(mesos, './role', role)
     _find_and_set(mesos, './slavesUser', user)
         
@@ -110,6 +111,7 @@ def main():
         marathon_jenkins_port = os.environ['PORT1']
         mesos_master = os.environ['JENKINS_MESOS_MASTER']
         ssh_known_hosts = os.environ['SSH_KNOWN_HOSTS']
+        marathon_name = os.environ['MARATHON_NAME']
     except KeyError as e:
         # Since each of the environment variables above are set either in the
         # DCOS marathon.json or by Marathon itself, the user should never get
@@ -120,7 +122,7 @@ def main():
     # optional environment variables
     jenkins_root_url = os.getenv(
         'JENKINS_ROOT_URL',
-        marathon_autoip_dns_url.format(jenkins_framework_name, marathon_nginx_port))
+        marathon_dns_url.format(jenkins_framework_name, marathon_name, marathon_nginx_port))
 
     populate_jenkins_config_xml(
         os.path.join(jenkins_home_dir, 'config.xml'),
@@ -128,7 +130,8 @@ def main():
         jenkins_framework_name,
         marathon_nginx_port,
         jenkins_agent_role,
-        jenkins_agent_user)
+        jenkins_agent_user,
+        marathon_name)
 
     populate_jenkins_location_config(os.path.join(
         jenkins_home_dir, 'jenkins.model.JenkinsLocationConfiguration.xml'),

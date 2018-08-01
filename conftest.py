@@ -39,6 +39,15 @@ def pytest_addoption(parser):
     parser.addoption('--scenario', action='store', default='sleep',
                      help='Test scenario to run (sleep, buildmarathon) '
                           '(default: sleep).')
+    parser.addoption('--min', action='store', default=-1,
+                     help='min jenkins index to start from'
+                          '(default: -1).')
+    parser.addoption('--max', action='store', default=-1,
+                     help='max jenkins index to end at'
+                          '(default: -1).')
+    parser.addoption('--batch-size', action='store', default=1,
+                     help='batch size to deploy jenkins masters in'
+                          '(default: 1).')
 
 
 @pytest.fixture
@@ -84,3 +93,15 @@ def scenario(request) -> str:
 @pytest.fixture
 def external_volume(request) -> bool:
     return bool(request.config.getoption('--external-volume'))
+
+@pytest.fixture
+def min_index(request) -> int:
+    return int(request.config.getoption('--min'))
+
+@pytest.fixture
+def max_index(request) -> int:
+    return int(request.config.getoption('--max'))
+
+@pytest.fixture
+def batch_size(request) -> int:
+    return int(request.config.getoption('--batch-size'))

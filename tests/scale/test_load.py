@@ -55,7 +55,7 @@ DOCKER_IMAGE="benclarkwood/dind:3"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 15 * 60  # 15 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins
-SERVICE_ACCOUNT_TIMEOUT = 5 * 60 # 5 mins
+SERVICE_ACCOUNT_TIMEOUT = 15 * 60 # 5 mins
 
 LOCK = Lock()
 
@@ -110,7 +110,11 @@ def test_scaling_load(master_count,
                       work_duration,
                       mom,
                       external_volume: bool,
-                      scenario) -> None:
+                      scenario,
+                      min_index,
+                      max_index,
+                      batch_size) -> None:
+
     """Launch a load test scenario. This does not verify the results
     of the test, but does ensure the instances and jobs were created.
 
@@ -127,6 +131,9 @@ def test_scaling_load(master_count,
         work_duration: Time, in seconds, for generated jobs to sleep
         mom: Marathon on Marathon instance name
         external_volume: External volume on rexray (true) or local volume (false)
+        min_index: minimum index to begin jenkins suffixes at
+        max_index: maximum index to end jenkins suffixes at
+        batch_size: batch size to deploy jenkins instances in
     """
     security_mode = sdk_dcos.get_security_mode()
     if mom and cpu_quota != 0.0:
@@ -140,9 +147,17 @@ def test_scaling_load(master_count,
     else:
         marathon_client = shakedown.marathon.create_client()
 
-    masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
-               range(0, int(master_count))]
+    masters = []
+    if min_index == -1 or max_index == -1:
+        masters = ["jenkins{}".format(sdk_utils.random_string()) for _ in
+                   range(0, int(master_count))]
+    else:
+        #max and min indexes are specified
+        #NOTE: using min/max will override master count
+        masters = ["jenkins{}".format(index) for index in
+                    range(min_index, max_index)]
     # create service accounts in parallel
+    sdk_security.install_enterprise_cli()
     service_account_threads = _spawn_threads(masters,
                                             _create_service_accounts,
                                             security=security_mode)
@@ -150,30 +165,34 @@ def test_scaling_load(master_count,
     thread_failures = _wait_and_get_failures(service_account_threads,
                                              timeout=SERVICE_ACCOUNT_TIMEOUT)
     # launch Jenkins services
-    install_threads = _spawn_threads(masters,
-                                     _install_jenkins,
-                                     event='deployments',
-                                     client=marathon_client,
-                                     external_volume=external_volume,
-                                     security=security_mode,
-                                     daemon=True,
-                                     mom=mom)
-    thread_failures = _wait_and_get_failures(install_threads,
-                                             timeout=DEPLOY_TIMEOUT)
-    thread_names = [x.name for x in thread_failures]
+    current = 0
+    end = max_index - min_index
+    while current + batch_size <= end:
+        batched_masters = masters[current:current+batch_size]
+        install_threads = _spawn_threads(batched_masters,
+                                         _install_jenkins,
+                                         event='deployments',
+                                         client=marathon_client,
+                                         external_volume=external_volume,
+                                         security=security_mode,
+                                         daemon=True)
+        thread_failures = _wait_and_get_failures(install_threads,
+                                                 timeout=DEPLOY_TIMEOUT)
+        thread_names = [x.name for x in thread_failures]
 
-    # the rest of the commands require a running Jenkins instance
-    deployed_masters = [x for x in masters if x not in thread_names]
-    job_threads = _spawn_threads(deployed_masters,
-                                 _create_jobs,
-                                 jobs=job_count,
-                                 single=single_use,
-                                 delay=run_delay,
-                                 duration=work_duration,
-                                 scenario=scenario)
-    _wait_on_threads(job_threads, JOB_RUN_TIMEOUT)
-    r = json.dumps(TIMINGS)
-    print(r)
+        # the rest of the commands require a running Jenkins instance
+        deployed_masters = [x for x in batched_masters if x not in thread_names]
+        job_threads = _spawn_threads(deployed_masters,
+                                     _create_jobs,
+                                     jobs=job_count,
+                                     single=single_use,
+                                     delay=run_delay,
+                                     duration=work_duration,
+                                     scenario=scenario)
+        _wait_on_threads(job_threads, JOB_RUN_TIMEOUT)
+        r = json.dumps(TIMINGS)
+        print(r)
+        current = current + batch_size
 
 
 @pytest.mark.scalecleanup
@@ -254,29 +273,28 @@ def _spawn_threads(names, target, daemon=False, event=None, **kwargs) -> List[Re
 
 def _create_service_accounts(service_name, security=None):
     if security == DCOS_SECURITY.strict:
-        with LOCK:
-            try:
-                start = time.time()
-                log.info("Creating service accounts for '{}'"
-                         .format(service_name))
-                sa_name = "{}-principal".format(service_name)
-                sa_secret = "jenkins-{}-secret".format(service_name)
-                sdk_security.create_service_account(
-                        sa_name, sa_secret)
+        try:
+            start = time.time()
+            log.info("Creating service accounts for '{}'"
+                     .format(service_name))
+            sa_name = "{}-principal".format(service_name)
+            sa_secret = "jenkins-{}-secret".format(service_name)
+            sdk_security.create_service_account(
+                    sa_name, sa_secret, service_name)
 
-                sdk_security.grant_permissions(
-                        'root', '*', sa_name)
+            sdk_security.grant_permissions(
+                    'root', '*', sa_name)
 
-                sdk_security.grant_permissions(
-                        'root', SHARED_ROLE, sa_name)
-                end = time.time()
-                ACCOUNTS[service_name] = {}
-                ACCOUNTS[service_name]["sa_name"] = sa_name 
-                ACCOUNTS[service_name]["sa_secret"] = sa_secret
-                TIMINGS["serviceaccounts"][service_name] = end - start
-            except Exception as e:
-                log.warning("Error encountered while creating service account: {}".format(e))
-                raise e
+            sdk_security.grant_permissions(
+                    'root', SHARED_ROLE, sa_name)
+            end = time.time()
+            ACCOUNTS[service_name] = {}
+            ACCOUNTS[service_name]["sa_name"] = sa_name 
+            ACCOUNTS[service_name]["sa_secret"] = sa_secret
+            TIMINGS["serviceaccounts"][service_name] = end - start
+        except Exception as e:
+            log.warning("Error encountered while creating service account: {}".format(e))
+            raise e
 
 
 def _install_jenkins(service_name,

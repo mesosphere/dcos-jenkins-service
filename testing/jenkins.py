@@ -135,12 +135,20 @@ def create_seed_job(
         job_name,
         content
 ):
-    headers = {'Content-Type': 'application/xml'}
-    svc_url = dcos_service_url(service_name)
-    url = "{}createItem?name={}".format(svc_url, job_name)
-    r = http.post(url, headers=headers, data=content)
-
-    return r
+    url = "createItem?name={}".format(job_name)
+    try:
+        r = sdk_cmd.service_request(
+            'POST',
+            service_name,
+            url,
+            data=content,
+            log_args=True,
+            headers = {'Content-Type': 'application/xml'}
+        )
+        return r
+    except Exception as inst:
+        print(type(inst))
+        print(inst)
 
 
 def delete_all_jobs(service_name, retry=True):

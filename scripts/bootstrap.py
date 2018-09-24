@@ -12,7 +12,12 @@ import sys
 import xml.etree.ElementTree as ET
 
 
-marathon_dns_url = 'http://{}.{}.mesos:{}'
+def mesos_dns_taskname(jenkins_service_name, marathon_name, nginx_port):
+    marathon_dns_url = 'http://{}.{}.mesos:{}'
+    elems = jenkins_service_name.strip('/').split('/')
+    elems.reverse()
+    service_name = '-'.join(elems)
+    return marathon_dns_url.format(service_name, marathon_name, nginx_port)
 
 
 def populate_jenkins_config_xml(config_xml, master, name, port, role, user, marathon_name):
@@ -34,10 +39,10 @@ def populate_jenkins_config_xml(config_xml, master, name, port, role, user, mara
     _find_and_set(mesos, './master', master)
     _find_and_set(mesos, './frameworkName', name)
     # This used to be host and port. Switching over to DNS Name to address COPS-3395.
-    _find_and_set(mesos, './jenkinsURL', marathon_dns_url.format(name, marathon_name, port))
+    _find_and_set(mesos, './jenkinsURL', mesos_dns_taskname(name, marathon_name, port))
     _find_and_set(mesos, './role', role)
     _find_and_set(mesos, './slavesUser', user)
-        
+
     tree.write(config_xml)
 
 
@@ -122,7 +127,7 @@ def main():
     # optional environment variables
     jenkins_root_url = os.getenv(
         'JENKINS_ROOT_URL',
-        marathon_dns_url.format(jenkins_framework_name, marathon_name, marathon_nginx_port))
+        mesos_dns_taskname(jenkins_framework_name, marathon_name, marathon_nginx_port))
 
     populate_jenkins_config_xml(
         os.path.join(jenkins_home_dir, 'config.xml'),

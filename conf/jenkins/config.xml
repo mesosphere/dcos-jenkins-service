@@ -42,7 +42,7 @@
           <jnlpArgs>-noReconnect</jnlpArgs>
           <containerInfo>
             <type>DOCKER</type>
-            <dockerImage>benclarkwood/dind:3</dockerImage>
+            <dockerImage>mesosphere/jenkins-dind:scale</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
             <customDockerCommandShell>wrapper.sh</customDockerCommandShell>

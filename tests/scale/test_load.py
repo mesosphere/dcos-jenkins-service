@@ -51,7 +51,7 @@ from sdk_dcos import DCOS_SECURITY
 log = logging.getLogger(__name__)
 
 SHARED_ROLE = "jenkins-role"
-DOCKER_IMAGE="benclarkwood/dind:3"
+DOCKER_IMAGE="mesosphere/jenkins-dind:scale"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 15 * 60  # 15 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins

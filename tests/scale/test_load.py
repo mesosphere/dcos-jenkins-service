@@ -197,25 +197,36 @@ def test_scaling_load(master_count,
 
 
 @pytest.mark.scalecleanup
-def test_cleanup_scale(mom) -> None:
-    """Blanket clean-up of jenkins instances on a DC/OS cluster.
+def test_cleanup_scale(mom, min_index, max_index,) -> None:
+    """
+     Args:
+        mom: Marathon on Marathon instance name
+        min_index: minimum index to begin jenkins suffixes at
+        max_index: maximum index to end jenkins suffixes at
 
-    1. Queries Marathon for all apps matching "jenkins" prefix
+    Blanket clean-up of jenkins instances on a DC/OS cluster.
+
+    1. Queries Marathon for all apps matching "jenkins" prefix, or deletes range
     2. Delete all jobs on running Jenkins instances
     3. Uninstall all found Jenkins installs
     """
-    r = sdk_marathon.filter_apps_by_id('jenkins', mom)
-    jenkins_apps = r.json()['apps']
-    jenkins_ids = [x['id'] for x in jenkins_apps]
-
     service_ids = list()
-    for service_id in jenkins_ids:
-        if service_id.startswith('/'):
-            service_id = service_id[1:]
-        # skip over '/jenkins' instance - not setup by tests
-        if service_id == 'jenkins':
-            continue
-        service_ids.append(service_id)
+
+    if min_index != -1 and max_index != -1:
+         service_ids = ["/jenkins{}".format(index) for index in
+                    range(min_index, max_index)]
+    else: 
+        r = sdk_marathon.filter_apps_by_id('jenkins', mom)
+        jenkins_apps = r.json()['apps']
+        jenkins_ids = [x['id'] for x in jenkins_apps]
+
+        for service_id in jenkins_ids:
+            if service_id.startswith('/'):
+                service_id = service_id[1:]
+            # skip over '/jenkins' instance - not setup by tests
+            if service_id == 'jenkins':
+                continue
+            service_ids.append(service_id)
 
     cleanup_threads = _spawn_threads(service_ids,
                                      _cleanup_jenkins_install,

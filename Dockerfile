@@ -10,8 +10,7 @@ WORKDIR /tmp
 ENV JENKINS_FOLDER /usr/share/jenkins
 
 # Build Args
-ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.11.0.tar.gz
-ARG LIBMESOS_DOWNLOAD_SHA256=bd4a785393f0477da7f012bf9624aa7dd65aa243c94d38ffe94adaa10de30274
+ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.12.0.tar.gz
 ARG BLUEOCEAN_VERSION=1.5.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 ARG MESOS_PLUG_HASH=347c1ac133dc0cb6282a0dde820acd5b4eb21133
@@ -33,7 +32,6 @@ USER root
 RUN apt-get update && apt-get install -y nginx python zip jq
 # libmesos bundle
 RUN curl -fsSL "$LIBMESOS_DOWNLOAD_URL" -o libmesos-bundle.tar.gz  \
-  && echo "$LIBMESOS_DOWNLOAD_SHA256 libmesos-bundle.tar.gz" | sha256sum -c - \
   && tar -C / -xzf libmesos-bundle.tar.gz  \
   && rm libmesos-bundle.tar.gz
 # update to newer git version

@@ -197,22 +197,26 @@ def test_scaling_load(master_count,
 
 
 @pytest.mark.scalecleanup
-def test_cleanup_scale(mom, min_index, max_index,) -> None:
+def test_cleanup_scale(mom, min_index, max_index,service_id_list) -> None:
     """
      Args:
         mom: Marathon on Marathon instance name
         min_index: minimum index to begin jenkins suffixes at
         max_index: maximum index to end jenkins suffixes at
+        service_id_list: list of service ids to delete
 
     Blanket clean-up of jenkins instances on a DC/OS cluster.
-
-    1. Queries Marathon for all apps matching "jenkins" prefix, or deletes range
+    1. Delete list of service ids if specified
+    2. Delete range between max and min if specified
+    1. Queries MoM for all apps matching "jenkins" prefix
     2. Delete all jobs on running Jenkins instances
     3. Uninstall all found Jenkins installs
     """
     service_ids = list()
 
-    if min_index != -1 and max_index != -1:
+    if service_id_list != '':
+        service_ids = service_id_list.split(",")
+    elif min_index != -1 and max_index != -1:
          service_ids = ["/jenkins{}".format(index) for index in
                     range(min_index, max_index)]
     else: 

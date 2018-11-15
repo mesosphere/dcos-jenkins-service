@@ -48,6 +48,8 @@ def pytest_addoption(parser):
     parser.addoption('--batch-size', action='store', default=1,
                      help='batch size to deploy jenkins masters in'
                           '(default: 1).')
+    parser.addoption('--service-ids', action='store', default='',
+                     help='list of jenkins masters to delete')
 
 
 @pytest.fixture
@@ -98,10 +100,17 @@ def external_volume(request) -> bool:
 def min_index(request) -> int:
     return int(request.config.getoption('--min'))
 
+
 @pytest.fixture
 def max_index(request) -> int:
     return int(request.config.getoption('--max'))
 
+
 @pytest.fixture
 def batch_size(request) -> int:
     return int(request.config.getoption('--batch-size'))
+
+
+@pytest.fixture
+def service_id_list(request) -> str:
+    return request.config.getoption('--service-ids')

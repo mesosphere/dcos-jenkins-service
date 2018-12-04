@@ -46,6 +46,7 @@ import sdk_utils
 import shakedown
 import json
 
+from tools import dcos_login
 from sdk_dcos import DCOS_SECURITY
 
 log = logging.getLogger(__name__)
@@ -53,9 +54,9 @@ log = logging.getLogger(__name__)
 SHARED_ROLE = "jenkins-role"
 DOCKER_IMAGE="mesosphere/jenkins-dind:scale"
 # initial timeout waiting on deployments
-DEPLOY_TIMEOUT = 15 * 60  # 15 mins
+DEPLOY_TIMEOUT = 30 * 60  # 30 mins
 JOB_RUN_TIMEOUT = 10 * 60  # 10 mins
-SERVICE_ACCOUNT_TIMEOUT = 15 * 60 # 5 mins
+SERVICE_ACCOUNT_TIMEOUT = 15 * 60 # 15 mins
 
 LOCK = Lock()
 
@@ -168,6 +169,11 @@ def test_scaling_load(master_count,
     current = 0
     end = max_index - min_index
     while current + batch_size <= end:
+
+        log.info("Re-authenticating current batch load of jenkins{} - jenkins{} "
+                 "to prevent auth-timeouts on scale cluster.".format(current, current+batch_size))
+        dcos_login.login_session()
+
         batched_masters = masters[current:current+batch_size]
         install_threads = _spawn_threads(batched_masters,
                                          _install_jenkins,
@@ -491,3 +497,4 @@ def _wait_and_get_failures(thread_list: List[ResultThread],
                     .format(len(run_fail_names),
                             ', '.join(run_fail_names)))
     return set(timeout_failures + run_failures)
+

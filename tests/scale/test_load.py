@@ -159,16 +159,26 @@ def test_scaling_load(master_count,
                     range(min_index, max_index)]
     # create service accounts in parallel
     sdk_security.install_enterprise_cli()
-    service_account_threads = _spawn_threads(masters,
-                                            _create_service_accounts,
-                                            security=security_mode)
 
-    thread_failures = _wait_and_get_failures(service_account_threads,
-                                             timeout=SERVICE_ACCOUNT_TIMEOUT)
-    # launch Jenkins services
     current = 0
     end = max_index - min_index
-    while current + batch_size <= end:
+    for current in range(0, end, batch_size):
+
+        batched_masters = masters[current:current+batch_size]
+        service_account_threads = _spawn_threads(batched_masters,
+                                                _create_service_accounts,
+                                                security=security_mode)
+
+        thread_failures = _wait_and_get_failures(service_account_threads,
+                                                 timeout=SERVICE_ACCOUNT_TIMEOUT)
+
+        current = current + batch_size
+
+
+# launch Jenkins services
+    current = 0
+    end = max_index - min_index
+    for current in range(0, end, batch_size):
 
         log.info("Re-authenticating current batch load of jenkins{} - jenkins{} "
                  "to prevent auth-timeouts on scale cluster.".format(current, current+batch_size))
@@ -225,7 +235,7 @@ def test_cleanup_scale(mom, min_index, max_index,service_id_list) -> None:
     elif min_index != -1 and max_index != -1:
          service_ids = ["/jenkins{}".format(index) for index in
                     range(min_index, max_index)]
-    else: 
+    else:
         r = sdk_marathon.filter_apps_by_id('jenkins', mom)
         jenkins_apps = r.json()['apps']
         jenkins_ids = [x['id'] for x in jenkins_apps]
@@ -497,4 +507,3 @@ def _wait_and_get_failures(thread_list: List[ResultThread],
                     .format(len(run_fail_names),
                             ', '.join(run_fail_names)))
     return set(timeout_failures + run_failures)
-

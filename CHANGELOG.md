@@ -1,5 +1,11 @@
 # Changes
 
+## v3.5.5-2.164.2 (2019-04-16)
+  * Updates to Jenkins LTS 2.164.2
+  * Updates blueocean to version 1.14.0
+  * Updates various plugins
+  * Updates nginx to 1.10.3
+
 ## v3.5.1-2.107.2 (2018-06-26)
   * Set mesos URL to use the autoip DNS
   * Update mesos plugin

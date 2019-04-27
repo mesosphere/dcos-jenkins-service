@@ -22,6 +22,7 @@ This supports the following configuration params:
     * How long, in seconds, for a job to "work" (sleep)
         (--work-duration)
     * CPU quota (--cpu-quota); 0.0 to disable / no quota
+    * Memory quota (--memory-quota); 0.0 to disable / no quota
     * To enable or disable External Volumes (--external-volume);
         this uses rexray (default: False)
     * What test scenario to run (--scenario); supported values:
@@ -108,6 +109,7 @@ def test_scaling_load(master_count,
                       single_use: bool,
                       run_delay,
                       cpu_quota,
+                      memory_quota,
                       work_duration,
                       mom,
                       external_volume: bool,
@@ -137,9 +139,9 @@ def test_scaling_load(master_count,
         batch_size: batch size to deploy jenkins instances in
     """
     security_mode = sdk_dcos.get_security_mode()
-    if mom and cpu_quota != 0.0:
+    if mom and cpu_quota != 0.0 and memory_quota != 0.0:
         with shakedown.marathon_on_marathon(mom):
-            _setup_quota(SHARED_ROLE, cpu_quota)
+            _setup_quota(SHARED_ROLE, cpu_quota, memory_quota)
 
     # create marathon client
     if mom:
@@ -159,6 +161,9 @@ def test_scaling_load(master_count,
                     range(min_index, max_index)]
     # create service accounts in parallel
     sdk_security.install_enterprise_cli()
+
+    if mom:
+        _configure_admin_router(mom, SHARED_ROLE)
 
     current = 0
     end = max_index - min_index
@@ -255,10 +260,10 @@ def test_cleanup_scale(mom, min_index, max_index,service_id_list) -> None:
     _wait_and_get_failures(cleanup_threads, timeout=JOB_RUN_TIMEOUT)
 
 
-def _setup_quota(role, cpus):
+def _setup_quota(role, cpus, memory):
     current_quotas = sdk_quota.list_quotas()
     if "infos" not in current_quotas:
-        _set_quota(role, cpus)
+        _set_quota(role, cpus, memory)
         return
 
     match = False
@@ -269,11 +274,11 @@ def _setup_quota(role, cpus):
 
     if match:
         sdk_quota.remove_quota(role)
-    _set_quota(role, cpus)
+    _set_quota(role, cpus, memory)
 
 
-def _set_quota(role, cpus):
-    sdk_quota.create_quota(role, cpus=cpus)
+def _set_quota(role, cpus, memory):
+    sdk_quota.create_quota(role, cpus=cpus, mem=memory)
 
 
 def _spawn_threads(names, target, daemon=False, event=None, **kwargs) -> List[ResultThread]:
@@ -507,3 +512,31 @@ def _wait_and_get_failures(thread_list: List[ResultThread],
                     .format(len(run_fail_names),
                             ', '.join(run_fail_names)))
     return set(timeout_failures + run_failures)
+
+
+def _configure_admin_router(mom_role, jenkins_role=SHARED_ROLE):
+    # Admin-Router by default only has permissions to read from '*' and 'slave_public' roles.
+    # When jenkins is launched on a MoM it runs under the mom role.
+    # Here we explicily grant Admin-Router access to both jenkins-role and mom roles.
+    
+    ADMIN_ROUTER_SERVICE_ACCOUNT_NAME='dcos_adminrouter' 
+
+    permissions = [ 
+        {
+            'user': ADMIN_ROUTER_SERVICE_ACCOUNT_NAME,
+            'acl': "dcos:mesos:master:framework:role:{}".format(jenkins_role),
+            'description': "Grant Admin-Router access to services with the role {}".format(jenkins_role),
+            'action': 'read'
+        },
+        {
+            'user': ADMIN_ROUTER_SERVICE_ACCOUNT_NAME,
+            'acl': "dcos:mesos:master:framework:role:{}".format(mom_role),
+            'description': "Grant Admin-Router access to services with the role {}".format(mom_role),
+            'action': 'read'
+        }
+    ]
+    
+    log.info("Granting permissions to {}".format(ADMIN_ROUTER_SERVICE_ACCOUNT_NAME))
+    for permission in permissions:
+        sdk_security.grant(**permission)
+    log.info("Permission setup completed for {}".format(ADMIN_ROUTER_SERVICE_ACCOUNT_NAME))

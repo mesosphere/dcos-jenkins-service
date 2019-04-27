@@ -45,7 +45,7 @@ def install_enterprise_cli(force=False):
         raise RuntimeError("Failed to install the dcos-enterprise-cli: {}".format(repr(e)))
 
 
-def _grant(user: str, acl: str, description: str, action: str="create") -> None:
+def grant(user: str, acl: str, description: str, action: str="create") -> None:
     log.info('Granting permission to {user} for {acl}/{action} ({description})'.format(
         user=user, acl=acl, action=action, description=description))
 
@@ -133,7 +133,7 @@ def grant_permissions(linux_user: str, role_name: str, service_account_name: str
     log.info("Granting permissions to {account}".format(account=service_account_name))
     permissions = get_permissions(service_account_name, role_name, linux_user)
     for permission in permissions:
-        _grant(**permission)
+        grant(**permission)
     log.info("Permission setup completed for {account}".format(account=service_account_name))
 
 

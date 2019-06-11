@@ -1,8 +1,8 @@
 # Changes
 
-## v3.5.5-2.164.2 (2019-04-16)
-  * Updates to Jenkins LTS 2.164.2
-  * Updates blueocean to version 1.14.0
+## v3.5.5-2.176.1 (2019-06-11)
+  * Updates to Jenkins LTS 2.176.1
+  * Updates blueocean to version 1.17.0
   * Updates various plugins
   * Updates nginx to 1.10.3
 

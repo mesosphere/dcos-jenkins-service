@@ -18,7 +18,7 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.176.1 (LTS)
+  * [Jenkins][jenkins-home] 2.176.3 (LTS)
   * [Nginx][nginx-home] 1.10.3
 
 Jenkins plugins:
@@ -30,45 +30,45 @@ Jenkins plugins:
   * artifactory:2.16.2
   * authentication-tokens:1.3
   * aws-credentials:1.27
-  * aws-java-sdk:1.11.562
-  * azure-commons:1.0.3
+  * aws-java-sdk:1.11.594
+  * azure-commons:1.0.4
   * azure-credentials:1.6.0
   * azure-vm-agents:0.7.3
   * blueocean-autofavorite:1.2.4
-  * blueocean-bitbucket-pipeline:1.17.0
-  * blueocean-commons:1.17.0
-  * blueocean-config:1.17.0
-  * blueocean-core-js:1.17.0
-  * blueocean-dashboard:1.17.0
+  * blueocean-bitbucket-pipeline:1.18.1
+  * blueocean-commons:1.18.1
+  * blueocean-config:1.18.1
+  * blueocean-core-js:1.18.1
+  * blueocean-dashboard:1.18.1
   * blueocean-display-url:2.3.0
-  * blueocean-events:1.17.0
-  * blueocean-git-pipeline:1.17.0
-  * blueocean-github-pipeline:1.17.0
-  * blueocean-i18n:1.17.0
-  * blueocean-jira:1.17.0
-  * blueocean-jwt:1.17.0
-  * blueocean-personalization:1.17.0
-  * blueocean-pipeline-api-impl:1.17.0
-  * blueocean-pipeline-editor:1.17.0
-  * blueocean-pipeline-scm-api:1.17.0
-  * blueocean-rest-impl:1.17.0
-  * blueocean-rest:1.17.0
-  * blueocean-web:1.17.0
-  * blueocean:1.17.0
+  * blueocean-events:1.18.1
+  * blueocean-git-pipeline:1.18.1
+  * blueocean-github-pipeline:1.18.1
+  * blueocean-i18n:1.18.1
+  * blueocean-jira:1.18.1
+  * blueocean-jwt:1.18.1
+  * blueocean-personalization:1.18.1
+  * blueocean-pipeline-api-impl:1.18.1
+  * blueocean-pipeline-editor:1.18.1
+  * blueocean-pipeline-scm-api:1.18.1
+  * blueocean-rest-impl:1.18.1
+  * blueocean-rest:1.18.1
+  * blueocean-web:1.18.1
+  * blueocean:1.18.1
   * bouncycastle-api:2.17
   * branch-api:2.0.20
   * build-name-setter:1.6.9
   * build-timeout:1.19
-  * cloud-stats:0.23
-  * cloudbees-bitbucket-branch-source:2.4.4
+  * cloud-stats:0.24
+  * cloudbees-bitbucket-branch-source:2.4.6
   * cloudbees-folder:6.5.1
   * conditional-buildstep:1.3.6
   * config-file-provider:2.18
   * copyartifact:1.39.1
-  * credentials-binding:1.19
-  * credentials:2.2.0
+  * credentials-binding:1.20
+  * credentials:2.3.0
   * cvs:2.14
-  * display-url-api:2.3.1
+  * display-url-api:2.3.2
   * docker-build-publish:1.3.2
   * docker-commons:1.15
   * docker-workflow:1.17
@@ -94,22 +94,22 @@ Jenkins plugins:
   * ivy:1.28
   * jackson2-api:2.8.11.3
   * javadoc:1.5
-  * jenkins-design-language:1.17.0
-  * jira:3.0.7
+  * jenkins-design-language:1.18.1
+  * jira:3.0.9
   * job-dsl:1.70
   * jobConfigHistory:2.19
   * jquery-detached:1.2.1
   * jquery:1.12.4-0
-  * jsch:0.1.55
+  * jsch:0.1.55.1
   * junit:1.28
   * ldap:1.20
-  * mailer:1.23
+  * mailer:1.24
   * mapdb-api:1.0.9.0
   * marathon:1.6.0
   * matrix-auth:2.3
   * matrix-project:1.13
   * maven-plugin:3.1.2
-  * mercurial:2.6
+  * mercurial:2.8
   * metrics:3.1.2.11
   * momentjs:1.1.1
   * monitoring:1.73.1
@@ -131,7 +131,7 @@ Jenkins plugins:
   * pipeline-stage-tags-metadata:1.3.9
   * pipeline-stage-view:2.10
   * plain-credentials:1.4
-  * pubsub-light:1.12
+  * pubsub-light:1.13
   * rebuild:1.28
   * role-strategy:2.9.0
   * run-condition:1.2
@@ -139,15 +139,15 @@ Jenkins plugins:
   * saferestart:0.3
   * saml:1.0.7
   * scm-api:2.2.7
-  * script-security:1.60
-  * sse-gateway:1.17
+  * script-security:1.62
+  * sse-gateway:1.20
   * ssh-agent:1.16
-  * ssh-credentials:1.17
+  * ssh-credentials:1.17.1
   * ssh-slaves:1.28
-  * structs:1.19
+  * structs:1.20
   * subversion:2.11.1
   * timestamper:1.8.10
-  * token-macro:2.7
+  * token-macro:2.8
   * translation:1.16
   * variant:1.1
   * workflow-aggregator:2.5

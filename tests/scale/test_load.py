@@ -160,14 +160,14 @@ def test_scaling_load(
     masters = []
     if min_index == -1 or max_index == -1:
         masters = [
-            "/jenkins/jenkins{}".format(sdk_utils.random_string())
+            "jenkins/jenkins{}".format(sdk_utils.random_string())
             for _ in range(0, int(master_count))
         ]
     else:
         # max and min indexes are specified
         # NOTE: using min/max will override master count
         masters = [
-            "/jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
+            "jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
         ]
     # create service accounts in parallel
     sdk_security.install_enterprise_cli()
@@ -258,7 +258,7 @@ def test_cleanup_scale(mom, min_index, max_index, service_id_list) -> None:
         service_ids = service_id_list.split(",")
     elif min_index != -1 and max_index != -1:
         service_ids = [
-            "/jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
+            "jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
         ]
     else:
         r = sdk_marathon.filter_apps_by_id("jenkins", mom)

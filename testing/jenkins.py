@@ -7,7 +7,7 @@ import sdk_cmd
 import sdk_install
 from shakedown import *
 
-TIMEOUT_SECONDS = 15 * 60
+TIMEOUT_SECONDS = 30 * 60
 SHORT_TIMEOUT_SECONDS = 30
 
 log = logging.getLogger(__name__)

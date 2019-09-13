@@ -41,7 +41,7 @@
           <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
           <jnlpArgs>-noReconnect</jnlpArgs>
           <containerInfo>
-            <type>DOCKER</type>
+            <type>MESOS</type>
             <dockerImage>mesosphere/jenkins-dind:scale</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>true</useCustomDockerCommandShell>

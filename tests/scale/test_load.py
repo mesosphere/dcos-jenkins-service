@@ -33,7 +33,7 @@ This supports the following configuration params:
 import logging
 import time
 from threading import Thread, Lock
-from typing import List, Set
+from typing import Dict, List, Set
 from xml.etree import ElementTree
 
 import config
@@ -56,13 +56,13 @@ log = logging.getLogger(__name__)
 SHARED_ROLE = "jenkins"
 DOCKER_IMAGE = "mesosphere/jenkins-dind:scale"
 # initial timeout waiting on deployments
-DEPLOY_TIMEOUT = 60 * 60  # 60 mins
-JOB_RUN_TIMEOUT = 60 * 60  # 60 mins
-SERVICE_ACCOUNT_TIMEOUT = 60 * 60  # 60 mins
+DEPLOY_TIMEOUT = 30 * 60  # 30 mins
+JOB_RUN_TIMEOUT = 2 * 60  # 5 mins
+SERVICE_ACCOUNT_TIMEOUT = 30 * 60  # 15 mins
 
 LOCK = Lock()
 
-TIMINGS = {"deployments": {}, "serviceaccounts": {}}
+TIMINGS = {"deployments": {}, "serviceaccounts": {}, "createjobs": {}}
 ACCOUNTS = {}
 
 
@@ -104,6 +104,126 @@ class ResultThread(Thread):
                 TIMINGS[self.event][self.name] = end - start
 
 
+def _create_service_accounts_stage(
+    masters, min_index, max_index, batch_size, security_mode
+) -> Set[str]:
+    failure_set = set()
+    current = 0
+    end = max_index - min_index
+    for current in range(0, end, batch_size):
+
+        log.info(
+            "Re-authenticating current batch load of jenkins{} - jenkins{} "
+            "to prevent auth-timeouts on scale cluster.".format(
+                current, current + batch_size
+            )
+        )
+        dcos_login.login_session()
+
+        batched_masters = masters[current : current + batch_size]
+        service_account_threads = _spawn_threads(
+            batched_masters,
+            _create_service_accounts,
+            security=security_mode,
+            event="serviceaccounts",
+        )
+        thread_failures = _wait_and_get_failures(
+            service_account_threads, timeout=SERVICE_ACCOUNT_TIMEOUT
+        )
+        current = current + batch_size
+        failure_set |= thread_failures
+    return failure_set
+
+
+def _install_jenkins_stage(
+    masters,
+    min_index,
+    max_index,
+    batch_size,
+    security_mode,
+    marathon_client,
+    external_volume,
+    mom,
+) -> Set[str]:
+    failure_set = set()
+    current = 0
+    end = max_index - min_index
+    for current in range(0, end, batch_size):
+
+        log.info(
+            "Re-authenticating current batch load of jenkins{} - jenkins{} "
+            "to prevent auth-timeouts on scale cluster.".format(
+                current, current + batch_size
+            )
+        )
+        dcos_login.login_session()
+
+        batched_masters = masters[current : current + batch_size]
+        install_threads = _spawn_threads(
+            batched_masters,
+            _install_jenkins,
+            event="deployments",
+            client=marathon_client,
+            external_volume=external_volume,
+            security=security_mode,
+            daemon=True,
+            mom=mom,
+        )
+        thread_failures = _wait_and_get_failures(
+            install_threads, timeout=DEPLOY_TIMEOUT
+        )
+        current = current + batch_size
+        failure_set |= thread_failures
+    return failure_set
+
+
+def _create_jobs_stage(
+    masters,
+    min_index,
+    max_index,
+    batch_size,
+    security_mode,
+    marathon_client,
+    external_volume,
+    mom,
+    job_count,
+    single_use,
+    run_delay,
+    work_duration,
+    scenario,
+) -> Set[str]:
+    failure_set = set()
+    current = 0
+    end = max_index - min_index
+    for current in range(0, end, batch_size):
+
+        log.info(
+            "Re-authenticating current batch load of jenkins{} - jenkins{} "
+            "to prevent auth-timeouts on scale cluster.".format(
+                current, current + batch_size
+            )
+        )
+        dcos_login.login_session()
+
+        batched_masters = masters[current : current + batch_size]
+
+        # the rest of the commands require a running Jenkins instance
+        job_threads = _spawn_threads(
+            batched_masters,
+            _create_jobs,
+            jobs=job_count,
+            single=single_use,
+            delay=run_delay,
+            duration=work_duration,
+            scenario=scenario,
+            event="createjobs",
+        )
+        thread_failures = _wait_and_get_failures(job_threads, timeout=JOB_RUN_TIMEOUT)
+        failure_set |= thread_failures
+        current = current + batch_size
+    return failure_set
+
+
 @pytest.mark.scale
 def test_scaling_load(
     master_count,
@@ -121,6 +241,8 @@ def test_scaling_load(
     batch_size,
     enforce_quota_guarantee,
     enforce_quota_limit,
+    create_framework: bool,
+    create_jobs: bool,
 ) -> None:
 
     """Launch a load test scenario. This does not verify the results
@@ -152,88 +274,94 @@ def test_scaling_load(
 
     # create marathon client
     if mom:
+        _configure_admin_router(mom, SHARED_ROLE)
         with shakedown.marathon_on_marathon(mom):
             marathon_client = shakedown.marathon.create_client()
     else:
         marathon_client = shakedown.marathon.create_client()
-
-    masters = []
+    
+    # figure out the range of masters we want to create
     if min_index == -1 or max_index == -1:
-        masters = [
-            "jenkins/jenkins{}".format(sdk_utils.random_string())
-            for _ in range(0, int(master_count))
-        ]
-    else:
-        # max and min indexes are specified
-        # NOTE: using min/max will override master count
-        masters = [
-            "jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
-        ]
+        min_index = 0
+        max_index = master_count - 1
+
+    masters = ["jenkins/jenkins{}".format(index) for index in range(min_index, max_index)]
+    successful_deployments = set(masters)
+
     # create service accounts in parallel
     sdk_security.install_enterprise_cli()
 
-    if mom:
-        _configure_admin_router(mom, SHARED_ROLE)
+    security_mode = sdk_dcos.get_security_mode()
 
-    current = 0
-    end = max_index - min_index
-    for current in range(0, end, batch_size):
-
-        batched_masters = masters[current : current + batch_size]
-        service_account_threads = _spawn_threads(
-            batched_masters, _create_service_accounts, security=security_mode
-        )
-
-        thread_failures = _wait_and_get_failures(
-            service_account_threads, timeout=SERVICE_ACCOUNT_TIMEOUT
-        )
-
-        current = current + batch_size
-
-    # launch Jenkins services
-    current = 0
-    end = max_index - min_index
-    for current in range(0, end, batch_size):
-
+    if create_framework:
         log.info(
-            "Re-authenticating current batch load of jenkins{} - jenkins{} "
-            "to prevent auth-timeouts on scale cluster.".format(
-                current, current + batch_size
+            "\n\nCreating service accounts for: [{}]\n\n".format(successful_deployments)
+        )
+        service_account_creation_failures = _create_service_accounts_stage(
+            masters, min_index, max_index, batch_size, security_mode
+        )
+        log.info(
+            "\n\nService account failures: [{}]\n\n".format(
+                service_account_creation_failures
             )
         )
-        dcos_login.login_session()
 
-        batched_masters = masters[current : current + batch_size]
-        install_threads = _spawn_threads(
-            batched_masters,
-            _install_jenkins,
-            event="deployments",
-            client=marathon_client,
-            external_volume=external_volume,
-            security=security_mode,
-            daemon=True,
-            mom=mom,
+        successful_deployments -= service_account_creation_failures
+        log.info(
+            "\n\nCreating jenkins frameworks for: [{}]\n\n".format(
+                successful_deployments
+            )
         )
-        thread_failures = _wait_and_get_failures(
-            install_threads, timeout=DEPLOY_TIMEOUT
-        )
-        thread_names = [x.name for x in thread_failures]
 
-        # the rest of the commands require a running Jenkins instance
-        deployed_masters = [x for x in batched_masters if x not in thread_names]
-        job_threads = _spawn_threads(
-            deployed_masters,
-            _create_jobs,
-            jobs=job_count,
-            single=single_use,
-            delay=run_delay,
-            duration=work_duration,
-            scenario=scenario,
+        install_jenkins_failures = _install_jenkins_stage(
+            [x for x in successful_deployments],
+            min_index,
+            max_index,
+            batch_size,
+            security_mode,
+            marathon_client,
+            external_volume,
+            mom,
         )
-        _wait_on_threads(job_threads, JOB_RUN_TIMEOUT)
-        r = json.dumps(TIMINGS)
-        print(r)
-        current = current + batch_size
+        log.info(
+            "\n\nJenkins framework creation failures: [{}]\n\n".format(
+                install_jenkins_failures
+            )
+        )
+        successful_deployments -= install_jenkins_failures
+
+    if create_jobs:
+        log.info(
+            "\n\nCreating jenkins jobs for: [{}]\n\n".format(successful_deployments)
+        )
+
+        job_creation_failures = _create_jobs_stage(
+            [x for x in successful_deployments],
+            min_index,
+            max_index,
+            batch_size,
+            security_mode,
+            marathon_client,
+            external_volume,
+            mom,
+            job_count,
+            single_use,
+            run_delay,
+            work_duration,
+            scenario,
+        )
+        successful_deployments -= job_creation_failures
+
+    log.info("\n\nAll masters to deploy: [{}]\n\n".format(",".join(masters)))
+    log.info(
+        "\n\nSuccessful Jenkins deployments: [{}]\n\n".format(successful_deployments)
+    )
+    log.info(
+        "\n\nFailed Jenkins deployments: [{}]\n\n".format(
+            set(masters) - successful_deployments
+        )
+    )
+    log.info("Timings: {}".format(json.dumps(TIMINGS)))
 
 
 @pytest.mark.scalecleanup
@@ -510,7 +638,7 @@ def _wait_on_threads(thread_list: List[Thread], timeout=DEPLOY_TIMEOUT) -> List[
     return active_threads
 
 
-def _wait_and_get_failures(thread_list: List[ResultThread], **kwargs) -> Set[Thread]:
+def _wait_and_get_failures(thread_list: List[ResultThread], **kwargs) -> Set[str]:
     """Wait on threads to complete or timeout and log errors.
 
     Args:
@@ -538,7 +666,9 @@ def _wait_and_get_failures(thread_list: List[ResultThread], **kwargs) -> Set[Thr
                 len(run_fail_names), ", ".join(run_fail_names)
             )
         )
-    return set(timeout_failures + run_failures)
+    failure_list = timeout_names + run_fail_names
+    failure_set = set(failure_list)
+    return failure_set
 
 
 def _configure_admin_router(mom_role, jenkins_role=SHARED_ROLE):

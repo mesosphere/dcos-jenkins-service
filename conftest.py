@@ -34,7 +34,11 @@ def pytest_addoption(parser):
         help="Number of test jobs to launch.",
     )
     parser.addoption(
-        "--single-use", action="store_true", help="Use Mesos Single-Use agents"
+        "--single-use",
+        action="store",
+        default="False",
+        type=str,
+        help="Use Mesos Single-Use agents",
     )
     parser.addoption(
         "--run-delay",
@@ -100,21 +104,33 @@ def pytest_addoption(parser):
         default="",
         help="list of jenkins masters to delete",
     )
-
     parser.addoption(
         "--enforce-quota-guarantee",
         action="store",
-        default=True,
-        type=bool,
+        default="True",
+        type=str,
         help="Set quota values as guarantee.",
     )
-
     parser.addoption(
         "--enforce-quota-limit",
         action="store",
-        default=True,
-        type=bool,
+        default="True",
+        type=str,
         help="Set quota values as limit.",
+    )
+    parser.addoption(
+        "--create-framework",
+        action="store",
+        default="True",
+        type=str,
+        help="Only create service-accounts and Jenkins frameworks.",
+    )
+    parser.addoption(
+        "--create-jobs",
+        action="store",
+        default="True",
+        type=str,
+        help="Only create jobs on deployed Jenkins frameworks.",
     )
 
 
@@ -130,7 +146,7 @@ def job_count(request) -> int:
 
 @pytest.fixture
 def single_use(request) -> bool:
-    return bool(request.config.getoption("--single-use"))
+    return _str2bool(request.config.getoption("--single-use"))
 
 
 @pytest.fixture
@@ -190,9 +206,29 @@ def service_id_list(request) -> str:
 
 @pytest.fixture
 def enforce_quota_guarantee(request) -> bool:
-    return request.config.getoption("--enforce-quota-guarantee")
+    return _str2bool(request.config.getoption("--enforce-quota-guarantee"))
 
 
 @pytest.fixture
 def enforce_quota_limit(request) -> bool:
-    return request.config.getoption("--enforce-quota-limit")
+    return _str2bool(request.config.getoption("--enforce-quota-limit"))
+
+
+@pytest.fixture
+def create_framework(request) -> bool:
+    return _str2bool(request.config.getoption("--create-framework"))
+
+
+@pytest.fixture
+def create_jobs(request) -> bool:
+    return _str2bool(request.config.getoption("--create-jobs"))
+
+
+def _str2bool(v) -> bool:
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ("yes", "true", "t", "y", "1"):
+        return True
+    elif v.lower() in ("no", "false", "f", "n", "0"):
+        return False
+

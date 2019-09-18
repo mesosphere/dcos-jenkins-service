@@ -11,7 +11,8 @@ WAIT_TIME_IN_SECS = 300
 def test_install_jenkins():
     """Install the Jenkins package for DC/OS.
     """
-    install_package_and_wait(PACKAGE_NAME)
+    client = shakedown.marathon.create_client()
+    install_package_and_wait(PACKAGE_NAME, client)
     assert package_installed(PACKAGE_NAME), 'Package failed to install'
 
     end_time = time.time() + WAIT_TIME_IN_SECS

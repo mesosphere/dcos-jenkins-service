@@ -1,0 +1,35 @@
+<project>
+   <actions />
+   <description>created from tests</description>
+   <keepDependencies>false</keepDependencies>
+   <properties>
+      <com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty plugin="gitlab-plugin@1.5.5">
+         <gitLabConnection />
+      </com.dabsquared.gitlabjenkins.connection.GitLabConnectionProperty>
+      <com.sonyericsson.rebuild.RebuildSettings plugin="rebuild@1.28">
+         <autoRebuild>false</autoRebuild>
+         <rebuildDisabled>false</rebuildDisabled>
+      </com.sonyericsson.rebuild.RebuildSettings>
+   </properties>
+   <scm class="hudson.scm.NullSCM" />
+   <canRoam>false</canRoam>
+   <disabled>false</disabled>
+   <assignedNode>null</assignedNode>
+   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+   <triggers>
+      <hudson.triggers.TimerTrigger>
+         <spec>* * * * *</spec>
+      </hudson.triggers.TimerTrigger>
+   </triggers>
+   <concurrentBuild>false</concurrentBuild>
+   <builders>
+      <hudson.tasks.Shell>
+         <command>echo "Hello World"; sleep 30</command>
+      </hudson.tasks.Shell>
+   </builders>
+   <publishers />
+   <buildWrappers>
+     <org.jenkinsci.plugins.mesos.MesosSingleUseSlave plugin="mesos@0.16"/>
+   </buildWrappers>
+</project>

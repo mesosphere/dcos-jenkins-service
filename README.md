@@ -18,7 +18,8 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.176.3 (LTS)
+
+* [Jenkins][jenkins-home] 2.176.3 (LTS)
   * [Nginx][nginx-home] 1.10.3
 
 Jenkins plugins:
@@ -161,6 +162,7 @@ Jenkins plugins:
   * workflow-scm-step:2.6
   * workflow-step-api:2.16
   * workflow-support:2.20
+
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].

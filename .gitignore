@@ -1,5 +1,27 @@
 *.hpi
 __pycache__/
+.pytest_cache/*
 .cache/
 target/
 tmp/
+.idea/
+tests/scale/*.pyc
+
+# leftovers from running tests/tools directly
+tools/env/
+tools/cluster-*.properties
+tools/*.pem
+tools/*.pyc
+tools/dcostests_env/
+tools/shakedown_env/
+tools/*/shakedown_env/
+stub-universe
+
+# vscode
+.vscode
+
+# vim
+*.swp
+
+# mac
+.DS_Store

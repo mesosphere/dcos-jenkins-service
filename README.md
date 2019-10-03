@@ -18,99 +18,136 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 
 ## Included in this repo
 Base packages:
-  * [Jenkins][jenkins-home] 2.150.1 (LTS)
+  * [Jenkins][jenkins-home] 2.190.1 (LTS)
   * [Nginx][nginx-home] 1.10.1
 
 Jenkins plugins:
-  * ant v1.8
-  * ansicolor v0.5.2
-  * antisamy-markup-formatter v1.5
-  * artifactory v2.16.2
+  * ace-editor v1.1
+  * ansicolor v0.6.2
+  * ant v1.10
+  * antisamy-markup-formatter v1.6
+  * apache-httpcomponents-client-4-api v4.5.10-1.0
+  * artifactory v3.4.1
   * authentication-tokens v1.3
-  * azure-credentials v1.6.0
-  * azure-vm-agents v0.7.3
-  * blueocean v1.9.0
-  * branch-api v2.0.20
-  * build-name-setter v1.6.9
+  * aws-credentials v1.28
+  * aws-java-sdk v1.11.636
+  * azure-commons v1.0.4
+  * azure-credentials v1.6.1
+  * azure-vm-agents v1.2.2
+  * blueocean v1.19.0
+  * bouncycastle-api v2.17
+  * branch-api v2.5.4
+  * build-name-setter v2.0.3
   * build-timeout v1.19
-  * cloudbees-folder v6.5.1
+  * cloudbees-bitbucket-branch-source v2.5.0
+  * cloudbees-folder v6.9
+  * cloud-stats v0.25
+  * command-launcher v1.3
   * conditional-buildstep v1.3.6
-  * config-file-provider v2.18
-  * copyartifact v1.39.1
+  * config-file-provider v3.6.2
+  * configuration-as-code v1.31
+  * copyartifact v1.42.1
+  * credentials v2.3.0
+  * credentials-binding v1.20
   * cvs v2.14
+  * display-url-api v2.3.2
   * docker-build-publish v1.3.2
-  * docker-workflow v1.17
-  * durable-task v1.25
-  * ec2 v1.39
-  * embeddable-build-status v1.9
+  * docker-commons v1.15
+  * docker-workflow v1.19
+  * durable-task v1.30
+  * ec2 v1.46.1
+  * embeddable-build-status v2.0.2
   * external-monitor-job v1.7
-  * ghprb v1.42.0
-  * git v3.9.1
-  * git-client v2.7.3
-  * git-server v1.7
-  * github v1.29.2
-  * github-api v1.92
-  * github-branch-source v2.3.6
+  * favorite v2.3.2
+  * git v3.12.1
+  * git-client v2.8.6
+  * github v1.29.4
+  * github-api v1.95
+  * github-branch-source v2.5.8
   * github-organization-folder v1.6
-  * gitlab-plugin v1.5.9
-  * gradle v1.29
+  * gitlab-plugin v1.5.13
+  * git-server v1.8
+  * gradle v1.34
   * greenballs v1.15
   * handlebars v1.1.1
-  * ivy v1.28
-  * jackson2-api v2.8.11.3
-  * job-dsl v1.70
-  * jobConfigHistory v2.19
-  * jquery v1.12.4-0
+  * handy-uri-templates-2-api v2.1.7-1.0
+  * htmlpublisher v1.21
+  * ivy v2.1
+  * jackson2-api v2.9.10
+  * javadoc v1.5
+  * jdk-tool v1.3
+  * jenkins-design-language v1.19.0
+  * jira v3.0.10
+  * jobConfigHistory v2.24
+  * job-dsl v1.76
+  * jquery v1.12.4-1
+  * jquery-detached v1.2.1
+  * jquery-ui v1.0.2
+  * jsch v0.1.55.1
+  * junit v1.28
   * ldap v1.20
+  * lockable-resources v2.5
+  * mailer v1.29
   * mapdb-api v1.0.9.0
   * marathon v1.6.0
-  * matrix-auth v2.3
-  * matrix-project v1.13
-  * maven-plugin v3.1.2
-  * mesos v0.16
-  * metrics v3.1.2.11
+  * matrix-auth v2.4.2
+  * matrix-project v1.14
+  * maven-plugin v3.4
+  * mercurial v2.8
+  * metrics v4.0.2.6
   * momentjs v1.1.1
-  * monitoring v1.72.0
+  * monitoring v1.79.0
   * nant v1.4.3
   * node-iterator-api v1.5.0
-  * pam-auth v1.4
+  * pam-auth v1.5.1
   * parameterized-trigger v2.35.2
-  * pipeline-build-step v2.7
+  * pipeline-build-step v2.9
   * pipeline-github-lib v1.0
-  * pipeline-input-step v2.8
+  * pipeline-graph-analysis v1.10
+  * pipeline-input-step v2.11
   * pipeline-milestone-step v1.3.1
-  * pipeline-model-api:1.3.2
-  * pipeline-model-definition v1.3.2
-  * pipeline-model-extensions v1.3.2
-  * pipeline-rest-api v2.10
+  * pipeline-model-api v1.3.9
+  * pipeline-model-declarative-agent v1.1.1
+  * pipeline-model-definition v1.3.9
+  * pipeline-model-extensions v1.3.9
+  * pipeline-rest-api v2.12
   * pipeline-stage-step v2.3
-  * pipeline-stage-view v2.10
-  * plain-credentials v1.4
-  * rebuild v1.28
-  * role-strategy v2.9.0
-  * run-condition v1.0
+  * pipeline-stage-tags-metadata v1.3.9
+  * pipeline-stage-view v2.12
+  * plain-credentials v1.5
+  * prometheus v2.0.6
+  * pubsub-light v1.13
+  * rebuild v1.31
+  * role-strategy v2.14
+  * run-condition v1.2
   * s3 v0.11.2
   * saferestart v0.3
-  * saml v1.0.5
-  * scm-api v2.2.6
-  * ssh-agent v1.15
-  * ssh-slaves v1.26
-  * subversion v2.11.1
-  * timestamper v1.8.10
+  * saml v1.1.3
+  * scm-api v2.6.3
+  * script-security v1.66
+  * sse-gateway v1.20
+  * ssh-agent v1.17
+  * ssh-credentials v1.17.3
+  * ssh-slaves v1.30.2
+  * structs v1.20
+  * subversion v2.12.2
+  * timestamper v1.10
+  * token-macro v2.8
   * translation v1.16
-  * variant v1.1
-  * windows-slaves v1.3.1
-  * workflow-aggregator v2.5
-  * workflow-api v2.30
-  * workflow-basic-steps v2.8.2
-  * workflow-cps v2.48
-  * workflow-cps-global-lib v2.9
-  * workflow-durable-task-step v2.19
-  * workflow-job v2.25
-  * workflow-multibranch v2.20
-  * workflow-scm-step v2.6
-  * workflow-step-api v2.16
-  * workflow-support v2.20
+  * trilead-api v1.0.5
+  * variant v1.3
+  * windows-slaves v1.4
+  * workflow-aggregator v2.6
+  * workflow-api v2.37
+  * workflow-basic-steps v2.18
+  * workflow-cps v2.74
+  * workflow-cps-global-lib v2.15
+  * workflow-durable-task-step v2.34
+  * workflow-job v2.35
+  * workflow-multibranch v2.21
+  * workflow-scm-step v2.9
+  * workflow-step-api v2.20
+  * workflow-support v3.3
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].

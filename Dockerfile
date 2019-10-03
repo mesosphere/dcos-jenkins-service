@@ -1,4 +1,4 @@
-FROM jenkins/jenkins:2.150.1
+FROM jenkins/jenkins:2.190.1
 WORKDIR /tmp
 
 # Environment variables used throughout this Dockerfile
@@ -10,11 +10,11 @@ WORKDIR /tmp
 ENV JENKINS_FOLDER /usr/share/jenkins
 
 # Build Args
-ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.12.0.tar.gz
-ARG BLUEOCEAN_VERSION=1.9.0
+ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.14-beta.tar.gz 
+ARG BLUEOCEAN_VERSION=1.19.0
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
-ARG MESOS_PLUG_HASH=347c1ac133dc0cb6282a0dde820acd5b4eb21133
-ARG PROMETHEUS_PLUG_HASH=a347bf2c63efe59134c15b8ef83a4a1f627e3b5d
+ARG MESOS_PLUG_HASH=0193c06a66007247eff371ba74ddc89c56993ddb
+ARG PROMETHEUS_PLUG_HASH=61ea0cd0bb26d937c8f4df00c7e226c0b51c7b50
 ARG STATSD_PLUG_HASH=929d4a6cb3d3ce5f1e03af73075b13687d4879c8
 ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
 ARG user=nobody

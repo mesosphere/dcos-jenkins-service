@@ -279,13 +279,15 @@ def test_scaling_load(
             marathon_client = shakedown.marathon.create_client()
     else:
         marathon_client = shakedown.marathon.create_client()
-    
+
     # figure out the range of masters we want to create
     if min_index == -1 or max_index == -1:
         min_index = 0
         max_index = master_count - 1
 
-    masters = ["jenkins/jenkins{}".format(index) for index in range(min_index, max_index)]
+    masters = [
+        "jenkins/jenkins{}".format(index) for index in range(min_index, max_index)
+    ]
     successful_deployments = set(masters)
 
     # create service accounts in parallel
@@ -554,14 +556,14 @@ def _create_executor_configuration(service_name: str) -> str:
     Returns: Random name of the new config created.
 
     """
-    mesos_label = "mesos"
+    mesos_label = ""
     jenkins.create_mesos_slave_node(
         mesos_label,
         service_name=service_name,
         dockerImage=DOCKER_IMAGE,
         executorCpus=0.3,
         executorMem=1800,
-        idleTerminationMinutes=1,
+        idleTerminationMinutes=3,
         timeout_seconds=600,
     )
     return mesos_label

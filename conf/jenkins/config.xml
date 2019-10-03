@@ -29,6 +29,7 @@
       <checkpoint>true</checkpoint>
       <onDemandRegistration>false</onDemandRegistration>
       <jenkinsURL></jenkinsURL>
+      <declineOfferDuration>600</declineOfferDuration>
       <slaveInfos>
         <org.jenkinsci.plugins.mesos.MesosSlaveInfo>
           <slaveCpus>0.5</slaveCpus>
@@ -40,6 +41,7 @@
           <idleTerminationMinutes>3</idleTerminationMinutes>
           <jvmArgs>-Xms16m -XX:+UseConcMarkSweepGC -Djava.net.preferIPv4Stack=true</jvmArgs>
           <jnlpArgs>-noReconnect</jnlpArgs>
+          <defaultSlave>false</defaultSlave>
           <containerInfo>
             <type>MESOS</type>
             <dockerImage>mesosphere/jenkins-dind:0.7.0</dockerImage>
@@ -48,6 +50,7 @@
             <customDockerCommandShell>wrapper.sh</customDockerCommandShell>
             <dockerPrivilegedMode>true</dockerPrivilegedMode>
             <dockerForcePullImage>false</dockerForcePullImage>
+            <isDind>true</isDind>
           </containerInfo>
           <mode>NORMAL</mode>
         </org.jenkinsci.plugins.mesos.MesosSlaveInfo>

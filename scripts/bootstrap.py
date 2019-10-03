@@ -106,8 +106,18 @@ def populate_known_hosts(hosts, dest_file):
 
 def main():
     try:
+        mesos_allocation_role=os.environ['MESOS_ALLOCATION_ROLE']
+        jenkins_agent_role=os.environ['JENKINS_AGENT_ROLE']
+	if _str2bool(os.environ['MARATHON_APP_ENFORCE_GROUP_ROLE']):
+            if mesos_allocation_role != jenkins_agent_role:
+                print("WARN: JENKINS_AGENT_ROLE:'{}' not the same as MESOS_ALLOCATION_ROLE:'{}'.  "
+                        "enforceRole detected on top-level group, using '{}' as agent-role.".format(
+                            jenkins_agent_role, mesos_allocation_role, mesos_allocation_role))
+            jenkins_agent_role = mesos_allocation_role
+            print("INFO: using enforced group role '{}' for agents.".format(jenkins_agent_role))
+        else:
+            print("INFO: using non-enforced group role '{}' for agents".format(jenkins_agent_role))
         jenkins_agent_user = os.environ['JENKINS_AGENT_USER']
-        jenkins_agent_role = os.environ['JENKINS_AGENT_ROLE']
         jenkins_home_dir = os.environ['JENKINS_HOME']
         jenkins_framework_name = os.environ['JENKINS_FRAMEWORK_NAME']
         jenkins_app_context = os.environ['JENKINS_CONTEXT']
@@ -184,6 +194,15 @@ def _find_and_set(element, term, new_text, write_if_empty=False):
     """
     if not write_if_empty or write_if_empty and not element.find(term).text:
         element.find(term).text = new_text
+
+
+def _str2bool(v):
+    if isinstance(v, bool):
+        return v
+    if v.lower() in ("yes", "true", "t", "y", "1"):
+        return True
+    elif v.lower() in ("no", "false", "f", "n", "0"):
+        return False
 
 
 if __name__ == '__main__':

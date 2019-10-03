@@ -48,6 +48,7 @@ def install(service_name, client,
 
     if role:
         options["roles"] = {
+            "jenkins-master-role": role,
             "jenkins-agent-role": role
         }
 

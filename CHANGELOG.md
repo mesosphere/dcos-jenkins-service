@@ -2,7 +2,7 @@
 
 ## v3.5.5-2.176.3 (2019-08-29)
   * Updates to Jenkins LTS 2.176.3
-  * Updates blueocean to version 1.18.1
+  * Updates blueocean to version 1.19.0
   * Updates various plugins
   * Updates nginx to 1.10.3
 

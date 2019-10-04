@@ -20,136 +20,155 @@ Please report issues and submit feature requests for Jenkins on DC/OS by [creati
 Base packages:
 
   * [Jenkins][jenkins-home] 2.190.1 (LTS)
-  * [Nginx][nginx-home] 1.10.1
+  * [Nginx][nginx-home] 1.10.3
 
 Jenkins plugins:
-  * ace-editor v1.1
-  * ansicolor v0.6.2
-  * ant v1.10
-  * antisamy-markup-formatter v1.6
-  * apache-httpcomponents-client-4-api v4.5.10-1.0
-  * artifactory v3.4.1
-  * authentication-tokens v1.3
-  * aws-credentials v1.28
-  * aws-java-sdk v1.11.636
-  * azure-commons v1.0.4
-  * azure-credentials v1.6.1
-  * azure-vm-agents v1.2.2
-  * blueocean v1.19.0
-  * bouncycastle-api v2.17
-  * branch-api v2.5.4
-  * build-name-setter v2.0.3
-  * build-timeout v1.19
-  * cloudbees-bitbucket-branch-source v2.5.0
-  * cloudbees-folder v6.9
-  * cloud-stats v0.25
-  * command-launcher v1.3
-  * conditional-buildstep v1.3.6
-  * config-file-provider v3.6.2
-  * configuration-as-code v1.31
-  * copyartifact v1.42.1
-  * credentials v2.3.0
-  * credentials-binding v1.20
-  * cvs v2.14
-  * display-url-api v2.3.2
-  * docker-build-publish v1.3.2
-  * docker-commons v1.15
-  * docker-workflow v1.19
-  * durable-task v1.30
-  * ec2 v1.46.1
-  * embeddable-build-status v2.0.2
-  * external-monitor-job v1.7
-  * favorite v2.3.2
-  * git v3.12.1
-  * git-client v2.8.6
-  * github v1.29.4
-  * github-api v1.95
-  * github-branch-source v2.5.8
-  * github-organization-folder v1.6
-  * gitlab-plugin v1.5.13
-  * git-server v1.8
-  * gradle v1.34
-  * greenballs v1.15
-  * handlebars v1.1.1
-  * handy-uri-templates-2-api v2.1.7-1.0
-  * htmlpublisher v1.21
-  * ivy v2.1
-  * jackson2-api v2.9.10
-  * javadoc v1.5
-  * jdk-tool v1.3
-  * jenkins-design-language v1.19.0
-  * jira v3.0.10
-  * jobConfigHistory v2.24
-  * job-dsl v1.76
-  * jquery v1.12.4-1
-  * jquery-detached v1.2.1
-  * jquery-ui v1.0.2
-  * jsch v0.1.55.1
-  * junit v1.28
-  * ldap v1.20
-  * lockable-resources v2.5
-  * mailer v1.29
-  * mapdb-api v1.0.9.0
-  * marathon v1.6.0
-  * matrix-auth v2.4.2
-  * matrix-project v1.14
-  * maven-plugin v3.4
-  * mercurial v2.8
-  * metrics v4.0.2.6
-  * momentjs v1.1.1
-  * monitoring v1.79.0
-  * nant v1.4.3
-  * node-iterator-api v1.5.0
-  * pam-auth v1.5.1
-  * parameterized-trigger v2.35.2
-  * pipeline-build-step v2.9
-  * pipeline-github-lib v1.0
-  * pipeline-graph-analysis v1.10
-  * pipeline-input-step v2.11
-  * pipeline-milestone-step v1.3.1
-  * pipeline-model-api v1.3.9
-  * pipeline-model-declarative-agent v1.1.1
-  * pipeline-model-definition v1.3.9
-  * pipeline-model-extensions v1.3.9
-  * pipeline-rest-api v2.12
-  * pipeline-stage-step v2.3
-  * pipeline-stage-tags-metadata v1.3.9
-  * pipeline-stage-view v2.12
-  * plain-credentials v1.5
-  * prometheus v2.0.6
-  * pubsub-light v1.13
-  * rebuild v1.31
-  * role-strategy v2.14
-  * run-condition v1.2
-  * s3 v0.11.2
-  * saferestart v0.3
-  * saml v1.1.3
-  * scm-api v2.6.3
-  * script-security v1.66
-  * sse-gateway v1.20
-  * ssh-agent v1.17
-  * ssh-credentials v1.17.3
-  * ssh-slaves v1.30.2
-  * structs v1.20
-  * subversion v2.12.2
-  * timestamper v1.10
-  * token-macro v2.8
-  * translation v1.16
-  * trilead-api v1.0.5
-  * variant v1.3
-  * windows-slaves v1.4
-  * workflow-aggregator v2.6
-  * workflow-api v2.37
-  * workflow-basic-steps v2.18
-  * workflow-cps v2.74
-  * workflow-cps-global-lib v2.15
-  * workflow-durable-task-step v2.34
-  * workflow-job v2.35
-  * workflow-multibranch v2.21
-  * workflow-scm-step v2.9
-  * workflow-step-api v2.20
-  * workflow-support v3.3
-
+  * ace-editor:1.1
+  * ansicolor:0.6.2
+  * ant:1.10
+  * antisamy-markup-formatter:1.6
+  * apache-httpcomponents-client-4-api:4.5.10-1.0
+  * artifactory:3.4.1
+  * authentication-tokens:1.3
+  * aws-credentials:1.28
+  * aws-java-sdk:1.11.636
+  * azure-commons:1.0.4
+  * azure-credentials:1.6.1
+  * azure-vm-agents:1.2.2
+  * blueocean-autofavorite:1.2.4
+  * blueocean-bitbucket-pipeline:1.19.0
+  * blueocean-commons:1.19.0
+  * blueocean-config:1.19.0
+  * blueocean-core-js:1.19.0
+  * blueocean-dashboard:1.19.0
+  * blueocean-display-url:2.3.0
+  * blueocean-events:1.19.0
+  * blueocean-git-pipeline:1.19.0
+  * blueocean-github-pipeline:1.19.0
+  * blueocean-i18n:1.19.0
+  * blueocean-jira:1.19.0
+  * blueocean-jwt:1.19.0
+  * blueocean-personalization:1.19.0
+  * blueocean-pipeline-api-impl:1.19.0
+  * blueocean-pipeline-editor:1.19.0
+  * blueocean-pipeline-scm-api:1.19.0
+  * blueocean-rest-impl:1.19.0
+  * blueocean-rest:1.19.0
+  * blueocean-web:1.19.0
+  * blueocean:1.19.0
+  * bouncycastle-api:2.17
+  * branch-api:2.5.4
+  * build-name-setter:2.0.3
+  * build-timeout:1.19
+  * cloud-stats:0.25
+  * cloudbees-bitbucket-branch-source:2.5.0
+  * cloudbees-folder:6.9
+  * command-launcher:1.3
+  * conditional-buildstep:1.3.6
+  * config-file-provider:3.6.2
+  * configuration-as-code:1.31
+  * copyartifact:1.42.1
+  * credentials-binding:1.20
+  * credentials:2.3.0
+  * cvs:2.14
+  * display-url-api:2.3.2
+  * docker-build-publish:1.3.2
+  * docker-commons:1.15
+  * docker-workflow:1.19
+  * durable-task:1.30
+  * ec2:1.46.1
+  * embeddable-build-status:2.0.2
+  * external-monitor-job:1.7
+  * favorite:2.3.2
+  * git-client:2.8.6
+  * git-server:1.8
+  * git:3.12.1
+  * github-api:1.95
+  * github-branch-source:2.5.8
+  * github-organization-folder:1.6
+  * github:1.29.4
+  * gitlab-plugin:1.5.13
+  * gradle:1.34
+  * greenballs:1.15
+  * handlebars:1.1.1
+  * handy-uri-templates-2-api:2.1.7-1.0
+  * htmlpublisher:1.21
+  * ivy:2.1
+  * jackson2-api:2.9.10
+  * javadoc:1.5
+  * jdk-tool:1.3
+  * jenkins-design-language:1.19.0
+  * jira:3.0.10
+  * job-dsl:1.76
+  * jobConfigHistory:2.24
+  * jquery-detached:1.2.1
+  * jquery-ui:1.0.2
+  * jquery:1.12.4-1
+  * jsch:0.1.55.1
+  * junit:1.28
+  * ldap:1.20
+  * lockable-resources:2.5
+  * mailer:1.29
+  * mapdb-api:1.0.9.0
+  * marathon:1.6.0
+  * matrix-auth:2.4.2
+  * matrix-project:1.14
+  * maven-plugin:3.4
+  * mercurial:2.8
+  * metrics:4.0.2.6
+  * momentjs:1.1.1
+  * monitoring:1.79.0
+  * nant:1.4.3
+  * node-iterator-api:1.5.0
+  * pam-auth:1.5.1
+  * parameterized-trigger:2.35.2
+  * pipeline-build-step:2.9
+  * pipeline-github-lib:1.0
+  * pipeline-graph-analysis:1.10
+  * pipeline-input-step:2.11
+  * pipeline-milestone-step:1.3.1
+  * pipeline-model-api:1.3.9
+  * pipeline-model-declarative-agent:1.1.1
+  * pipeline-model-definition:1.3.9
+  * pipeline-model-extensions:1.3.9
+  * pipeline-rest-api:2.12
+  * pipeline-stage-step:2.3
+  * pipeline-stage-tags-metadata:1.3.9
+  * pipeline-stage-view:2.12
+  * plain-credentials:1.5
+  * prometheus:2.0.6
+  * pubsub-light:1.13
+  * rebuild:1.31
+  * role-strategy:2.14
+  * run-condition:1.2
+  * s3:0.11.2
+  * saferestart:0.3
+  * saml:1.1.3
+  * scm-api:2.6.3
+  * script-security:1.66
+  * sse-gateway:1.20
+  * ssh-agent:1.17
+  * ssh-credentials:1.17.3
+  * ssh-slaves:1.30.2
+  * structs:1.20
+  * subversion:2.12.2
+  * timestamper:1.10
+  * token-macro:2.8
+  * translation:1.16
+  * trilead-api:1.0.5
+  * variant:1.3
+  * windows-slaves:1.4
+  * workflow-aggregator:2.6
+  * workflow-api:2.37
+  * workflow-basic-steps:2.18
+  * workflow-cps-global-lib:2.15
+  * workflow-cps:2.74
+  * workflow-durable-task-step:2.34
+  * workflow-job:2.35
+  * workflow-multibranch:2.21
+  * workflow-scm-step:2.9
+  * workflow-step-api:2.20
+  * workflow-support:3.3
 
 ## Packaging
 Jenkins is available as a package in the [Mesosphere Universe][universe].

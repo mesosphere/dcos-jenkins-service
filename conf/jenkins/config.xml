@@ -44,7 +44,7 @@
           <defaultSlave>false</defaultSlave>
           <containerInfo>
             <type>MESOS</type>
-            <dockerImage>mesosphere/jenkins-dind:0.7.0</dockerImage>
+            <dockerImage>mesosphere/jenkins-dind:scale</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
             <customDockerCommandShell>wrapper.sh</customDockerCommandShell>

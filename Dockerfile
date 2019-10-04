@@ -12,12 +12,11 @@ ENV JENKINS_FOLDER /usr/share/jenkins
 # Build Args
 ARG LIBMESOS_DOWNLOAD_URL=https://downloads.mesosphere.io/libmesos-bundle/libmesos-bundle-1.14-beta.tar.gz 
 ARG BLUEOCEAN_VERSION=1.19.0
-
 ARG JENKINS_STAGING=/usr/share/jenkins/ref/
 ARG MESOS_PLUG_HASH=0193c06a66007247eff371ba74ddc89c56993ddb
 ARG PROMETHEUS_PLUG_HASH=61ea0cd0bb26d937c8f4df00c7e226c0b51c7b50
 ARG STATSD_PLUG_HASH=929d4a6cb3d3ce5f1e03af73075b13687d4879c8
-ARG JENKINS_DCOS_HOME=/var/jenkins_home
+ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
 ARG user=nobody
 ARG uid=99
 ARG gid=99

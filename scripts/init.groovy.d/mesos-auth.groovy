@@ -34,12 +34,10 @@ def changePassword = { userName ->
 
 // the env var is set by DCOS when using a service account to run Jenkins
 def accountCreds = System.getenv("DCOS_SERVICE_ACCOUNT_CREDENTIAL")
-def sleepTimeStr = System.getenv("DCOS_JENKINS_MESOS_PLUGIN_BOOT_TIME")
-def sleepTime = sleepTimeStr == null ? 60000 : Integer.parseInt(sleepTimeStr)
 if (accountCreds) {
   Thread.start {
-    // wait 60s, this gives the mesos plugin time to start
-    sleep sleepTime
+    // wait 30s, this gives the mesos plugin time to start
+    sleep 30000
     def credURL = new URL(accountCreds)
     def credFile = new File(credURL.toURI())
     def credJSON = new groovy.json.JsonSlurper().parseText(credFile.text)

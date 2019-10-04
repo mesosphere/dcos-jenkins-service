@@ -1,17 +1,5 @@
 # Changes
 
-## v3.5.5-2.176.3 (2019-08-29)
-  * Updates to Jenkins LTS 2.176.3
-  * Updates blueocean to version 1.18.1
-  * Updates various plugins
-  * Updates nginx to 1.10.3
-
-## v3.5.1-2.107.2 (2018-06-26)
-  * Set mesos URL to use the autoip DNS
-  * Update mesos plugin
-  * Update jackson2 plugin to 2.8.11.3
-  * Update default DIND image to 0.6.0
-
 ## v3.5.0-2.107.2 (2018-04-17)
   * Addresses security bulletin for 2018-04-11
   * Updates blueocean to version 1.5.0

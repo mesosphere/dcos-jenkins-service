@@ -22,7 +22,6 @@ ARG uid=99
 ARG gid=99
 
 ENV JENKINS_HOME $JENKINS_DCOS_HOME
-ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
 ENV JENKINS_CSP_OPTS="sandbox; default-src 'none'; img-src 'self'; style-src 'self';"
 
@@ -69,6 +68,7 @@ ADD https://infinity-artifacts.s3.amazonaws.com/mesos-jenkins/mesos.hpi-${MESOS_
 ADD https://infinity-artifacts.s3.amazonaws.com/prometheus-jenkins/prometheus.hpi-${PROMETHEUS_PLUG_HASH} "${JENKINS_STAGING}/plugins/prometheus.hpi"
 ADD https://infinity-artifacts.s3.amazonaws.com/statsd-jenkins/metrics-graphite.hpi-${STATSD_PLUG_HASH} "${JENKINS_STAGING}/plugins/metrics-graphite.hpi"
 
+# This step is required for bootstrap
 # change the config for $user
 # alias uid to $uid - should match nobody for host
 # set home directory to JENKINS_HOME
@@ -84,7 +84,6 @@ RUN chmod -R ugo+rw "$JENKINS_HOME" "${JENKINS_FOLDER}" \
     && chmod -R ugo+rw /var/jenkins_home/ \
     && chmod -R ugo+rw /var/lib/nginx/ /var/nginx/ /var/log/nginx \
     && chmod ugo+rx /usr/local/jenkins/bin/*
-
 USER ${user}
 
 # disable first-run wizard

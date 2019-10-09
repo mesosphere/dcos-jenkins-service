@@ -133,7 +133,8 @@ class AWSPublisher(object):
                     '"docker run mesosphere/janitor /janitor.py -r {0}-role -p {0}-principal -z dcos-service-{0}"'.format(self._pkg_name))
         logger.info('- - - -\n')
         logger.info('dcos package repo remove {}-aws'.format(self._pkg_name))
-        logger.info('dcos package repo add --index=0 {}-aws {}'.format(self._pkg_name, universe_url))
+        logger.info('export STUB_UNIVERSE_URL=\'{}\''.format(universe_url))
+        logger.info('dcos package repo add --index=0 {}-aws $STUB_UNIVERSE_URL'.format(self._pkg_name))
         logger.info('dcos package install --yes {}'.format(self._pkg_name))
 
         return universe_url

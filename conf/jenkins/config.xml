@@ -43,14 +43,14 @@
           <jnlpArgs>-noReconnect</jnlpArgs>
           <defaultSlave>false</defaultSlave>
           <containerInfo>
-            <type>MESOS</type>
-            <dockerImage>mesosphere/jenkins-dind:scale</dockerImage>
+            <type>DOCKER</type>
+            <dockerImage>mesosphere/jenkins-dind:0.7.0-alpine</dockerImage>
             <networking>BRIDGE</networking>
             <useCustomDockerCommandShell>true</useCustomDockerCommandShell>
             <customDockerCommandShell>wrapper.sh</customDockerCommandShell>
             <dockerPrivilegedMode>true</dockerPrivilegedMode>
             <dockerForcePullImage>false</dockerForcePullImage>
-            <isDind>true</isDind>
+            <isDind>false</isDind>
           </containerInfo>
           <mode>NORMAL</mode>
         </org.jenkinsci.plugins.mesos.MesosSlaveInfo>

@@ -132,6 +132,14 @@ def pytest_addoption(parser):
         type=str,
         help="Only create jobs on deployed Jenkins frameworks.",
     )
+    parser.addoption(
+        "--containerizer",
+        action="store",
+        choices=['MESOS', 'DOCKER'],
+        default='MESOS',
+        type=str,
+        help="Select the containerizer used to launch the Jenkins master.",
+    )
 
 
 @pytest.fixture
@@ -222,6 +230,11 @@ def create_framework(request) -> bool:
 @pytest.fixture
 def create_jobs(request) -> bool:
     return _str2bool(request.config.getoption("--create-jobs"))
+
+
+@pytest.fixture
+def containerizer(request) -> str:
+    return request.config.getoption("--containerizer")
 
 
 def _str2bool(v) -> bool:

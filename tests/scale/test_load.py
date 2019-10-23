@@ -54,7 +54,7 @@ from sdk_quota import QuotaType
 log = logging.getLogger(__name__)
 
 SHARED_ROLE = "jenkins"
-DOCKER_IMAGE = "mesosphere/jenkins-dind:scale"
+DOCKER_IMAGE = "mesosphere/jenkins-dind:0.7.0-alpine"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 30 * 60  # 30 mins
 JOB_RUN_TIMEOUT = 2 * 60  # 5 mins
@@ -144,6 +144,7 @@ def _install_jenkins_stage(
     marathon_client,
     external_volume,
     mom,
+    containerizer,
 ) -> Set[str]:
     failure_set = set()
     current = 0
@@ -168,6 +169,7 @@ def _install_jenkins_stage(
             security=security_mode,
             daemon=True,
             mom=mom,
+            containerizer=containerizer,
         )
         thread_failures = _wait_and_get_failures(
             install_threads, timeout=DEPLOY_TIMEOUT
@@ -243,6 +245,7 @@ def test_scaling_load(
     enforce_quota_limit,
     create_framework: bool,
     create_jobs: bool,
+    containerizer,
 ) -> None:
 
     """Launch a load test scenario. This does not verify the results
@@ -324,6 +327,7 @@ def test_scaling_load(
             marathon_client,
             external_volume,
             mom,
+            containerizer,
         )
         log.info(
             "\n\nJenkins framework creation failures: [{}]\n\n".format(

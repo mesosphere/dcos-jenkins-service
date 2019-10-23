@@ -17,9 +17,9 @@ ARG MESOS_PLUG_HASH=0193c06a66007247eff371ba74ddc89c56993ddb
 ARG PROMETHEUS_PLUG_HASH=61ea0cd0bb26d937c8f4df00c7e226c0b51c7b50
 ARG STATSD_PLUG_HASH=929d4a6cb3d3ce5f1e03af73075b13687d4879c8
 ARG JENKINS_DCOS_HOME=/var/jenkinsdcos_home
-ARG user=nobody
-ARG uid=99
-ARG gid=99
+ARG user=root
+ARG uid=0
+ARG gid=0
 
 ENV JENKINS_HOME $JENKINS_DCOS_HOME
 # Default policy according to https://wiki.jenkins.io/display/JENKINS/Configuring+Content+Security+Policy
@@ -67,16 +67,6 @@ RUN /usr/local/bin/install-plugins.sh < /tmp/plugins.conf
 ADD https://infinity-artifacts.s3.amazonaws.com/mesos-jenkins/mesos.hpi-${MESOS_PLUG_HASH} "${JENKINS_STAGING}/plugins/mesos.hpi"
 ADD https://infinity-artifacts.s3.amazonaws.com/prometheus-jenkins/prometheus.hpi-${PROMETHEUS_PLUG_HASH} "${JENKINS_STAGING}/plugins/prometheus.hpi"
 ADD https://infinity-artifacts.s3.amazonaws.com/statsd-jenkins/metrics-graphite.hpi-${STATSD_PLUG_HASH} "${JENKINS_STAGING}/plugins/metrics-graphite.hpi"
-
-# This step is required for bootstrap
-# change the config for $user
-# alias uid to $uid - should match nobody for host
-# set home directory to JENKINS_HOME
-# change gid to $gid
-RUN groupadd -g ${gid} nobody \
-    && usermod -u ${uid} -g ${gid} ${user} \
-    && usermod -a -G users nobody \
-    && echo "nobody:x:65534:65534:nobody:/nonexistent:/usr/sbin/nologin" >> /etc/passwd
 
 RUN chmod -R ugo+rw "$JENKINS_HOME" "${JENKINS_FOLDER}" \
     && chmod -R ugo+r "${JENKINS_STAGING}" \

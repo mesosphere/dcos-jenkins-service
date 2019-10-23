@@ -19,7 +19,8 @@ def install(service_name, client,
             strict_settings=None,
             service_user=None,
             fn=None,
-            mom=None):
+            mom=None,
+            containerizer=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
@@ -65,6 +66,11 @@ def install(service_name, client,
         options["security"] = {
             "secret-name": strict_settings['secret_name'],
             "strict-mode": True
+        }
+
+    if containerizer:
+        options["advanced"] = {
+            "containerizer": containerizer
         }
 
     if service_user:

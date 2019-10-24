@@ -106,18 +106,8 @@ def populate_known_hosts(hosts, dest_file):
 
 def main():
     try:
-        mesos_allocation_role=os.environ['MESOS_ALLOCATION_ROLE']
-        jenkins_agent_role=os.environ['JENKINS_AGENT_ROLE']
-	if _str2bool(os.environ['MARATHON_APP_ENFORCE_GROUP_ROLE']):
-            if mesos_allocation_role != jenkins_agent_role:
-                print("WARN: JENKINS_AGENT_ROLE:'{}' not the same as MESOS_ALLOCATION_ROLE:'{}'.  "
-                        "enforceRole detected on top-level group, using '{}' as agent-role.".format(
-                            jenkins_agent_role, mesos_allocation_role, mesos_allocation_role))
-            jenkins_agent_role = mesos_allocation_role
-            print("INFO: using enforced group role '{}' for agents.".format(jenkins_agent_role))
-        else:
-            print("INFO: using non-enforced group role '{}' for agents".format(jenkins_agent_role))
         jenkins_agent_user = os.environ['JENKINS_AGENT_USER']
+        jenkins_agent_role=os.environ['JENKINS_AGENT_ROLE']
         jenkins_home_dir = os.environ['JENKINS_HOME']
         jenkins_framework_name = os.environ['JENKINS_FRAMEWORK_NAME']
         jenkins_app_context = os.environ['JENKINS_CONTEXT']
@@ -133,6 +123,24 @@ def main():
         # to this point.
         print("ERROR: missing required environment variable {}.".format(e.args[0]))
         return 1
+
+    # Determine if we're in a cluster that supports Quota enforcement via the two
+    # Environment variables MESOS_ALLOCATION_ROLE annd MARATHON_APP_ENFORCE_GROUP_ROLE
+    # Otherwise continue to use legacy semantics.
+    try:
+        mesos_allocation_role=os.environ['MESOS_ALLOCATION_ROLE']
+        marathon_enforce_group_role=os.environ['MARATHON_APP_ENFORCE_GROUP_ROLE']
+	if _str2bool(marathon_enforce_group_role):
+            if mesos_allocation_role != jenkins_agent_role:
+                print("WARN: JENKINS_AGENT_ROLE:'{}' not the same as MESOS_ALLOCATION_ROLE:'{}'.  "
+                        "enforceRole detected on top-level group, using '{}' as agent-role.".format(
+                            jenkins_agent_role, mesos_allocation_role, mesos_allocation_role))
+            jenkins_agent_role = mesos_allocation_role
+            print("INFO: using enforced group role '{}' for agents.".format(jenkins_agent_role))
+        else:
+            print("INFO: using non-enforced group role '{}' for agents".format(jenkins_agent_role))
+    except KeyError as e:
+            print("INFO: This cluster does not have {} env-var defined. Using legacy non-quota enforcement aware semantics".format(e.args[0]))
 
     # optional environment variables
     jenkins_root_url = os.getenv(

@@ -94,6 +94,7 @@ Jenkins plugins:
   * matrix-project v1.14
   * maven-plugin v3.4
   * mercurial v2.8
+  * mesos v1.0.0
   * metrics v4.0.2.6
   * momentjs v1.1.1
   * monitoring v1.79.0

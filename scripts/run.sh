@@ -1,7 +1,6 @@
 #!/bin/bash
 
 export LD_LIBRARY_PATH=/libmesos-bundle/lib:/libmesos-bundle/lib/mesos:$LD_LIBRARY_PATH
-export JENKINS_SLAVE_AGENT_PORT=$PORT_AGENT
 export MESOS_NATIVE_JAVA_LIBRARY=$(ls /libmesos-bundle/lib/libmesos-*.so)
 
 . /usr/local/jenkins/bin/export-libssl.sh
@@ -20,6 +19,8 @@ nginx -c /var/nginx/nginx.conf    \
      -Djava.awt.headless=true                        \
      -Dhudson.DNSMultiCast.disabled=true             \
      -Djenkins.install.runSetupWizard=false          \
+     -Djenkins.model.Jenkins.slaveAgentPort=${PORT2} \
+     -Djenkins.model.Jenkins.slaveAgentPortEnforce=true \
      -jar ${JENKINS_FOLDER}/jenkins.war              \
      ${JENKINS_OPTS}                                 \
      --httpPort=${PORT1}                             \

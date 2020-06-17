@@ -40,6 +40,7 @@
       {"port": 0, "protocol": "tcp", "name": "jenkins"},
       {"port": {{networking.agent-port}}, "protocol": "tcp", "name": "agent"}
   ],
+  "requirePorts": true,
   "container": {
         "type": "{{advanced.containerizer}}",
         "docker": {

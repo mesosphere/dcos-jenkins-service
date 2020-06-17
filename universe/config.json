@@ -72,9 +72,11 @@
                     "default": false
                 },
                 "agent-port": {
-                    "description": "The port that Jenkins agents will use to connect to the master. The default port is set to 50000; a value of 0 will result in a random port being chosen.",
+                    "description": "The port that Jenkins agents will use to connect to the master. This port is enforced at Jenkins startup and cannot be changed through the UI. Mesos offers ports from 1025 to 32000 to the Jenkins Framework. The current default port value of 0 will result in a random port being chosen.",
                     "type": "integer",
-                    "default": 50000
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 32000
                 }
             }
         },

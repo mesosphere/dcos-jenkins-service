@@ -54,12 +54,11 @@ from sdk_quota import QuotaType
 log = logging.getLogger(__name__)
 
 SHARED_ROLE = "jenkins"
-DOCKER_IMAGE = "mesosphere/jenkins-dind:0.7.0-alpine"
+DOCKER_IMAGE = "mesosphere/jenkins-dind:0.9.0"
 # initial timeout waiting on deployments
 DEPLOY_TIMEOUT = 30 * 60  # 30 mins
 JOB_RUN_TIMEOUT = 2 * 60  # 5 mins
 SERVICE_ACCOUNT_TIMEOUT = 30 * 60  # 15 mins
-
 LOCK = Lock()
 
 TIMINGS = {"deployments": {}, "serviceaccounts": {}, "createjobs": {}}
@@ -105,7 +104,7 @@ class ResultThread(Thread):
 
 
 def _create_service_accounts_stage(
-    masters, min_index, max_index, batch_size, security_mode
+    masters, min_index, max_index, batch_size, security_mode, service_user, agent_user
 ) -> Set[str]:
     failure_set = set()
     current = 0
@@ -126,6 +125,8 @@ def _create_service_accounts_stage(
             _create_service_accounts,
             security=security_mode,
             event="serviceaccounts",
+            service_user=service_user,
+            agent_user=agent_user,
         )
         thread_failures = _wait_and_get_failures(
             service_account_threads, timeout=SERVICE_ACCOUNT_TIMEOUT
@@ -145,6 +146,8 @@ def _install_jenkins_stage(
     external_volume,
     mom,
     containerizer,
+    service_user,
+    agent_user,
 ) -> Set[str]:
     failure_set = set()
     current = 0
@@ -170,6 +173,8 @@ def _install_jenkins_stage(
             daemon=True,
             mom=mom,
             containerizer=containerizer,
+            service_user=service_user,
+            agent_user=agent_user,
         )
         thread_failures = _wait_and_get_failures(
             install_threads, timeout=DEPLOY_TIMEOUT
@@ -193,6 +198,7 @@ def _create_jobs_stage(
     run_delay,
     work_duration,
     scenario,
+    mesos_agent_label,
 ) -> Set[str]:
     failure_set = set()
     current = 0
@@ -219,6 +225,7 @@ def _create_jobs_stage(
             duration=work_duration,
             scenario=scenario,
             event="createjobs",
+            label=mesos_agent_label,
         )
         thread_failures = _wait_and_get_failures(job_threads, timeout=JOB_RUN_TIMEOUT)
         failure_set |= thread_failures
@@ -246,6 +253,9 @@ def test_scaling_load(
     create_framework: bool,
     create_jobs: bool,
     containerizer,
+    mesos_agent_label,
+    service_user,
+    agent_user,
 ) -> None:
 
     """Launch a load test scenario. This does not verify the results
@@ -269,8 +279,6 @@ def test_scaling_load(
         batch_size: batch size to deploy jenkins instances in
     """
     security_mode = sdk_dcos.get_security_mode()
-    # DELETEME@kjoshi get rid of these two after verification
-    # _setup_quota(SHARED_ROLE, cpu_quota, memory_quota)
     if mom and cpu_quota != 0.0 and memory_quota != 0.0:
         with shakedown.marathon_on_marathon(mom):
             _setup_quota(SHARED_ROLE, cpu_quota, memory_quota)
@@ -282,6 +290,7 @@ def test_scaling_load(
             marathon_client = shakedown.marathon.create_client()
     else:
         marathon_client = shakedown.marathon.create_client()
+        sdk_marathon.create_group(group_id=SHARED_ROLE, options={"enforceRole": True})
 
     # figure out the range of masters we want to create
     if min_index == -1 or max_index == -1:
@@ -303,7 +312,7 @@ def test_scaling_load(
             "\n\nCreating service accounts for: [{}]\n\n".format(successful_deployments)
         )
         service_account_creation_failures = _create_service_accounts_stage(
-            masters, min_index, max_index, batch_size, security_mode
+            masters, min_index, max_index, batch_size, security_mode, service_user, agent_user
         )
         log.info(
             "\n\nService account failures: [{}]\n\n".format(
@@ -328,6 +337,8 @@ def test_scaling_load(
             external_volume,
             mom,
             containerizer,
+            service_user,
+            agent_user,
         )
         log.info(
             "\n\nJenkins framework creation failures: [{}]\n\n".format(
@@ -355,6 +366,7 @@ def test_scaling_load(
             run_delay,
             work_duration,
             scenario,
+            mesos_agent_label,
         )
         successful_deployments -= job_creation_failures
 
@@ -465,7 +477,7 @@ def _spawn_threads(
     return thread_list
 
 
-def _create_service_accounts(service_name, security=None):
+def _create_service_accounts(service_name, service_user, agent_user, security=None):
     if security == DCOS_SECURITY.strict:
         try:
             start = time.time()
@@ -477,9 +489,13 @@ def _create_service_accounts(service_name, security=None):
                 sa_name, sa_secret, sanitized_service_name
             )
 
-            sdk_security.grant_permissions("root", "*", sa_name)
+            sdk_security.grant_permissions(service_user, "*", sa_name)
+            sdk_security.grant_permissions(service_user, SHARED_ROLE, sa_name)
 
-            sdk_security.grant_permissions("root", SHARED_ROLE, sa_name)
+            if service_user != agent_user:
+                sdk_security.grant_permissions(agent_user, "*", sa_name)
+                sdk_security.grant_permissions(agent_user, SHARED_ROLE, sa_name)
+
             end = time.time()
             ACCOUNTS[service_name] = {}
             ACCOUNTS[service_name]["sa_name"] = sa_name
@@ -492,7 +508,7 @@ def _create_service_accounts(service_name, security=None):
             raise e
 
 
-def _install_jenkins(service_name, client=None, security=None, **kwargs):
+def _install_jenkins(service_name, service_user, agent_user, client=None, security=None, **kwargs):
     """Install Jenkins service.
 
     Args:
@@ -509,10 +525,11 @@ def _install_jenkins(service_name, client=None, security=None, **kwargs):
     try:
         if security == DCOS_SECURITY.strict:
             kwargs["strict_settings"] = {
-                "secret_name": ACCOUNTS[service_name]["sa_secret"],
+                "secret_name": "{}/private_key".format(service_name),
                 "mesos_principal": ACCOUNTS[service_name]["sa_name"],
             }
-            kwargs["service_user"] = "root"
+            kwargs["service_user"] = service_user
+            kwargs["agent_user"] = agent_user
 
         log.info("Installing jenkins '{}'".format(service_name))
         jenkins.install(
@@ -547,8 +564,7 @@ def _create_jobs(service_name, **kwargs):
     Args:
         service_name: Jenkins instance name
     """
-    m_label = _create_executor_configuration(service_name)
-    _launch_jobs(service_name, label=m_label, **kwargs)
+    _launch_jobs(service_name, **kwargs)
 
 
 def _create_executor_configuration(service_name: str) -> str:

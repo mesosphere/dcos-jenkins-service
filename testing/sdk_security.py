@@ -176,6 +176,15 @@ def create_service_account(service_account_name: str, service_account_secret: st
         account=service_account_name,
         secret=service_account_secret))
 
+    log.info('Delete any existing keys for Jenkins')
+    # We can't use the sanitized names for removing secrets in to the Secret Store.
+    sdk_cmd.run_cli("security secrets delete {}/private_key".format(service_name.replace("__", "/")))
+
+    log.info('Uploading private key for Jenkins')
+    # We can't use the sanitized names for putting secrets in to the Secret Store.
+    sdk_cmd.run_cli("security secrets create -f ./{} {}/private_key".format(private_key_name,
+                                                                            service_name.replace("__", "/")))
+
 
 def delete_service_account(service_account_name: str, service_account_secret: str, service_name: str) -> None:
     """

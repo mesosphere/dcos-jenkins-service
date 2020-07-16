@@ -43,7 +43,7 @@ def pytest_addoption(parser):
     parser.addoption(
         "--run-delay",
         action="store",
-        default=1,
+        default=10,
         type=int,
         help="Run job every X minutes.",
     )
@@ -140,6 +140,27 @@ def pytest_addoption(parser):
         type=str,
         help="Select the containerizer used to launch the Jenkins master.",
     )
+    parser.addoption(
+        "--mesos-agent-label",
+        action="store",
+        default="linux",
+        type=str,
+        help="Set default jenkins-agent mesos label.",
+    )
+    parser.addoption(
+        "--service-user",
+        action="store",
+        default="nobody",
+        type=str,
+        help="Set user for the jenkins scheduler and service.",
+    )
+    parser.addoption(
+        "--agent-user",
+        action="store",
+        default="nobody",
+        type=str,
+        help="Set user for the jenkins agents.",
+    )
 
 
 @pytest.fixture
@@ -235,6 +256,21 @@ def create_jobs(request) -> bool:
 @pytest.fixture
 def containerizer(request) -> str:
     return request.config.getoption("--containerizer")
+
+
+@pytest.fixture
+def mesos_agent_label(request) -> str:
+    return request.config.getoption("--mesos-agent-label")
+
+
+@pytest.fixture
+def service_user(request) -> str:
+    return request.config.getoption("--service-user")
+
+
+@pytest.fixture
+def agent_user(request) -> str:
+    return request.config.getoption("--agent-user")
 
 
 def _str2bool(v) -> bool:

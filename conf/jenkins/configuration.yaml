@@ -1,0 +1,36 @@
+jenkins:
+  agentProtocols:
+    - "JNLP4-connect"
+    - "Ping"
+  numExecutors: 0
+  clouds:
+    - mesos:
+        agentUser: "${JENKINS_AGENT_USER:-nobody}"
+        frameworkName: "${JENKINS_FRAMEWORK_NAME:-Jenkins Scheduler}"
+        jenkinsURL: "http://${JENKINS_FRAMEWORK_NAME:-jenkins}.${MARATHON_NAME:-marathon}.mesos:${PORT0:-8080}"
+        mesosAgentSpecTemplates:
+          - label: "${JENKINS_LINUX_AGENT_LABEL:-linux}"
+            agentAttributes: "${JENKINS_LINUX_AGENT_OFFER_SELECTION_ATTRIBUTES:-}"
+            agentCommandStyle: Linux
+            containerInfo:
+              dockerForcePullImage: false
+              dockerImage: "${JENKINS_LINUX_AGENT_IMAGE:-mesosphere/jenkins-dind:0.9.0}"
+              dockerPrivilegedMode: true 
+              isDind: true 
+              networking: HOST
+              type: "DOCKER"
+            cpus: ${JENKINS_LINUX_AGENT_CPUS:-0.1}
+            disk: ${JENKINS_LINUX_AGENT_DISK:-0.0}
+            domainFilterModel: "home"
+            idleTerminationMinutes: ${JENKINS_LINUX_AGENT_IDLE_TERMINATION_MINUTES:-3}
+            jnlpArgs: "${JENKINS_LINUX_AGENT_JNLP_ARGS:--noReconnect}"
+            maxExecutors: ${JENKINS_LINUX_AGENT_MAX_EXECUTORS:-1}
+            mem: ${JENKINS_LINUX_AGENT_MEM:-512}
+            minExecutors: ${JENKINS_LINUX_AGENT_MIN_EXECUTORS:-1}
+            mode: EXCLUSIVE
+        mesosMasterUrl: "${JENKINS_MESOS_MASTER:-http://leader.mesos:5050}"
+        role: "${JENKINS_AGENT_ROLE:-*}"
+unclassified:
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://${JENKINS_FRAMEWORK_NAME:-jenkins}.${MARATHON_NAME:-marathon}.mesos:${PORT0:-8080}/"

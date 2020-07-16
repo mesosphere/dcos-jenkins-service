@@ -20,7 +20,8 @@ def install(service_name, client,
             service_user=None,
             fn=None,
             mom=None,
-            containerizer=None):
+            containerizer=None,
+            agent_user=None):
     """Install a Jenkins instance and set the service name to
     `service_name`. This does not wait for deployment to finish.
 
@@ -43,38 +44,45 @@ def install(service_name, client,
 
     options = {
         "service": {
-            "name": service_name
+            "name": service_name,
         }
     }
 
     if role:
-        options["roles"] = {
+        options["service"]["roles"] = {
             "jenkins-master-role": role,
             "jenkins-agent-role": role
         }
 
     if external_volume:
-        options["storage"] = {
+        options["service"]["storage"] = {
             "external-persistent-volume-name": service_name
         }
     else:
-        options["storage"] = {
+        options["service"]["storage"] = {
             "local-persistent-volume-size": 1024
         }
 
     if strict_settings:
-        options["security"] = {
+        options["service"]["security"] = {
             "secret-name": strict_settings['secret_name'],
+            "service-account": strict_settings['mesos_principal'],
             "strict-mode": True
         }
 
     if containerizer:
-        options["advanced"] = {
-            "containerizer": containerizer
-        }
+        options["service"]["containerizer"] = containerizer
 
     if service_user:
         options['service']['user'] = service_user
+
+    if agent_user:
+        jenkins_agent = {
+            "jenkins-agent": {
+                "jenkins-agent-user" : agent_user
+            }
+        }
+        options.update(jenkins_agent)
 
     # get the package json for given options
     pkg_json = sdk_install.get_package_json('jenkins', None, options)

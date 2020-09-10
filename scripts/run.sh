@@ -12,7 +12,6 @@ fi
 
 #Run setup scripts.
 . /usr/local/jenkins/bin/export-libssl.sh
-. /usr/local/jenkins/bin/dcos-account.sh
 . /usr/local/jenkins/bin/dcos-quota.sh
 . /usr/local/jenkins/bin/dcos-framework-dns-name.sh
 . /usr/local/jenkins/bin/dcos-write-known-hosts-file.sh

@@ -179,7 +179,7 @@
                         "label": {
                             "description": "Jobs assigned to this label will provision Jenkins agents using this template.",
                             "type": "string",
-                            "default": "linux"
+                            "default": ""
                         },
                         "cpus": {
                             "description": "CPU shares to allocate to each Jenkins Linux agent.",

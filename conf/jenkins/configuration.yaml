@@ -9,7 +9,7 @@ jenkins:
         frameworkName: "${JENKINS_FRAMEWORK_NAME:-Jenkins Scheduler}"
         jenkinsURL: "http://${JENKINS_FRAMEWORK_NAME:-jenkins}.${MARATHON_NAME:-marathon}.mesos:${PORT0:-8080}"
         mesosAgentSpecTemplates:
-          - label: "${JENKINS_LINUX_AGENT_LABEL:-linux}"
+          - label: "${JENKINS_LINUX_AGENT_LABEL:-}"
             agentAttributes: "${JENKINS_LINUX_AGENT_OFFER_SELECTION_ATTRIBUTES:-}"
             agentCommandStyle: Linux
             containerInfo:

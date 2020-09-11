@@ -181,6 +181,12 @@
                             "type": "string",
                             "default": ""
                         },
+                        "node-usage": {
+                            "description": "Controls how Jenkins schedules builds on this node. The default NORMAL specifies that Jenkins will freely use this node for any builds when available. EXCLUSIVE specifies that Jenkins will only build jobs matching the label expression above.",
+                            "type": "string",
+                            "enum": ["NORMAL", "EXCLUSIVE"],
+                            "default": "NORMAL"
+                        },
                         "cpus": {
                             "description": "CPU shares to allocate to each Jenkins Linux agent.",
                             "type": "number",

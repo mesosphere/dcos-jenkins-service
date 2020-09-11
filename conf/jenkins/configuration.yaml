@@ -27,7 +27,7 @@ jenkins:
             maxExecutors: ${JENKINS_LINUX_AGENT_MAX_EXECUTORS:-1}
             mem: ${JENKINS_LINUX_AGENT_MEM:-512}
             minExecutors: ${JENKINS_LINUX_AGENT_MIN_EXECUTORS:-1}
-            mode: EXCLUSIVE
+            mode: NORMAL
         mesosMasterUrl: "${JENKINS_MESOS_MASTER:-http://leader.mesos:5050}"
         role: "${JENKINS_AGENT_ROLE:-*}"
 unclassified:

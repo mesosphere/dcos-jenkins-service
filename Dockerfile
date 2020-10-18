@@ -28,7 +28,7 @@ RUN curl -fsSL "$LIBMESOS_DOWNLOAD_URL" -o libmesos-bundle.tar.gz  \
   && rm libmesos-bundle.tar.gz
 # update to newer git version
 RUN echo "deb http://ftp.debian.org/debian testing main" >> /etc/apt/sources.list \
-  && apt-get update && apt-get -t testing install -y git
+  && apt-get -o APT::Immediate-Configure=false update && apt-get install -o APT::Immediate-Configure=false -y git
 
 # Override the default property for DNS lookup caching
 RUN echo 'networkaddress.cache.ttl=60' >> ${JAVA_HOME}/jre/lib/security/java.security
